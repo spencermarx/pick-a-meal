@@ -1,38 +1,10 @@
 const mongoose = require("mongoose");
 const Recipe = require("./models/recipe");
-const Day = require("./models/day");
+const days = require("./public/scripts/days");
 randomRecipes = require("./public/scripts/randomRecipes");
 
-const days = [{
-        order: 0,
-        day: "Sunday"
-    },
-    {
-        order: 1,
-        day: "Monday"
-    },
-    {
-        order: 2,
-        day: "Tuesday"
-    },
-    {
-        order: 3,
-        day: "Wednesday"
-    },
-    {
-        order: 4,
-        day: "Thursday"
-    },
-    {
-        order: 5,
-        day: "Friday"
-    },
-    {
-        order: 6,
-        day: "Saturday"
-    },
 
-];
+
 
 
 const data = [{
@@ -149,22 +121,6 @@ const data = [{
 ];
 
 function seedDB() {
-
-    Day.remove({}, function(err) {
-        if (err) {
-            console.log(err);
-        }
-        console.log("Removed days!");
-        days.forEach(function(seed) {
-            Day.create(seed, function(err, day) {
-                if (err) {
-                    console.log(err);
-                } else {
-                    console.log("Added day!");
-                }
-            });
-        });
-    });
     Recipe.remove({}, function(err) {
         if (err) {
             console.log(err);

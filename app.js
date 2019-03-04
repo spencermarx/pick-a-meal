@@ -6,6 +6,7 @@ const bodyParser = require("body-parser"),
     express = require("express"),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
+    days = require("./public/scripts/days"),
     randomRecipes = require("./public/scripts/randomRecipes"),
     seedDB = require("./seed"),
     app = express();
@@ -66,7 +67,7 @@ app.get("/dashboard", (req, res) => {
                 } else {
                     res.render("dashboard", {
                         recipes: foundRecipes,
-                        days: foundDays
+                        days: days
                     });
                 }
             });
