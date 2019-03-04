@@ -46,9 +46,7 @@ mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mo
 // Seed Database
 seedDB();
 
-// Set initial recipes
 randomRecipes();
-console.log(randomRecipes());
 
 // -------- RESTful ROUTING --------
 // Index Route
@@ -63,15 +61,25 @@ app.get("/dashboard", (req, res) => {
             console.log(err);
         } else {
             console.log(foundDays);
-            res.render("dashboard", { days: foundDays });
+            Recipe.find({}, (err, foundRecipes) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.render("dashboard", {
+                        recipes: foundRecipes,
+                        days: foundDays
+                    });
+                }
+            });
+
         }
 
     });
 });
 
 
-//// DASHBOARD - Create Route
-app.post("/dashboard", (req, res) => {
+// DASHBOARD - Create Route
+app.put("/dashboard", (req, res) => {
     randomRecipes();
     res.redirect("/dashboard");
 

@@ -21,17 +21,17 @@
                             <tr>
                                 <td class="meal-cell lunch">
                                     <h3>
-                                        <%=day.meals.lunch.name%>
+                                        <%=recipes[1].name%>
                                     </h3>
-                                    <a class="ui inverted button" href="/recipes/<%=day.meals.lunch._id%>">View</a>
+                                    <a class="ui inverted button" href="/recipes/<%=recipes[1]._id%>">View</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="meal-cell dinner">
                                     <h3>
-                                        <%=day.meals.dinner.name%>
+                                        <%=recipes[1].name%>
                                     </h3>
-                                    <a class="ui inverted button" href="/recipes/day.meals.dinner._id%>">View</a>
+                                    <a class="ui inverted button" href="/recipes/recipes[1]._id%>">View</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -40,7 +40,8 @@
                 <% });%>
         </div>
         <div class="actions">
-            <form action="/dashboard" method="POST">
+            <!-- Put Method here -->
+            <form action="/dashboard?_method=PUT" method="POST" class="">
                 <button id="button-delete" class="ui blue basic button margin-top action-button">Randomize</button>
             </form>
         </div>

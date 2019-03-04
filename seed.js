@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Recipe = require("./models/recipe");
 const Day = require("./models/day");
+randomRecipes = require("./public/scripts/randomRecipes");
 
 const days = [{
         order: 0,

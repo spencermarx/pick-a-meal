@@ -1,52 +1,21 @@
 const mongoose = require("mongoose");
-const Day = require("../../models/day");
 const Recipe = require("../../models/recipe");
+const Day = require("../../models/day");
 
-function randomSelectMeal() {
+function randomNumber() {
     Recipe.find({}, function(err, foundRecipes) {
         if (err) {
             console.log(err);
         } else {
-            var randomNumLunch = Math.round(Math.random() * foundRecipes.length);
-            var randomNumDinner = Math.round(Math.random() * foundRecipes.length);
-            var lunch = foundRecipes[randomNumLunch];
-            var dinner = foundRecipes[randomNumDinner];
-
-            var dayRecipes = {
-                lunch: lunch._id,
-                dinner: dinner._id
-            };
-
-            console.log(dayRecipes);
-
-
-            // console.log("Random Number: " + randomNum);
-            // console.log("Lunch: " + lunch);
+            var num = Math.round(Math.random() * foundRecipes.length + 1);
+            console.log(num)
         }
     });
 }
-
 
 function randomRecipes() {
-
-    Day.find({}, function(err, foundDays) {
-        if (err) {
-            console.log(err);
-        } else {
-            // console.log(foundDays);
-            foundDays.forEach(function(day) {
-                var newMeal = randomSelectMeal();
-                console.log(newMeal);
-                day.meals.push(newMeal);
-                // day.save();
-            });
-        }
-        console.log(foundDays);
-        return foundDays;
-    });
+    return randomNumber();
 }
-
-
 
 
 module.exports = randomRecipes;
