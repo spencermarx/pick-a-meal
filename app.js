@@ -39,7 +39,7 @@ app.use(expressSanitizer());
 // -------- DATABASE SETUP --------
 
 //Connect Mongoose
-mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mongodb.net/pick_a_meal?retryWrites=true', {
+mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mongodb.net/test?retryWrites=true', {
     useNewUrlParser: true
 });
 
