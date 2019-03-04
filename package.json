@@ -1,28 +1,29 @@
 {
-  "name": "pick-a-meal",
-  "version": "1.0.0",
-  "description": "Randomly generate weekly meals with health stats and create grocery lists accordingly.",
-  "main": "app.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/spencermarx/pick-a-meal.git"
-  },
-  "author": "Spencer Marx",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/spencermarx/pick-a-meal/issues"
-  },
-  "homepage": "https://github.com/spencermarx/pick-a-meal#readme",
-  "dependencies": {
-    "body-parser": "^1.18.3",
-    "ejs": "^2.6.1",
-    "express": "^4.16.4",
-    "express-sanitizer": "^1.0.5",
-    "html-minifier": "^3.5.21",
-    "method-override": "^3.0.0",
-    "mongoose": "^5.4.14"
-  }
+    "name": "pick-a-meal",
+    "version": "1.0.0",
+    "description": "Randomly generate weekly meals with health stats and create grocery lists accordingly.",
+    "main": "app.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "start": "node app.js"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/spencermarx/pick-a-meal.git"
+    },
+    "author": "Spencer Marx",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/spencermarx/pick-a-meal/issues"
+    },
+    "homepage": "https://github.com/spencermarx/pick-a-meal#readme",
+    "dependencies": {
+        "body-parser": "^1.18.3",
+        "ejs": "^2.6.1",
+        "express": "^4.16.4",
+        "express-sanitizer": "^1.0.5",
+        "html-minifier": "^3.5.21",
+        "method-override": "^3.0.0",
+        "mongoose": "^5.4.14"
+    }
 }
