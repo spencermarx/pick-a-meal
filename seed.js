@@ -1,11 +1,6 @@
 const mongoose = require("mongoose");
 const Recipe = require("./models/recipe");
-const days = require("./public/scripts/days");
 randomRecipes = require("./public/scripts/randomRecipes");
-
-
-
-
 
 const data = [{
         name: "Roasted Chicken",
@@ -120,6 +115,12 @@ const data = [{
     }
 ];
 
+
+
+// var usingItNow = function (callback) {
+//     callback(null, 'get it?'); // I dont want to throw an error, so I pass null for the error argument
+// };
+
 function seedDB() {
     Recipe.remove({}, function(err) {
         if (err) {
@@ -137,5 +138,6 @@ function seedDB() {
         });
     });
 }
+
 
 module.exports = seedDB;

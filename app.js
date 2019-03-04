@@ -6,7 +6,6 @@ const bodyParser = require("body-parser"),
     express = require("express"),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
-    days = require("./public/scripts/days"),
     randomRecipes = require("./public/scripts/randomRecipes"),
     seedDB = require("./seed"),
     app = express();
@@ -45,8 +44,6 @@ mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mo
 
 // Seed Database
 seedDB();
-
-randomRecipes();
 
 // -------- RESTful ROUTING --------
 // Index Route
