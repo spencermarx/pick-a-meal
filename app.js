@@ -236,6 +236,6 @@ app.delete("/recipes/:id", function(req, res) {
 });
 
 // -------- START SERVER --------
-app.listen(port, () => {
+app.listen(process.env.PORT || port, () => {
     console.log('App listening on port 8080!');
 });
