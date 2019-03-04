@@ -6,7 +6,6 @@ const bodyParser = require("body-parser"),
     express = require("express"),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
-    Day = require("./models/day"),
     randomRecipes = require("./public/scripts/randomRecipes"),
     seedDB = require("./seed"),
     app = express();
