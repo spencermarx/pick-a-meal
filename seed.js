@@ -19,15 +19,15 @@ function seedDB() {
         })
         .then(function() {
             seedData.recipeData.forEach(function(seedRecipe) {
-                Recipe.create(seedRecipe).exec()
-                    .then(function(err, recipe) {
-                        if (err) {
-                            console.log(err);
-                        } else {
-                            console.log(`Added recipe: ${recipe.name}`);
-                        }
-                    });
+                Recipe.create(seedRecipe).exec().then(function(err, recipe) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        console.log(`Added recipe: ${recipe.name}`);
+                    }
+                });
             });
+            return;
         })
         .then(function() {
             console.log("then");
