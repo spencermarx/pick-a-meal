@@ -6,6 +6,7 @@ var bodyParser = require("body-parser"),
     express = require("express"),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
+    User = require("./models/user"),
     randomRecipes = require("./public/scripts/randomRecipes"),
     seedDB = require("./seed"),
     app = express();
@@ -19,7 +20,7 @@ app.use(bodyParser.urlencoded({
 }));
 var port = process.envPORT || 8080;
 
-app.use(express.static(__dirname));
+// app.use(express.static(__dirname));
 
 // Set default file to ejs
 app.set("view engine", "ejs");
@@ -56,18 +57,24 @@ app.get("/", (req, res) => {
 
 // DASHBOARD - Index Route
 app.get("/dashboard", (req, res) => {
-    Day.find({}, (err, foundDays) => {
+    User.find({}, (err, foundUsers) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(foundDays);
+            console.log(foundUsers);
+
+            var dayArray = [];
+            foundUsers.forEach(function(user) {
+                dayArray = user.plan;
+            });
+
             Recipe.find({}, (err, foundRecipes) => {
                 if (err) {
                     console.log(err);
                 } else {
                     res.render("dashboard", {
                         recipes: foundRecipes,
-                        days: days
+                        days: dayArray
                     });
                 }
             });

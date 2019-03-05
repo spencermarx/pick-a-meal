@@ -2,17 +2,14 @@ var mongoose = require("mongoose");
 
 // Set up Mongoose Data Schemas
 var userSchema = new mongoose.Schema({
-    name: String,
-    image: String,
-    portion: Number,
-    health: Number,
-    taste: Number,
-    isRestaurant: Boolean,
-    ingredients: [{
-        ingredientName: String,
-        ingredientQuantity: Number
-    }],
-    lastUpdated: { type: Date, default: Date.now } //Says date and sets default value to now
+    username: String,
+    password: String,
+    plan: [{
+        day: String,
+        order: Number,
+        lunch: Object,
+        dinner: Object
+    }]
 });
 
-module.exports = mongoose.model("Recipe", recipeSchema);
+module.exports = mongoose.model("User", userSchema);
