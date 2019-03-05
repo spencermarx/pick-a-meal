@@ -171,7 +171,8 @@ var userData = [{
 
 var data = {
     recipeData: recipeData,
-    userData: userData
+    userData: userData,
+    daysData: daysDefault
 };
 
 module.exports = data;

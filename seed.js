@@ -10,40 +10,32 @@ var seedData = require("./public/scripts/seedData");
 // };
 
 function seedDB() {
-    Recipe.remove({}, function(err) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Removed recipes!");
+
+    var seedPromise = Recipe.remove({}).exec();
+
+    seedPromise.then(function() {
+            console.log("Removed Recipes!");
+            return;
+        })
+        .then(function() {
             seedData.recipeData.forEach(function(seedRecipe) {
-                Recipe.create(seedRecipe, function(err, recipe) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(`Added recipe: ${recipe.name}`);
-                    }
-                });
-
+                Recipe.create(seedRecipe).exec()
+                    .then(function(err, recipe) {
+                        if (err) {
+                            console.log(err);
+                        } else {
+                            console.log(`Added recipe: ${recipe.name}`);
+                        }
+                    });
             });
-        }
-    });
-    User.remove({}, function(err, foundUsers) {
-        if (err) {
-            console.log(err);
-        } else {
-            console.log("Removed users!");
-            seedData.userData.forEach(function(seedUser) {
-                User.create(seedUser, function(err, user) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(`Added user: ${user.username}`);
-                    }
-                });
-
-            });
-        }
-    });
+        })
+        .then(function() {
+            console.log("then");
+        })
+        .catch(function(err) {
+            // just need one of these
+            console.log('error:', err);
+        });
 }
 
 module.exports = seedDB;

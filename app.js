@@ -20,6 +20,8 @@ app.use(bodyParser.urlencoded({
 }));
 var port = process.envPORT || 8080;
 
+// mongoose.Promise = global.Promise;
+
 // app.use(express.static(__dirname));
 
 // Set default file to ejs
