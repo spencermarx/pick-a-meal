@@ -1,5 +1,5 @@
 // -------- PACKAGES SETUP --------
-const bodyParser = require("body-parser"),
+var bodyParser = require("body-parser"),
     methodOverride = require("method-override"),
     expressSanitizer = require("express-sanitizer"),
     mongoose = require("mongoose"),

@@ -1,7 +1,7 @@
-const mongoose = require("mongoose");
+var mongoose = require("mongoose");
 
 // Set up Mongoose Data Schemas
-const recipeSchema = new mongoose.Schema({
+var recipeSchema = new mongoose.Schema({
     name: String,
     image: String,
     portion: Number,

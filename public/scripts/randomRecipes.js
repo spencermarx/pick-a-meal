@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Recipe = require("../../models/recipe");
+var mongoose = require("mongoose");
+var Recipe = require("../../models/recipe");
 
 function randomRecipes() {}
 

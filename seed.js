@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const Recipe = require("./models/recipe");
+var mongoose = require("mongoose");
+var Recipe = require("./models/recipe");
 randomRecipes = require("./public/scripts/randomRecipes");
 
-const data = [{
+var data = [{
         name: "Roasted Chicken",
         image: "https://i.pinimg.com/564x/7a/06/24/7a06240b035533a3c03301084f3b44bc.jpg?b=t",
         portion: 0.5,
