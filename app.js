@@ -38,9 +38,12 @@ app.use(expressSanitizer());
 // -------- DATABASE SETUP --------
 
 //Connect Mongoose
-mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mongodb.net/test?retryWrites=true', {
+mongoose.connect('mongodb://localhost:27017/pick_a_meal', {
     useNewUrlParser: true
 });
+// mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mongodb.net/test?retryWrites=true', {
+//     useNewUrlParser: true
+// });
 
 // Seed Database
 seedDB();
