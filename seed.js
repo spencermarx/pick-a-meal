@@ -14,23 +14,12 @@ async function seedDB() {
             });
             return promise;
         })
-        // .then(function(result) {
-        //     console.log(result)
-
-    //     var promise = new Promise(function(resolve, reject) {
-    //         seedData.userData.forEach(function(user) {
-    //             User.create(seedData.userData);
-    //         });
-    //         resolve("Users added");
-    //     });
-    //     return promise;
-    // })
-    .then(function(result) {
+        .then(function(result) {
             console.log(result)
 
             var promise = new Promise(function(resolve, reject) {
                 seedData.recipeData.forEach(function(recipe) {
-                    Recipe.create(seedData.recipeData);
+                    Recipe.create(recipe);
                 });
                 resolve("Recipes added");
             });

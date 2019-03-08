@@ -49,7 +49,7 @@ mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mo
 });
 
 // Seed Database
-seedDB();
+// seedDB();
 
 // -------- RESTful ROUTING --------
 // Index Route
