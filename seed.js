@@ -9,32 +9,32 @@ var seedData = require("./public/scripts/seedData");
 //     callback(null, 'get it?'); // I dont want to throw an error, so I pass null for the error argument
 // };
 
-function seedDB() {
+async function seedDB() {
 
-    var seedPromise = Recipe.remove({}).exec();
-
-    seedPromise.then(function() {
-            console.log("Removed Recipes!");
-            return;
-        })
+    Recipe.remove().exec()
         .then(function() {
-            seedData.recipeData.forEach(function(seedRecipe) {
-                Recipe.create(seedRecipe).exec().then(function(err, recipe) {
-                    if (err) {
-                        console.log(err);
-                    } else {
-                        console.log(`Added recipe: ${recipe.name}`);
-                    }
-                });
+            var promise = new Promise(function(resolve, reject) {
+                resolve("Recipes removed");
             });
-            return;
+            return promise;
         })
-        .then(function() {
-            console.log("then");
+        .then(function(result) {
+            console.log(result)
+
+            var promise = new Promise(function(resolve, reject) {
+                seedData.recipeData.forEach(function(recipe) {
+                    Recipe.create(seedData.recipeData[0]);
+                });
+                resolve("Recipes added");
+            });
+            return promise;
+        }).then(function(result) {
+            console.log(result);
+            return randomRecipes();
+            // START HERE
         })
-        .catch(function(err) {
-            // just need one of these
-            console.log('error:', err);
+        .then(function(result) {
+            console.log(result);
         });
 }
 
