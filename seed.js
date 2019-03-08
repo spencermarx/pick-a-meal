@@ -5,10 +5,6 @@ var randomRecipes = require("./public/scripts/randomRecipes");
 var seedData = require("./public/scripts/seedData");
 
 
-// var usingItNow = function (callback) {
-//     callback(null, 'get it?'); // I dont want to throw an error, so I pass null for the error argument
-// };
-
 async function seedDB() {
 
     Recipe.remove().exec()
@@ -18,7 +14,18 @@ async function seedDB() {
             });
             return promise;
         })
-        .then(function(result) {
+        // .then(function(result) {
+        //     console.log(result)
+
+    //     var promise = new Promise(function(resolve, reject) {
+    //         seedData.userData.forEach(function(user) {
+    //             User.create(seedData.userData);
+    //         });
+    //         resolve("Users added");
+    //     });
+    //     return promise;
+    // })
+    .then(function(result) {
             console.log(result)
 
             var promise = new Promise(function(resolve, reject) {
