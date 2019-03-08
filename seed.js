@@ -23,14 +23,14 @@ async function seedDB() {
 
             var promise = new Promise(function(resolve, reject) {
                 seedData.recipeData.forEach(function(recipe) {
-                    Recipe.create(seedData.recipeData[0]);
+                    Recipe.create(seedData.recipeData);
                 });
                 resolve("Recipes added");
             });
             return promise;
         }).then(function(result) {
             console.log(result);
-            return randomRecipes();
+            return randomRecipes("Angie");
             // START HERE
         })
         .then(function(result) {

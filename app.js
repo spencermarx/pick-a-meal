@@ -49,7 +49,7 @@ mongoose.connect('mongodb://localhost:27017/pick_a_meal', {
 // });
 
 // Seed Database
-seedDB();
+// seedDB();
 
 // -------- RESTful ROUTING --------
 // Index Route
@@ -59,39 +59,35 @@ app.get("/", (req, res) => {
 
 // DASHBOARD - Index Route
 app.get("/dashboard", (req, res) => {
-    User.find({}, (err, foundUsers) => {
+    User.findOne({ username: "Angie" }, (err, user) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(foundUsers);
-
-            var dayArray = [];
-            foundUsers.forEach(function(user) {
-                dayArray = user.plan;
+            console.log(user);
+            res.render("dashboard", {
+                plan: user.plan
             });
-
-            Recipe.find({}, (err, foundRecipes) => {
-                if (err) {
-                    console.log(err);
-                } else {
-                    res.render("dashboard", {
-                        recipes: foundRecipes,
-                        days: dayArray
-                    });
-                }
-            });
-
         }
-
     });
 });
 
 
 // DASHBOARD - Create Route
 app.put("/dashboard", (req, res) => {
-    randomRecipes();
-    res.redirect("/dashboard");
-
+    function promise() {
+        var promise = new Promise(function(resolve, reject) {
+            resolve("Recipes randomized");
+        });
+        return promise;
+    }
+    promise().then(function() {
+        var promise = new Promise(function(resolve, reject) {
+            resolve(randomRecipes("Angie"));
+        });
+        return promise;
+    }).then(function() {
+        res.redirect("/dashboard");
+    });
 });
 
 

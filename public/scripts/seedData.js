@@ -113,31 +113,45 @@ var recipeData = [{
 
 var daysDefault = [{
         day: "Sunday",
-        order: 0
+        order: 0,
+        lunch: {},
+        dinner: {}
     },
     {
         day: "Monday",
-        order: 1
+        order: 1,
+        lunch: {},
+        dinner: {}
     },
     {
         day: "Tuesday",
-        order: 2
+        order: 2,
+        lunch: {},
+        dinner: {}
     },
     {
         day: "Wednesday",
-        order: 3
+        order: 3,
+        lunch: {},
+        dinner: {}
     },
     {
         day: "Thursday",
-        order: 4
+        order: 4,
+        lunch: {},
+        dinner: {}
     },
     {
         day: "Friday",
-        order: 5
+        order: 5,
+        lunch: {},
+        dinner: {}
     },
     {
         day: "Saturday",
-        order: 6
+        order: 6,
+        lunch: {},
+        dinner: {}
     },
 ];
 

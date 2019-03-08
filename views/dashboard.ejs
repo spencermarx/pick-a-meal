@@ -5,7 +5,7 @@
 
         <h1 id="page-title" class="ui center huge header">This Week's Meals</h1>
         <div id="calendar" class="ui seven column stackable grid">
-            <% days.forEach(function(day){ %>
+            <% plan.forEach(function(day){ %>
                 <div class="column day">
                     <table id="<%= day.day %>" class="ui inverted bg-custom-blue table center aligned">
                         <thead class="">
@@ -21,17 +21,17 @@
                             <tr>
                                 <td class="meal-cell lunch">
                                     <h3>
-                                        <%=recipes[1].name%>
+                                        <%=day.lunch.name%>
                                     </h3>
-                                    <a class="ui inverted button" href="/recipes/<%=recipes[1]._id%>">View</a>
+                                    <a class="ui inverted button" href="/recipes/<%=day.lunch._id%>">View</a>
                                 </td>
                             </tr>
                             <tr>
                                 <td class="meal-cell dinner">
                                     <h3>
-                                        <%=recipes[1].name%>
+                                        <%=day.dinner.name%>
                                     </h3>
-                                    <a class="ui inverted button" href="/recipes/recipes[1]._id%>">View</a>
+                                    <a class="ui inverted button" href="/recipes/day.dinner._id%>">View</a>
                                 </td>
                             </tr>
                         </tbody>
