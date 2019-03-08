@@ -15,7 +15,7 @@ async function seedDB() {
             return promise;
         })
         .then(function(result) {
-            console.log(result)
+            console.log(result);
 
             var promise = new Promise(function(resolve, reject) {
                 seedData.recipeData.forEach(function(recipe) {
