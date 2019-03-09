@@ -7,6 +7,7 @@ var userSchema = new mongoose.Schema({
     plan: [{
         day: String,
         order: Number,
+        date: Date,
         lunch: Object,
         dinner: Object
     }]
