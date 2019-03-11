@@ -5,7 +5,7 @@ function getWeekDates(dateTime) {
     var weekDates = [];
     var sunday = moment(dateTime).startOf('week');
 
-    for (var i = 1; i < 8; i++) {
+    for (var i = 0; i < 7; i++) {
         weekMoments.push(moment(sunday).add(i, 'days'));
     }
 

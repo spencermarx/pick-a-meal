@@ -62,7 +62,7 @@ function assignUserMeals(username, recipes, count) {
                         var dinNum = Math.floor(Math.random() * count);
                         lunch = recipes[lunchNum];
                         dinner = recipes[dinNum];
-                        console.log(lunchNum)
+                        // console.log(lunchNum)
                         day.lunch = lunch;
                         day.dinner = dinner;
                     });

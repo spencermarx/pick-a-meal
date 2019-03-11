@@ -12,7 +12,7 @@
                             <tr>
                                 <th>
                                     <span class="date gray">
-                                <%= day.order %></span><br>
+                                <%= day.date.toLocaleDateString().split("/")[0] + "/" + day.date.toLocaleDateString().split("/")[1] %></span><br>
                                     <%= day.day%>
                                 </th>
                             </tr>
