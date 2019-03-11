@@ -5,7 +5,7 @@ var Recipe = require("../models/recipe");
 
 
 //INDEX
-router.get("/", (req, res) => {
+router.get("/", isLoggedIn, (req, res) => {
     Recipe.find({}, (err, foundRecipes) => {
         if (err) {
             console.log(err);
@@ -18,12 +18,12 @@ router.get("/", (req, res) => {
 });
 
 // NEW
-router.get("/new", (req, res) => {
+router.get("/new", isLoggedIn, (req, res) => {
     res.render("recipes/new");
 });
 
 // SHOW
-router.get("/:id", (req, res) => {
+router.get("/:id", isLoggedIn, (req, res) => {
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log(err);
@@ -36,7 +36,7 @@ router.get("/:id", (req, res) => {
 });
 
 // CREATE
-router.post("/", (req, res) => {
+router.post("/", isLoggedIn, (req, res) => {
     var recipe = req.sanitize(req.body.recipe);
 
     if (req.body.recipe.ingredients) {
@@ -82,7 +82,7 @@ router.post("/", (req, res) => {
 
 
 // EDIT
-router.get("/:id/edit", (req, res) => {
+router.get("/:id/edit", isLoggedIn, (req, res) => {
     Recipe.findById(req.params.id, (err, foundRecipe) => {
         if (err) {
             console.log(err);
@@ -94,7 +94,7 @@ router.get("/:id/edit", (req, res) => {
 });
 
 // UPDATE - Note: with put we need method-override package
-router.put("/:id", function(req, res) {
+router.put("/:id", isLoggedIn, function(req, res) {
     var recipe = req.sanitize(req.body.recipe);
 
     if (req.body.recipe.ingredients) {
@@ -137,7 +137,7 @@ router.put("/:id", function(req, res) {
 });
 
 // DESTROY - Delete a recipe
-router.delete("/:id", function(req, res) {
+router.delete("/:id", isLoggedIn, function(req, res) {
     // Destroy
     Recipe.findByIdAndRemove(req.params.id, function(err) {
         if (err) {
@@ -151,5 +151,12 @@ router.delete("/:id", function(req, res) {
     });
 });
 
+// Middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports = router;

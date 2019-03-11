@@ -8,7 +8,7 @@ var randomRecipes = require("../public/scripts/randomRecipes");
 // =================
 
 // INDEX
-router.get("/", (req, res) => {
+router.get("/", isLoggedIn, (req, res) => {
     User.findOne({ username: "Angie" }, (err, user) => {
         if (err) {
             console.log(err);
@@ -23,7 +23,7 @@ router.get("/", (req, res) => {
 
 
 // UPDATE
-router.put("/", (req, res) => {
+router.put("/", isLoggedIn, (req, res) => {
     function promise() {
         var promise = new Promise(function(resolve, reject) {
             resolve("Recipes randomized");
@@ -39,5 +39,13 @@ router.put("/", (req, res) => {
         res.redirect("/dashboard");
     });
 });
+
+// Middleware
+function isLoggedIn(req, res, next) {
+    if (req.isAuthenticated()) {
+        return next();
+    }
+    res.redirect("/login");
+}
 
 module.exports = router;

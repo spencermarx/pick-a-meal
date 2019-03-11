@@ -27,6 +27,18 @@
                             <!-- <i class="plus square icon"></i> -->
                         </a>
                     </div>
+                    <% if(!currentUser){ %>
+                    <div class="item" onclick="location.href='/login';">
+                        <a href="/login">Login</a>
+                    </div>
+                    <div class="item" onclick="location.href='/register';">
+                        <a href="/register">Signup</a>
+                    </div>
+                    <% } else { %>
+                    <div class="item" onclick="location.href='/logout';">
+                        <a href="/logout">Logout</a>
+                    </div>
+                    <% }%>
                 </div>
             </div>
 
