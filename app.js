@@ -7,6 +7,10 @@ var bodyParser = require("body-parser"),
     expressSanitizer = require("express-sanitizer"),
     mongoose = require("mongoose"),
     express = require("express"),
+    cron = require("node-cron"),
+    moment = require("moment"),
+    getWeekDates = require("./public/scripts/getWeekDates"),
+    cronJobs = require("./public/scripts/cronJobs"),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
     User = require("./models/user"),
@@ -56,6 +60,12 @@ mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mo
 // SEED DATABASE
 // =================
 // seedDB();
+
+
+// =================
+// CRON JOBS
+// =================
+cronJobs();
 
 
 // =================
