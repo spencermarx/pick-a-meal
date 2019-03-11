@@ -13,7 +13,7 @@ router.get("/", (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            console.log(user);
+            // console.log(user);
             res.render("dashboard", {
                 plan: user.plan
             });

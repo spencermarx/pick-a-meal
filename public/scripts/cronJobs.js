@@ -43,7 +43,7 @@ function cronJobs(username) {
             user = "Error";
             // randomized = false;
         }
-        console.log(user);
+        // console.log(user);
         return user;
     });
 }
