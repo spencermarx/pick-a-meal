@@ -2,6 +2,7 @@ var cron = require("node-cron"),
     getWeekDates = require("./getWeekDates"),
     moment = require("moment"),
     mongoose = require("mongoose"),
+    randomRecipes = require("./randomRecipes"),
     User = require("../../models/user");
 
 function saveDatesToUser(username, weekDates) {
@@ -26,7 +27,7 @@ function saveDatesToUser(username, weekDates) {
 
 
 function cronJobs(username) {
-    cron.schedule("30 1 * * Sun", async function() {
+    cron.schedule("5 1 * * Sun", async function() {
         // console.log(moment().format());
         var today = moment();
         var weekDates = getWeekDates(today);
@@ -34,6 +35,8 @@ function cronJobs(username) {
 
         try {
             user = await saveDatesToUser(username, weekDates);
+
+            recipes = await randomRecipes(username);
 
             // Start here
         } catch (err) {
