@@ -19,6 +19,7 @@ var bodyParser = require("body-parser"),
     cronJobs = require("./public/scripts/cronJobs"),
     randomRecipes = require("./public/scripts/randomRecipes"),
     seedDB = require("./seed"),
+    secrets = require("./ignore/secrets"),
     app = express();
 
 
@@ -74,7 +75,7 @@ app.use(function(req, res, next) {
 // mongoose.connect('mongodb://localhost:27017/pick_a_meal', {
 //     useNewUrlParser: true
 // });
-mongoose.connect('mongodb+srv://spencermarx:Angie37477842.@project-apps-tpbj7.mongodb.net/pick_a_meal?retryWrites=true', {
+mongoose.connect(secrets.mongooseConnectUrl, {
     useNewUrlParser: true
 });
 
