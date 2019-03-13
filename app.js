@@ -1,4 +1,9 @@
 // =================
+// DOTENV SETUP
+// =================
+require('dotenv').config();
+
+// =================
 // PACKAGES SETUP
 // =================
 
@@ -19,7 +24,6 @@ var bodyParser = require("body-parser"),
     cronJobs = require("./public/scripts/cronJobs"),
     randomRecipes = require("./public/scripts/randomRecipes"),
     seedDB = require("./seed"),
-    secrets = require("./ignore/secrets"),
     app = express();
 
 
@@ -75,7 +79,7 @@ app.use(function(req, res, next) {
 // mongoose.connect('mongodb://localhost:27017/pick_a_meal', {
 //     useNewUrlParser: true
 // });
-mongoose.connect(secrets.mongooseConnectUrl, {
+mongoose.connect(process.env.MONGODBURL, {
     useNewUrlParser: true
 });
 
