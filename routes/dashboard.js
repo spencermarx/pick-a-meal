@@ -2,13 +2,15 @@ var express = require("express");
 var router = express.Router(); //({ mergeParams: true });
 var User = require("../models/user");
 var randomRecipes = require("../public/scripts/randomRecipes");
+var middleware = require("../middleware");
+
 
 // =================
 // DASHBOARD ROUTING
 // =================
 
 // INDEX
-router.get("/", isLoggedIn, (req, res) => {
+router.get("/", middleware.isLoggedIn, middleware.userHasRecipes, (req, res) => {
     User.findOne({ username: "Angie" }, (err, user) => {
         if (err) {
             console.log(err);
@@ -23,7 +25,7 @@ router.get("/", isLoggedIn, (req, res) => {
 
 
 // UPDATE
-router.put("/", isLoggedIn, (req, res) => {
+router.put("/", middleware.isLoggedIn, (req, res) => {
     function promise() {
         var promise = new Promise(function(resolve, reject) {
             resolve("Recipes randomized");
@@ -39,13 +41,5 @@ router.put("/", isLoggedIn, (req, res) => {
         res.redirect("/dashboard");
     });
 });
-
-// Middleware
-function isLoggedIn(req, res, next) {
-    if (req.isAuthenticated()) {
-        return next();
-    }
-    res.redirect("/login");
-}
 
 module.exports = router;

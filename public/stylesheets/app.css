@@ -71,8 +71,7 @@ main {
 
 .feedback {
     position: relative;
-    min-height: 4em;
-    margin: 1em 0;
+    margin: 1.2em 0;
 }
 
 table {
@@ -199,7 +198,8 @@ span.date {
 }
 
 #page-title {
-    margin: 4em 0 1.2em 0;
+    /* margin: 4em 0 1.2em 0; */
+    /* padding-left: 1em; */
 }
 
 #calendar {
