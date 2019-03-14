@@ -17,6 +17,7 @@ var bodyParser = require("body-parser"),
     passport = require("passport"),
     LocalStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose"),
+    flash = require("connect-flash"),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
     User = require("./models/user"),
@@ -51,6 +52,10 @@ app.use(methodOverride("_method"));
 // Note:Must follow set up for Body-Parser
 app.use(expressSanitizer());
 
+// Flash Messages
+app.use(flash());
+
+
 // =================
 // AUTHENTICATION SETUP
 // =================
@@ -68,6 +73,8 @@ passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 app.use(function(req, res, next) {
     res.locals.currentUser = req.user;
+    res.locals.error = req.flash("error");
+    res.locals.success = req.flash("success");
     next();
 });
 

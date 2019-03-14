@@ -28,19 +28,31 @@
                         </a>
                     </div>
                     <% if(!currentUser){ %>
-                    <div class="item" onclick="location.href='/login';">
-                        <a href="/login">Login</a>
-                    </div>
-                    <div class="item" onclick="location.href='/register';">
-                        <a href="/register">Signup</a>
-                    </div>
-                    <% } else { %>
-                    <div class="item" onclick="location.href='/logout';">
-                        <a href="/logout">Logout</a>
-                    </div>
-                    <% }%>
+                        <div class="item" onclick="location.href='/login';">
+                            <a href="/login">Login</a>
+                        </div>
+                        <div class="item" onclick="location.href='/register';">
+                            <a href="/register">Signup</a>
+                        </div>
+                        <% } else { %>
+                            <div class="item" onclick="location.href='/logout';">
+                                <a href="/logout">Logout</a>
+                            </div>
+                            <% }%>
                 </div>
             </div>
-
         </div>
     </nav>
+    <main class="ui container">
+        <div class="container">
+            <% if(error && error.length > 0) {%>
+                <div class="alert alert-danger" role="alert">
+                    <%=error%>
+                </div>
+                <% } %>
+                    <% if(success && success.length > 0) { %>
+                        <div class="alert alert-success" role="alert">
+                            <%=success%>
+                        </div>
+                        <% } %>
+        </div>
