@@ -44,15 +44,19 @@
         </div>
     </nav>
     <main class="ui container">
-        <div class="container">
+        <div class="ui container feedback">
             <% if(error && error.length > 0) {%>
-                <div class="alert alert-danger" role="alert">
-                    <%=error%>
+                <div class="ui warning message">
+                    <div class="header">
+                        <%=error%>
+                    </div>
                 </div>
                 <% } %>
                     <% if(success && success.length > 0) { %>
-                        <div class="alert alert-success" role="alert">
-                            <%=success%>
+                        <div class="ui positive message">
+                            <div class="header">
+                                <%=success%>
+                            </div>
                         </div>
                         <% } %>
         </div>

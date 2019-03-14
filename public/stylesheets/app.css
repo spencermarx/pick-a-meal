@@ -19,8 +19,11 @@
 
 /* Custom Classes */
 
+.btn-custom-dark-blue,
 .bg-custom-dark-blue {
     background: var(--custom-dark-blue)!important;
+    color: white!important;
+    transition: background(350ms);
 }
 
 .bg-custom-blue {
@@ -43,6 +46,14 @@
     color: var(--custom-muted);
 }
 
+.text-custom-dark-blue {
+    color: var(--custom-dark-blue);
+}
+
+.text-white {
+    color: white;
+}
+
 
 /*
  * ─── Application CSS ───────────────────────────────────────────────────────────────────
@@ -54,7 +65,14 @@ body {
 }
 
 main {
-    margin-top: 10em;
+    margin-top: 8em;
+    height: 40px;
+}
+
+.feedback {
+    position: relative;
+    min-height: 4em;
+    margin: 1em 0;
 }
 
 table {
@@ -81,6 +99,11 @@ table {
 
 .update {
     margin-top: 1.5em;
+}
+
+#login.ui.form input.login-form-input,
+#signup.ui.form input.signup-form-input {
+    padding-left: 4em!important;
 }
 
 
@@ -130,7 +153,7 @@ span.date {
 } */
 
 .ui.grid>.column:not(.row) {
-    padding-top: 0rem;
+    padding-top: 1rem;
     padding-bottom: 1rem;
 }
 

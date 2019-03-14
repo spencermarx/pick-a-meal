@@ -1,28 +1,26 @@
 <%include partials/header%>
-
-    <main class="ui container">
         <div class="ui middle aligned center aligned grid">
             <div class="column">
-                <h2 class="ui teal image header">
-                    <div class="content">
+                <h2 class="ui image header">
+                    <div class="content text-custom-dark-blue">
                         Sign up for an account!
                     </div>
                 </h2>
-                <form action="/register" class="ui large form" method="POST">
+                <form action="/register" class="ui large form" method="POST" id="signup">
                     <div class="ui stacked segment">
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="user icon"></i>
-                                <input type="text" name="username" placeholder="Enter a username">
+                                <input class="signup-form-input" type="text" name="username" placeholder="Enter a username">
                             </div>
                         </div>
                         <div class="field">
                             <div class="ui left icon input">
                                 <i class="lock icon"></i>
-                                <input type="password" name="password" placeholder="Enter a password">
+                                <input class="signup-form-input" type="password" name="password" placeholder="Enter a password">
                             </div>
                         </div>
-                        <button class="ui fluid large teal submit button">Sign up</button>
+                        <button class="ui fluid large btn-custom-dark-blue submit button">Sign up</button>
                     </div>
                     <!-- <div class="ui error message"></div> -->
 
@@ -33,7 +31,4 @@
                 </div>
             </div>
         </div>
-
-
-    </main>
     <%include partials/footer%>

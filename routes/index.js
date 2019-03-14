@@ -22,7 +22,7 @@ router.post("/register", function(req, res) {
     User.register(newUser, req.body.password, function(err, user) {
         if (err) {
             console.log(err);
-            res.render("register");
+            res.render("register", { error: err.message });
         } else {
             passport.authenticate("local")(req, res, function() {
                 req.flash("success", "Welcome to Pick-A-Meal " + user.username + "!");
@@ -41,7 +41,8 @@ router.get("/login", function(req, res) {
 router.post("/login", passport.authenticate("local", {
         successRedirect: "/recipes",
         failureRedirect: "/login",
-        failureFlash: 'Invalid username or password.'
+        // successFlash: ,
+        failureFlash: "Invalid username or password."
     }),
     function(req, res) {}
 );
@@ -49,6 +50,7 @@ router.post("/login", passport.authenticate("local", {
 // Logout
 router.get("/logout", function(req, res) {
     req.logout();
+    req.flash("success", "Successfully logged out!");
     res.redirect("/");
 })
 
