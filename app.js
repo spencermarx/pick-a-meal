@@ -109,12 +109,14 @@ cronJobs("Angie");
 // Require Routing Files
 var indexRoutes = require("./routes/index"),
     dashboardRoutes = require("./routes/dashboard"),
-    recipeRoutes = require("./routes/recipes");
+    recipeRoutes = require("./routes/recipes"),
+    apiRoutes = require("./routes/api");
 
 // Routes
 app.use("/", indexRoutes);
 app.use("/dashboard", dashboardRoutes);
 app.use("/recipes", recipeRoutes);
+app.use("/api", apiRoutes);
 
 
 // -------- START SERVER --------

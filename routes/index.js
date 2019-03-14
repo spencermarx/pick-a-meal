@@ -42,15 +42,6 @@ router.get("/login", function(req, res) {
 });
 
 // Handle Login
-// router.post("/login", passport.authenticate("local", {
-//         successRedirect: "/recipes",
-//         failureRedirect: "/login",
-//         successFlash: `Welcome ${currentUser}`,
-//         failureFlash: "Invalid username or password."
-//     }),
-//     function(req, res) {}
-// );
-
 router.post("/login", function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) {
