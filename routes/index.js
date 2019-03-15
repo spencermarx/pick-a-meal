@@ -45,15 +45,17 @@ router.get("/login", function(req, res) {
 router.post("/login", function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) {
-            return next(err);
+            req.flash("error", info.message);
+            return res.redirect('/login');
         }
         if (!user) {
-            req.flash("error", err.message);
+            req.flash("error", info.message);
             return res.redirect('/login');
         }
         req.logIn(user, function(err) {
             if (err) {
-                return next(err);
+                req.flash("error", info.message);
+                return res.redirect('/login');
             }
             req.flash("success", `Welcome ${user.username}!`);
             return res.redirect('/recipes');
@@ -69,7 +71,7 @@ router.post("/login", function(req, res, next) {
 router.get("/logout", function(req, res) {
     req.logout();
     req.flash("success", "Successfully logged out!");
-    res.redirect("/");
+    res.redirect("/login");
 });
 
 // Middleware

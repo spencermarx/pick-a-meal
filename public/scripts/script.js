@@ -35,24 +35,37 @@ $('#addIngredient').on('click', function() {
 
 
     }
-
 });
 
-// $('#recipe-submit').on('click', function() {
+// $(document).ready(function() {
+//     var url = $(location).attr('href');
+//     console.log('TCL: url', url);
+//     var initialCol = $(".column.four.wide.clonable");
 
-//     // var data = $('#recipe-form').serializeArray();
-//     // data.push({ name: 'ingredients', value: ingredientArray });
-
-//     // $.post("/recipes", data);
-
+//     if (url == "http://localhost:8080/recipes") {
+//         for (var i = 0; i < 10; i++) {
+//             $.getJSON('https://www.themealdb.com/api/json/v1/1/random.php')
+//                 .done(function(data) {
+//                     console.log('TCL: data', data);
+//                     return parseRecipeData(data, initialCol, createCard);
+//                 })
+//                 .fail(function(err) {
+//                     console.log("Error:", err);
+//                 });
+//         }
+//     }
 // });
 
-// for(var i = 0; i <  recipe.ingredients.length; i++){
-//     if(i !== recipe.ingredients.length-1) {
-//         recipe.ingredients[i].ingredientName
-//         recipe.ingredients[i].ingredientQuantity + "\n"
-//     } else {
-//         recipe.ingredients[i].ingredientName
-//         recipe.ingredients[i].ingredientQuantity
-//     }
+// var createCard = function(recipe, initialCol) {
+//     var newCard = initialCol.clone()
+//     initialCol.after(newCard);
 // }
+
+// var parseRecipeData = function(data, initialCol, callback) {
+//     var meal = data.meals[0];
+//     var recipe = {
+//         name: meal.strMeal,
+//         image: meal.strMealThumb,
+//     };
+//     return callback(recipe, initialCol);
+// };

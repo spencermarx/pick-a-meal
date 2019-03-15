@@ -94,7 +94,7 @@ mongoose.connect(process.env.MONGODBURL, {
 // =================
 // SEED DATABASE
 // =================
-// seedDB();
+seedDB();
 
 
 // =================

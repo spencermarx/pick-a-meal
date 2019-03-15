@@ -10,9 +10,7 @@ router.get("/", isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render("recipes/index", {
-                recipes: foundRecipes
-            });
+            res.render("recipes/index", { recipes: foundRecipes });
         }
     });
 });
