@@ -86,7 +86,7 @@ app.use(function(req, res, next) {
 // mongoose.connect('mongodb://localhost:27017/pick_a_meal', {
 //     useNewUrlParser: true
 // });
-mongoose.connect(process.env.MONGODBURL, {
+mongoose.connect(process.env.MONGODBURLPROD, {
     useNewUrlParser: true
 });
 
@@ -94,7 +94,7 @@ mongoose.connect(process.env.MONGODBURL, {
 // =================
 // SEED DATABASE
 // =================
-// seedDB();
+seedDB();
 
 
 // =================
