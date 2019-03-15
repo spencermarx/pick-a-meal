@@ -1,111 +1,101 @@
 var recipeData = [{
         name: "Roasted Chicken",
         image: "https://i.pinimg.com/564x/7a/06/24/7a06240b035533a3c03301084f3b44bc.jpg?b=t",
-        portion: 0.5,
-        health: 6,
-        taste: 10,
-        isRestaurant: false,
         ingredients: [{
                 ingredientName: "chicken",
-                ingredientQuantity: 1
+                ingredientQuantity: "1 whole"
             },
             {
                 ingredientName: "carrots",
-                ingredientQuantity: 4
+                ingredientQuantity: "4 whole"
             },
             {
                 ingredientName: "celery",
-                ingredientQuantity: 3
+                ingredientQuantity: "3 stalks"
             },
             {
                 ingredientName: "onion",
-                ingredientQuantity: 3
+                ingredientQuantity: "3 whole"
             },
             {
                 ingredientName: "garlic",
-                ingredientQuantity: 5
+                ingredientQuantity: "5 cloves"
             },
             {
                 ingredientName: "lemon",
-                ingredientQuantity: 1
+                ingredientQuantity: "1 whole"
             },
             {
                 ingredientName: "butter",
-                ingredientQuantity: 0.15
+                ingredientQuantity: "1 tbsp"
             },
             {
                 ingredientName: "rosemary",
-                ingredientQuantity: 1
+                ingredientQuantity: "1 sprig"
             },
             {
                 ingredientName: "thyme",
-                ingredientQuantity: 1
+                ingredientQuantity: "1 sprig"
             }
         ]
     },
     {
         name: "Milanesa",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Cotoletta_alla_milanese.jpg/1200px-Cotoletta_alla_milanese.jpg",
-        portion: 2,
-        health: 3,
-        taste: 10,
         isRestaurant: false,
         ingredients: [{
                 ingredientName: "chicken",
-                ingredientQuantity: 1
+                ingredientQuantity: "2 breasts"
             },
             {
                 ingredientName: "breadcrumbs",
-                ingredientQuantity: 1
+                ingredientQuantity: "2 cups"
             },
             {
                 ingredientName: "flour",
-                ingredientQuantity: 1
+                ingredientQuantity: "2 cups"
             },
             {
                 ingredientName: "lemon",
-                ingredientQuantity: 1
+                ingredientQuantity: "1 whole"
             },
             {
                 ingredientName: "garlic",
-                ingredientQuantity: 2
+                ingredientQuantity: "2 cloves minced"
             },
             {
                 ingredientName: "oil",
-                ingredientQuantity: 1
+                ingredientQuantity: "3 cups"
             }
         ]
     },
     {
         name: "Sushi",
         image: "https://www.thegalmont.com/files/hotel/hotel-a/08-generic/galmont-hotel-sushi-bar-01.jpg",
-        portion: 2,
-        health: 8,
-        taste: 10,
         isRestaurant: false,
         ingredients: [{
                 ingredientName: "crab",
-                ingredientQuantity: 2
+                ingredientQuantity: "2 packages"
             },
             {
                 ingredientName: "rice",
-                ingredientQuantity: 1
+                ingredientQuantity: "2 cups"
             },
             {
                 ingredientName: "seaweed",
-                ingredientQuantity: 1
+                ingredientQuantity: "4 sheets"
             },
             {
                 ingredientName: "cucumber",
-                ingredientQuantity: 1
+                ingredientQuantity: "1 whole"
             },
             {
                 ingredientName: "avocado",
-                ingredientQuantity: 2
+                ingredientQuantity: "2 whole"
             },
             {
                 ingredientName: "sesame seeds",
-                ingredientQuantity: 1
+                ingredientQuantity: "2 tbsp"
             }
         ]
     }

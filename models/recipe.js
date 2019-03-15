@@ -4,13 +4,14 @@ var mongoose = require("mongoose");
 var recipeSchema = new mongoose.Schema({
     name: String,
     image: String,
-    portion: Number,
-    health: Number,
-    taste: Number,
     isRestaurant: Boolean,
     ingredients: [{
         ingredientName: String,
-        ingredientQuantity: Number
+        ingredientQuantity: String
+    }],
+    likes: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     }],
     lastUpdated: { type: Date, default: Date.now } //Says date and sets default value to now
 });
