@@ -4,11 +4,11 @@ var mongoose = require("mongoose");
 var recipeSchema = new mongoose.Schema({
     name: String,
     image: String,
-    isRestaurant: Boolean,
     ingredients: [{
         ingredientName: String,
         ingredientQuantity: String
     }],
+    process: String,
     likes: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"

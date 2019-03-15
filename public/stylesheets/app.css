@@ -146,6 +146,10 @@ span.date {
     padding-right: 4em;
 }
 
+.recipe-divider {
+    width: calc(100% - 2rem);
+}
+
 
 /* div.recipe-image>img {
     object-fit: cover;
@@ -165,10 +169,6 @@ span.date {
     cursor: pointer;
 }
 
-.ingredients {
-    margin-top: 2em;
-}
-
 .actions {
     display: flex;
     margin-top: 2em;
@@ -184,11 +184,6 @@ span.date {
 .column .stat {
     padding-left: 1.2em;
     color: rgba(255, 255, 255, 0.95);
-}
-
-.blurring.dimmable.image img {
-    min-height: 250px;
-    width: auto;
 }
 
 
@@ -254,11 +249,7 @@ span.date {
     padding-right: 0px;
 }
 
-#page-title>i.icon {
-    font-size: 0.9em;
-    display: inline;
-    margin-left: 10px;
-}
+#page-title {}
 
 #ingredients-list-header {
     color: #666666;
