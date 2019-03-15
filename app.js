@@ -83,7 +83,10 @@ app.use(function(req, res, next) {
 // =================
 
 //Connect Mongoose
-mongoose.connect(process.env.DATABASEURL, {
+// mongoose.connect(process.env.DATABASEURL, {
+//     useNewUrlParser: true
+// });
+mongoose.connect(process.env.LOCALDATABASEURL, {
     useNewUrlParser: true
 });
 
@@ -91,7 +94,7 @@ mongoose.connect(process.env.DATABASEURL, {
 // =================
 // SEED DATABASE
 // =================
-seedDB();
+// seedDB();
 
 
 // =================
