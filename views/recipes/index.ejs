@@ -1,26 +1,26 @@
 <%include ../partials/header%>
-        <h1 id="page-title" class="ui center huge header">All Recipes</h1>
-        <div id="Recipes" class="">
-            <div class="ui three column stackable grid cards">
-                <% recipes.forEach(function(recipe){ %>
-                    <div class="column four wide">
-                        <div class="ui raised card" onclick="location.href='/recipes/<%=recipe._id%>';">
-                            <div class="blurring dimmable image" id="card-image">
-                                <div class="ui dimmer transition hidden">
-                                    <div class="content">
-                                        <div class="center">
-                                            <div class="ui inverted button">View Recipe</div>
-                                        </div>
+    <h1 id="page-title" class="ui center huge header">All Recipes</h1>
+    <div id="Recipes" class="">
+        <div class="ui three column stackable grid cards">
+            <% recipes.forEach(function(recipe){ %>
+                <div class="column four wide">
+                    <div class="ui raised card" onclick="location.href='/recipes/<%=recipe._id%>';">
+                        <div class="blurring dimmable image" id="card-image">
+                            <div class="ui dimmer transition hidden">
+                                <div class="content">
+                                    <div class="center">
+                                        <div class="ui inverted button">View Recipe</div>
                                     </div>
                                 </div>
-                                <img src="<%=recipe.image%>" class="small image">
                             </div>
-                            <div class="content center aligned">
-                                <a class="header">
-                                    <%= recipe.name%>
-                                </a>
-                            </div>
-                            <div class="description">
+                            <img src="<%=recipe.image%>" class="small image">
+                        </div>
+                        <div class="content center aligned">
+                            <a class="header">
+                                <%= recipe.name%>
+                            </a>
+                        </div>
+                        <!-- <div class="description">
                                 <div id="recipe-stats" class="ui equal width grid">
                                     <div class="column center aligned bg-custom-blue" id="portion">
                                         <h5 id="portion-header" class="ui rounded ">
@@ -42,16 +42,16 @@
                                         </h5>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="extra content center aligned">
-                                <a class="ui floated basic black button" href="/recipes/<%=recipe._id%>">
+                            </div> -->
+                        <div class="extra content center aligned">
+                            <a class="ui floated basic black button" href="/recipes/<%=recipe._id%>">
                             View
                             <i class="right chevron icon"></i>
                         </a>
-                            </div>
                         </div>
                     </div>
-                    <% });%>
-            </div>
+                </div>
+                <% });%>
         </div>
+    </div>
     <%include ../partials/footer%>

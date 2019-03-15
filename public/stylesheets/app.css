@@ -186,6 +186,11 @@ span.date {
     color: rgba(255, 255, 255, 0.95);
 }
 
+.blurring.dimmable.image img {
+    min-height: 250px;
+    width: auto;
+}
+
 
 /* button.ui.secondary.button {
     display: inline;

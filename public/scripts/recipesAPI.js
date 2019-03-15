@@ -7,7 +7,7 @@ var getRecipeAPI = async function() {
 
     axios.get(url)
         .then(function(response) {
-            console.log(response.data.meals[0]);
+            // console.log(response.data.meals[0]);
             return response.data.meals[0];
         })
         .catch(function(error) {
