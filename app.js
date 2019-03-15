@@ -83,10 +83,7 @@ app.use(function(req, res, next) {
 // =================
 
 //Connect Mongoose
-// mongoose.connect('mongodb://localhost:27017/pick_a_meal', {
-//     useNewUrlParser: true
-// });
-mongoose.connect(process.env.MONGODBURLPROD, {
+mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true
 });
 
