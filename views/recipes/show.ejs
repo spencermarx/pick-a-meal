@@ -1,14 +1,18 @@
 <%include ../partials/header%>
 
-    <h1 id="page-title" class="ui left aligned huge header">
-        <%=recipe.name%>
-    </h1>
-    <div class="item ui two column stackable grid" id="recipe">
-        <div class="row">
-            <div class="column px-0" id="recipe-image">
-                <div class="ui left rounded image">
-                    <img class="" src="<%=recipe.image%>" alt="">
-                </div>
+
+    <div class="ui one column grid" id="recipe">
+        <div class="ui raised  card centered fourteen wide column">
+            <!-- IMAGE -->
+            <div class="image" id="large-card-image">
+                <img src="<%=recipe.image%>" class="image">
+            </div>
+            <!-- Content -->
+            <div class="content left aligned">
+                <h1 id="page-title" class="ui left aligned huge header">
+                    <%=recipe.name%>
+                </h1>
+
                 <div class="ui left aligned update" id="last-updated">
                     <h5 class="ui rounded">
                         Last Updated:
@@ -16,48 +20,46 @@
                         <%=recipe.lastUpdated.toDateString()%></span>
                     </h5>
                 </div>
-                <div class="actions">
-                    <a href="/recipes/<%=recipe._id%>/edit" class="ui orange basic button margin-top action-button" id="button-edit">Edit</a>
-                    <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-                        <button id="button-delete" class="ui red basic button margin-top action-button">Delete</button>
-                    </form>
-                </div>
-            </div>
-            <div class="column px-0" id="recipe-content">
-                <div class="content">
-                    <div class="ingredients">
-                        <table class="ui very basic unstackable table">
-                            <thead>
+                <!-- <div class="actions">
+                <a href="/recipes/<%=recipe._id%>/edit" class="ui orange basic button margin-top action-button" id="button-edit">Edit</a>
+                <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+                    <button id="button-delete" class="ui red basic button margin-top action-button">Delete</button>
+                </form>
+            </div> -->
+
+                <div class="ingredients">
+                    <table class="ui very basic unstackable table">
+                        <thead>
+                            <tr>
+                                <th>Ingredient</th>
+                                <th>Quantity</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% recipe.ingredients.forEach((ingredient)=>{ %>
                                 <tr>
-                                    <th>Ingredient</th>
-                                    <th>Quantity</th>
+                                    <td>
+                                        <%=ingredient.ingredientName%>
+                                    </td>
+                                    <td>
+                                        <%=ingredient.ingredientQuantity%>
+                                    </td>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <% recipe.ingredients.forEach((ingredient)=>{ %>
-                                    <tr>
-                                        <td>
-                                            <%=ingredient.ingredientName%>
-                                        </td>
-                                        <td>
-                                            <%=ingredient.ingredientQuantity%>
-                                        </td>
-                                    </tr>
-                                    <%});%>
-                            </tbody>
-                        </table>
-                    </div>
+                                <%});%>
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
-        <hr class="recipe-divider">
-        <div class="row">
-            <div class="sixteen wide column px-0" id="recipe-description">
-                <p>
-                    <%= recipe.process%>
-                </p>
-            </div>
+    </div>
+    <hr class="recipe-divider">
+    <div class="row">
+        <div class="sixteen wide column px-0" id="recipe-description">
+            <p>
+                <%= recipe.process%>
+            </p>
         </div>
+    </div>
     </div>
 
 

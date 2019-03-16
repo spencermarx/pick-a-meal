@@ -97,7 +97,13 @@ table {
 }
 
 .update {
-    margin-top: 1.5em;
+    padding-top: 1em;
+    padding-bottom: 1em;
+}
+
+.ui.card>.content {
+    padding-left: 1em;
+    padding-right: 1em;
 }
 
 #login.ui.form input.login-form-input,
@@ -126,6 +132,10 @@ div.inverted.menu {
 
 #recipe {
     position: relative;
+}
+
+#page-title {
+    margin-bottom: 0;
 }
 
 div.recipe-image {
@@ -197,11 +207,6 @@ span.date {
     padding: 0.1em auto;
 }
 
-#page-title {
-    /* margin: 4em 0 1.2em 0; */
-    /* padding-left: 1em; */
-}
-
 #calendar {
     margin-top: 2em;
 }
@@ -249,8 +254,6 @@ span.date {
     padding-right: 0px;
 }
 
-#page-title {}
-
 #ingredients-list-header {
     color: #666666;
 }
@@ -259,6 +262,14 @@ span.date {
     overflow: hidden;
     width: 100%;
     max-height: 200px;
+}
+
+#large-card-image {
+    overflow: hidden;
+    width: 100%;
+    max-height: 400px;
+    border-bottom-right-radius: 0.285714rem !important;
+    border-bottom-left-radius: 0.285714rem !important;
 }
 
 #button-edit:hover {
