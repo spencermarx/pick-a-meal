@@ -160,6 +160,8 @@ span.date {
     width: calc(100% - 2rem);
 }
 
+#last-updated {}
+
 
 /* div.recipe-image>img {
     object-fit: cover;
