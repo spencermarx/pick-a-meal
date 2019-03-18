@@ -289,8 +289,25 @@ span.date {
 }
 
 #owner {
-    display: table-cell;
-    vertical-align: bottom;
+    margin-top: 0.8em;
+}
+
+#right-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-end;
+}
+
+#left-header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+#last-updated {
+    margin-top: 0.8em;
 }
 
 #button-edit:hover {
