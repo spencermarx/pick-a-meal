@@ -5,60 +5,78 @@
         <div class="ui raised  card centered fourteen wide column">
             <!-- IMAGE -->
             <div class="image" id="large-card-image">
-                <img src="<%=recipe.image%>" class="image">
+                <img src="<%=recipe.image%>" class="image" id="large-recipe-image">
             </div>
             <!-- Content -->
-            <div class="content left aligned">
-                <h1 id="page-title" class="ui left aligned huge header">
-                    <%=recipe.name%>
-                </h1>
-
-                <div class="ui left aligned update" id="last-updated">
-                    <h5 class="ui rounded">
-                        Last Updated:
-                        <span class="text-muted">
-                        <%=recipe.lastUpdated.toDateString()%></span>
-                    </h5>
+            <div class="ui content two column grid">
+                <div class="row" id="header-info">
+                    <div class="column ten wide">
+                        <h1 id="recipe-title" class="ui left aligned huge header">
+                            <%=recipe.name%>
+                        </h1>
+                        <div class="ui left aligned update" id="last-updated">
+                            <h3 class="text-muted bottom" id="owner">
+                                Added by:
+                                <span class=" ">
+                                <em><%=currentUser.username%></em></span>
+                            </h3>
+                        </div>
+                    </div>
+                    <div class="column six wide">
+                        <h5 class="ui rounded right aligned">
+                            Last Updated:
+                            <span class="text-muted">
+                            <%=recipe.lastUpdated.toDateString()%></span>
+                        </h5>
+                    </div>
                 </div>
-                <!-- <div class="actions">
+                <hr class="recipe-divider ">
+                <div class="row ui stackable" id="recipe-details ">
+                    <div class="ten wide column ">
+                        <div class="px-0 " id="recipe-description ">
+                            <h3>Instructions</h3>
+                            <p>
+                                <%= recipe.process%>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="six wide column ">
+                        <div class="ingredients ">
+                            <table class="ui very basic unstackable table ">
+                                <thead>
+                                    <tr>
+                                        <th>Ingredient</th>
+                                        <th>Quantity</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% recipe.ingredients.forEach((ingredient)=>{ %>
+                                        <tr>
+                                            <td>
+                                                <%=ingredient.ingredientName%>
+                                            </td>
+                                            <td>
+                                                <%=ingredient.ingredientQuantity%>
+                                            </td>
+                                        </tr>
+                                        <%});%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- <div class="actions ">
                 <a href="/recipes/<%=recipe._id%>/edit" class="ui orange basic button margin-top action-button" id="button-edit">Edit</a>
-                <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-                    <button id="button-delete" class="ui red basic button margin-top action-button">Delete</button>
-                </form>
-            </div> -->
-
-                <div class="ingredients">
-                    <table class="ui very basic unstackable table">
-                        <thead>
-                            <tr>
-                                <th>Ingredient</th>
-                                <th>Quantity</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <% recipe.ingredients.forEach((ingredient)=>{ %>
-                                <tr>
-                                    <td>
-                                        <%=ingredient.ingredientName%>
-                                    </td>
-                                    <td>
-                                        <%=ingredient.ingredientQuantity%>
-                                    </td>
-                                </tr>
-                                <%});%>
-                        </tbody>
-                    </table>
-                </div>
+                            <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
+                                <button id="button-delete" class="ui red basic button margin-top action-button">Delete</button>
+                            </form>
+                    </div> -->
             </div>
         </div>
     </div>
-    <hr class="recipe-divider">
+
     <div class="row">
-        <div class="sixteen wide column px-0" id="recipe-description">
-            <p>
-                <%= recipe.process%>
-            </p>
-        </div>
+
     </div>
     </div>
 

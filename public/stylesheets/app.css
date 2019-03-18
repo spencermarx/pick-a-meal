@@ -21,25 +21,25 @@
 
 .btn-custom-dark-blue,
 .bg-custom-dark-blue {
-    background: var(--custom-dark-blue)!important;
-    color: white!important;
+    background: var(--custom-dark-blue) !important;
+    color: white !important;
     transition: background(350ms);
 }
 
 .bg-custom-blue {
-    background: var(--custom-blue)!important;
+    background: var(--custom-blue) !important;
 }
 
 .bg-custom-light-blue {
-    background: var(--custom-light-blue)!important;
+    background: var(--custom-light-blue) !important;
 }
 
 .bg-custom-green {
-    background: var(--custom-green)!important;
+    background: var(--custom-green) !important;
 }
 
 .bg-custom-purple {
-    background: var(--custom-purple)!important;
+    background: var(--custom-purple) !important;
 }
 
 .text-muted {
@@ -97,18 +97,13 @@ table {
 }
 
 .update {
-    padding-top: 1em;
-    padding-bottom: 1em;
-}
-
-.ui.card>.content {
-    padding-left: 1em;
-    padding-right: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0em;
 }
 
 #login.ui.form input.login-form-input,
 #signup.ui.form input.signup-form-input {
-    padding-left: 4em!important;
+    padding-left: 4em !important;
 }
 
 
@@ -135,7 +130,11 @@ div.inverted.menu {
 }
 
 #page-title {
-    margin-bottom: 0;
+    margin-bottom: 0.8em;
+}
+
+#recipe-title {
+    margin-bottom: 0em;
 }
 
 div.recipe-image {
@@ -160,7 +159,9 @@ span.date {
     width: calc(100% - 2rem);
 }
 
-#last-updated {}
+.ui.card>.content {
+    border: none;
+}
 
 
 /* div.recipe-image>img {
@@ -197,6 +198,9 @@ span.date {
     padding-left: 1.2em;
     color: rgba(255, 255, 255, 0.95);
 }
+
+.ui.grid>.column:not(.row),
+.ui.grid>.row>.column {}
 
 
 /* button.ui.secondary.button {
@@ -267,21 +271,36 @@ span.date {
 }
 
 #large-card-image {
+    position: relative;
     overflow: hidden;
-    width: 100%;
-    max-height: 400px;
+    /* width: 100%; */
+    background: none;
+    max-height: 600px;
     border-bottom-right-radius: 0.285714rem !important;
     border-bottom-left-radius: 0.285714rem !important;
+    margin-left: 1em;
+    margin-right: 1em;
+    margin-top: 1em;
+}
+
+#large-recipe-image {
+    object-fit: cover;
+    object-position: center;
+}
+
+#owner {
+    display: table-cell;
+    vertical-align: bottom;
 }
 
 #button-edit:hover {
-    background: #F2711C!important;
-    color: white!important;
+    background: #F2711C !important;
+    color: white !important;
 }
 
 #button-delete:hover {
-    background: #DB2828!important;
-    color: white!important;
+    background: #DB2828 !important;
+    color: white !important;
 }
 
 @media(max-width: 760px) {
