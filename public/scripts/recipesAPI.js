@@ -44,10 +44,11 @@ var createRecipeObj = function(result) {
         name: result.strMeal,
         image: result.strMealThumb,
         ingredients: allIngredients,
-        process: result.strInstructions
+        process: result.strInstructions,
+        likes: 0
     };
     return recipe;
-}
+};
 
 
 var handleIngredients = function(result) {

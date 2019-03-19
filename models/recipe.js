@@ -9,10 +9,7 @@ var recipeSchema = new mongoose.Schema({
         ingredientQuantity: String
     }],
     process: String,
-    likes: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User"
-    }],
+    likes: Number,
     lastUpdated: { type: Date, default: Date.now } //Says date and sets default value to now
 });
 

@@ -20,15 +20,34 @@
                             <em>
                                 <%=currentUser.username%></em></span>
                         </h3>
+                        <%= recipe.likes %>
                     </div>
+
                     <div class="column six wide" id="right-header">
                         <div class="ui labeled top-right button" tabindex="0">
-                            <div class="ui mini red button">
-                                <i class="heart icon"></i> Like
+                        <% if (!liked){%>
+                            <div class="ui mini inverted red button" id="like-button">
+                                <i class="heart icon"></i>Like
                             </div>
-                            <a class="ui basic red left pointing label">
-                            1,048
-                        </a>
+                            <a id="like-counter" class="ui basic  red left pointing label">
+                            <% if(!recipe.likes || recipe.likes <1){%>
+                            0
+                            <%} else {%>
+                            <%=recipe.likes%>
+                            <%}%>
+                            </a>
+                            <%} else {%>
+                            <div class="ui mini red button" id="like-button">
+                                <i class="heart icon"></i> Liked
+                            </div>
+                            <a id="like-counter" class="ui basic red left pointing label">
+                            <% if(!recipe.likes || recipe.likes <1){%>
+                            0
+                            <%} else {%>
+                            <%=recipe.likes%>
+                            <%}%>
+                            </a>
+                            <%}%>
                         </div>
                         <h5 class="ui rounded right aligned" id="last-updated">
                             Last Updated:

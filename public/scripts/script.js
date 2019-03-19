@@ -37,6 +37,61 @@ $('#addIngredient').on('click', function() {
     }
 });
 
+var $likeBtn = $("#like-button");
+var $likeCounter = $("#like-counter");
+
+$likeBtn.on("click", function() {
+    var url = likeUrlAPI();
+
+    $.ajax({
+            method: 'post',
+            url: 'http://localhost:8080/api/liked/' + url,
+            success: function(msg, status, jqXHR) {
+                var jsonUpdatedData = msg;
+                // console.log(jsonUpdatedData);
+            },
+            error: function() {
+                console.log('Error!!');
+            },
+            dataType: "json"
+        })
+        .done(function(response) {
+            var action = response.action;
+            if (action === "like") {
+                $likeCounter.text(changeLikeNumber("like"));
+                $likeBtn.toggleClass("inverted");
+                $likeBtn.html("<i class='heart icon'></i>Liked");
+            } else if (action === "unlike") {
+                $likeCounter.text(changeLikeNumber("unlike"));
+                $likeBtn.toggleClass("inverted");
+                $likeBtn.html("<i class='heart icon'></i>Like");
+            }
+        });
+});
+
+// Change Text Content of Like Counter
+var changeLikeNumber = function(action) {
+    var count = parseInt($likeCounter.text().replace(",", ""), 10);
+    // console.log(count);
+    // console.log(typeof count);
+    if (action === "like") {
+        return numberWithCommas(count += 1);
+    } else if (action === "unlike") {
+        return numberWithCommas(count -= 1);
+    }
+};
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}
+
+var likeUrlAPI = function() {
+    var fullURL = $(location).attr('href');
+    var urlSplit = fullURL.split("/");
+    var id = urlSplit[urlSplit.length - 1];
+    return id;
+};
+
 // $(document).ready(function() {
 //     var url = $(location).attr('href');
 //     console.log('TCL: url', url);

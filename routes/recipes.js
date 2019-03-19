@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router(); //({ mergeParams: true });
 var User = require("../models/user");
 var Recipe = require("../models/recipe");
+var likeTracking = require("../public/scripts/likeTracking");
 
 
 //INDEX
@@ -10,7 +11,9 @@ router.get("/", isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render("recipes/index", { recipes: foundRecipes });
+            res.render("recipes/index", {
+                recipes: foundRecipes
+            });
         }
     });
 });
@@ -26,11 +29,21 @@ router.get("/:id", isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            res.render("recipes/show", {
-                recipe: foundRecipe
+            User.findById(req.user._id).populate("likedMeals").exec(function(err, user) {
+                //console.log("RecipeID ->", req.params.id);
+                //console.log("LikedMeals ->", user.likedMeals);
+                var liked = likeTracking.checkDuplicates(req.params.id, user.likedMeals); // true if liked
+                // console.log("Liked Status:", liked);
+                // console.log("Liked Status:", typeof liked);
+
+                res.render("recipes/show", {
+                    liked: liked,
+                    recipe: foundRecipe
+                });
             });
         }
-    })
+    });
+
 });
 
 // CREATE
@@ -86,7 +99,9 @@ router.get("/:id/edit", isLoggedIn, (req, res) => {
             console.log(err);
             res.redirect("/recipes/" + req.params.id);
         } else {
-            res.render("recipes/edit", { recipe: foundRecipe });
+            res.render("recipes/edit", {
+                recipe: foundRecipe
+            });
         }
     });
 });
@@ -148,6 +163,8 @@ router.delete("/:id", isLoggedIn, function(req, res) {
         }
     });
 });
+
+
 
 // Middleware
 function isLoggedIn(req, res, next) {
