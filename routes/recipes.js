@@ -25,7 +25,7 @@ router.get("/new", isLoggedIn, (req, res) => {
 
 // SHOW
 router.get("/:id", isLoggedIn, (req, res) => {
-    Recipe.findById(req.params.id, (err, foundRecipe) => {
+    Recipe.findById(req.params.id).populate("addedBy").exec((err, foundRecipe) => {
         if (err) {
             console.log(err);
         } else {
@@ -49,6 +49,7 @@ router.get("/:id", isLoggedIn, (req, res) => {
 // CREATE
 router.post("/", isLoggedIn, (req, res) => {
     var recipe = req.sanitize(req.body.recipe);
+    req.body.recipe.addedBy = req.user._id;
 
     if (req.body.recipe.ingredients) {
         var ingredientsBody = req.sanitize(req.body.recipe.ingredients);

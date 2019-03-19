@@ -37,9 +37,6 @@ var createRecipeObj = function(result) {
         }
         allIngredients.push(ingredient);
     }
-
-    // console.log(allIngredients)
-
     recipe = {
         name: result.strMeal,
         image: result.strMealThumb,

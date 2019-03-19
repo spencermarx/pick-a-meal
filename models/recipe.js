@@ -3,6 +3,10 @@ var mongoose = require("mongoose");
 // Set up Mongoose Data Schemas
 var recipeSchema = new mongoose.Schema({
     name: String,
+    addedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
+    },
     image: String,
     ingredients: [{
         ingredientName: String,
