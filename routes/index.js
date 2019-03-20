@@ -29,7 +29,7 @@ router.post("/register", function(req, res) {
             });
         } else {
             passport.authenticate("local")(req, res, function() {
-                req.flash("success", "Welcome to Pick-A-Meal " + user.username + "!");
+                req.flash("success", "Welcome to Pick-A-Meal " + user.username + "! To use the dashboard, you must like at least 14 recipes. Happy cooking!");
                 res.redirect("/recipes");
             });
         }
