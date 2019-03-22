@@ -1,6 +1,7 @@
 var recipeData = [{
         name: "Roasted Chicken",
         image: "https://i.pinimg.com/564x/7a/06/24/7a06240b035533a3c03301084f3b44bc.jpg?b=t",
+        likes: 0,
         ingredients: [{
                 ingredientName: "chicken",
                 ingredientQuantity: "1 whole"
@@ -42,7 +43,7 @@ var recipeData = [{
     {
         name: "Milanesa",
         image: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2b/Cotoletta_alla_milanese.jpg/1200px-Cotoletta_alla_milanese.jpg",
-        isRestaurant: false,
+        likes: 0,
         ingredients: [{
                 ingredientName: "chicken",
                 ingredientQuantity: "2 breasts"
@@ -72,7 +73,7 @@ var recipeData = [{
     {
         name: "Sushi",
         image: "https://www.thegalmont.com/files/hotel/hotel-a/08-generic/galmont-hotel-sushi-bar-01.jpg",
-        isRestaurant: false,
+        likes: 0,
         ingredients: [{
                 ingredientName: "crab",
                 ingredientQuantity: "2 packages"

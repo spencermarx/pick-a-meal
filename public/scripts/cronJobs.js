@@ -5,17 +5,22 @@ var cron = require("node-cron"),
     randomRecipes = require("./randomRecipes"),
     User = require("../../models/user");
 
-function saveDatesToUser(username, weekDates) {
+var cronJobs = {};
+
+cronJobs.saveDatesToUser = function(username) {
     return new Promise(function(resolve, reject) {
         setTimeout(function() {
             User.findOne({
                 username: username
             }, function(err, user) {
+                var today = moment();
+                var weekDates = getWeekDates(today);
+                console.log(weekDates);
                 if (err) {
                     reject(new Error('Ooops, something broke!'));
                 } else {
                     for (var i = 0; i < 7; i++) {
-                        user.plan[i].date = weekDates[i];
+                        user.plan.push(weekDates[i]);
                     }
                     user.save();
                     resolve(user);
@@ -23,18 +28,17 @@ function saveDatesToUser(username, weekDates) {
             });
         }, 0);
     });
-}
+};
 
 
-function cronJobs(username) {
+cronJobs.main = function(username) {
     cron.schedule("5 1 * * Sun", async function() {
         // console.log(moment().format());
-        var today = moment();
-        var weekDates = getWeekDates(today);
+
         // console.log(weekDates);
 
         try {
-            user = await saveDatesToUser(username, weekDates);
+            user = await cronJobs.saveDatesToUser(username);
 
             recipes = await randomRecipes(username);
 
@@ -46,6 +50,6 @@ function cronJobs(username) {
         // console.log(user);
         return user;
     });
-}
+};
 
 module.exports = cronJobs;

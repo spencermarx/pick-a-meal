@@ -21,13 +21,13 @@ likeTracking.checkDuplicates = function(nameKey, myArray) {
     return false;
 };
 
-likeTracking.unlikeRecipe = function(foundUser, nameKey, myArray) {
+likeTracking.unlikeRecipe = async function(foundUser, nameKey, myArray) {
     for (var i = 0; i < myArray.length; i++) {
         if (myArray[i] == nameKey) {
             myArray.splice(i, 1);
         }
     }
-    foundUser.save();
+    await foundUser.save();
 };
 
 module.exports = likeTracking;

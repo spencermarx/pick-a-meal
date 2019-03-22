@@ -2,6 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
+var cronJobs = require("../public/scripts/cronJobs");
 // =================
 // INDEX ROUTING
 // =================
@@ -29,7 +30,8 @@ router.post("/register", function(req, res) {
             });
         } else {
             passport.authenticate("local")(req, res, function() {
-                req.flash("success", "Welcome to Pick-A-Meal " + user.username + "! To use the dashboard, you must like at least 14 recipes. Happy cooking!");
+                cronJobs.saveDatesToUser(user.username);
+                req.flash("success", "Welcome to Pick-A-Meal " + user.username + "!\nTo use the dashboard, you must like at least 14 recipes. Happy cooking!");
                 res.redirect("/recipes");
             });
         }

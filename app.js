@@ -100,7 +100,7 @@ mongoose.connect(process.env.MONGODBURLLOCAL, {
 // =================
 // CRON JOBS
 // =================
-cronJobs("Angie");
+cronJobs.main("Angie");
 
 // =================
 // ROUTING

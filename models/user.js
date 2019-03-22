@@ -13,10 +13,17 @@ var userSchema = new mongoose.Schema({
         day: String,
         order: Number,
         date: Date,
-        lunch: Object,
-        dinner: Object
+        lunch: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Recipe"
+        },
+        dinner: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Recipe"
+        }
     }]
 });
+
 
 userSchema.plugin(passportLocalMongoose);
 

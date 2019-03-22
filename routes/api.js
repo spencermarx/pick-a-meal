@@ -30,17 +30,25 @@ router.post("/liked/:id", middleware.isLoggedIn, function(req, res) {
                         foundUser.likedMeals.push(recipe);
                         foundUser.save();
                         recipe.likes += 1;
-                        recipe.save();
-                        res.status(200).send({
-                            action: 'like'
-                        });
+                        // console.log(recipe.likes);
+                        recipe.save().then(function() {
+                            res.status(200).send({
+                                action: 'like'
+                            });
+                        }).catch(function(err) {
+                            console.log("Error saving like ->", err);
+                        })
                     } else {
                         likeTracking.unlikeRecipe(foundUser, recipeID, foundUser.likedMeals);
                         recipe.likes -= 1;
-                        recipe.save();
-                        res.status(200).send({
-                            action: 'unlike'
-                        });
+                        // console.log(recipe.likes);
+                        recipe.save().then(function() {
+                            res.status(200).send({
+                                action: 'unlike'
+                            });
+                        }).catch(function(err) {
+                            console.log("Error saving like ->", err);
+                        })
                     }
                 }
             });
