@@ -15,7 +15,7 @@ cronJobs.saveDatesToUser = function(username) {
             }, function(err, user) {
                 var today = moment();
                 var weekDates = getWeekDates(today);
-                console.log(weekDates);
+                // console.log(weekDates);
                 if (err) {
                     reject(new Error('Ooops, something broke!'));
                 } else {
@@ -30,25 +30,48 @@ cronJobs.saveDatesToUser = function(username) {
     });
 };
 
+cronJobs.saveDatesToUsers = function() {
+    return new Promise(function(resolve, reject) {
+        setTimeout(function() {
+            User.find({}, function(err, users) {
+                if (err) {
+                    reject(new Error('Ooops, something broke!'));
+                } else {
+                    users.forEach(function(user) {
+                        var today = moment();
+                        var weekDates = getWeekDates(today);
+                        // console.log(weekDates);
+                        for (var i = 0; i < 7; i++) {
+                            user.plan.push(weekDates[i]);
+                        }
+                        user.save();
+                    });
+                    resolve(users);
+                }
+            });
+        }, 0);
+    });
+};
 
-cronJobs.main = function(username) {
-    cron.schedule("5 1 * * Sun", async function() {
+
+cronJobs.main = function() {
+    cron.schedule("16 10 * * Fri", async function() {
         // console.log(moment().format());
 
         // console.log(weekDates);
 
         try {
-            user = await cronJobs.saveDatesToUser(username);
+            users = await cronJobs.saveDatesToUsers();
 
-            recipes = await randomRecipes(username);
+            // recipes = await randomRecipes(username);
 
             // Start here
         } catch (err) {
-            user = "Error";
+            users = "Error";
             // randomized = false;
         }
-        // console.log(user);
-        return user;
+        // console.log(users);
+        return users;
     });
 };
 
