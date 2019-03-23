@@ -19,10 +19,14 @@ middlewareObj.isLoggedIn = function(req, res, next) {
 middlewareObj.checkPlan = async function(req, res, next) {
     // console.log(req.user);
     if (req.user.plan[0].lunch) {
+        console.log("From MW CheckPlan Call - IF ->", req.user.plan[0].lunch);
         return next();
     } else if (!req.user.plan[0].lunch && req.user.likedMeals.length >= 14) {
-        await randomRecipes(req, res);
-        return next();
+        randomRecipes(req, res)
+            .then(function(result) {
+                console.log("From MW CheckPlan Call - Else IF ->", result);
+                return next();
+            });
     } else {
         if (req.user.likedMeals.length) {
             var remaining = 14 - req.user.likedMeals.length;
@@ -34,5 +38,16 @@ middlewareObj.checkPlan = async function(req, res, next) {
     }
 };
 
+middlewareObj.randomize = function(req, res, next) {
+    try {
+        randomRecipes(req, res)
+            .then(function(promise) {
+                console.log("From MW Random Call ->", promise);
+                next();
+            });
+    } catch (err) {
+        console.log("Error in randomizer", err);
+    }
 
+}
 module.exports = middlewareObj;

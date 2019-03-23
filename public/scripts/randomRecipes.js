@@ -2,7 +2,7 @@ var mongoose = require("mongoose");
 var Recipe = require("../../models/recipe");
 var User = require("../../models/user");
 
-function getCount(username) {
+async function getCount(username) {
     return new Promise(function(resolve, reject) {
         setTimeout(function() {
             User.findOne({
@@ -21,7 +21,7 @@ function getCount(username) {
     });
 }
 
-function getRecipes(username) {
+async function getRecipes(username) {
     return new Promise(function(resolve, reject) {
         setTimeout(function() {
             User.findOne({
@@ -39,35 +39,33 @@ function getRecipes(username) {
 
 function assignUserMeals(username, recipes, count) {
     return new Promise(function(resolve, reject) {
-        setTimeout(function() {
-            User.findOne({
-                username: username
-            }, function(err, found) {
-                // console.log("Entered assign user meals, user:", found);
-                if (err) {
-                    console.log("Error occured assigning meals", err);
-                    reject(new Error('Ooops, something broke!'));
-                } else {
-                    var plan = found.plan;
-                    // console.log("Random Plan ->", plan);
-                    plan.forEach(function(day) {
-                        var lunchNum = Math.floor(Math.random() * count);
-                        var dinNum = Math.floor(Math.random() * count);
-                        lunch = recipes[lunchNum];
-                        dinner = recipes[dinNum];
-                        // console.log(lunchNum)
-                        day.lunch = lunch;
-                        day.dinner = dinner;
+        User.findOne({
+            username: username
+        }).exec(function(err, found) {
+            // console.log("Entered assign user meals, user:", found);
+            if (err) {
+                console.log("Error occured assigning meals", err);
+                reject(new Error('Ooops, something broke!'));
+            } else {
+                var plan = found.plan;
+                // console.log("Random Plan ->", plan);
+                plan.forEach(function(day) {
+                    var lunchNum = Math.floor(Math.random() * count);
+                    var dinNum = Math.floor(Math.random() * count);
+                    lunch = recipes[lunchNum];
+                    dinner = recipes[dinNum];
+                    // console.log(lunchNum)
+                    day.lunch = lunch;
+                    day.dinner = dinner;
+                });
+                // console.log(found);
+                found.save()
+                    .then(function() {
+                        // console.log("Assigned plan:", found.plan);
+                        resolve(found.plan);
                     });
-                    // console.log(found);
-                    found.save()
-                        .then(function() {
-                            // console.log("Assigned plan:", found.plan);
-                            resolve(found.plan);
-                        });
-                }
-            });
-        }, 0);
+            }
+        });
     });
 }
 
@@ -75,14 +73,21 @@ async function assignRecipes(username) {
     // var randomized = false;
     // console.log("Entered assign recipes");
     try {
+
         count = await getCount(username);
+
 
         recipes = await getRecipes(username);
         // user = await getUsers(username);
 
+
         assigned = await assignUserMeals(username, recipes, count);
 
-        return assigned;
+
+        Promise.all([count, recipes, assigned]).then(function(values) {
+            return values[2];
+
+        });
 
     } catch (err) {
         count = 0;
@@ -93,21 +98,11 @@ async function assignRecipes(username) {
 }
 
 async function randomRecipes(req, res) {
-    // console.log("From randomRecipes->", req.user);
 
-    function promise() {
-        var promise = new Promise(function(resolve, reject) {
-            resolve("Recipes randomized");
-        });
-        return promise;
-    }
-    promise().then(function() {
-        // console.log("Entered 2nd promise of randomRecipes");
-        var promise = new Promise(async function(resolve, reject) {
-            resolve(await assignRecipes(req.user.username));
-        });
-        return promise;
+    return new Promise(async function(resolve, reject) {
+        resolve(await assignRecipes(req.user.username));
     });
+
 }
 
 module.exports = randomRecipes;
