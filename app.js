@@ -22,7 +22,7 @@ var bodyParser = require("body-parser"),
     Recipe = require("./models/recipe"),
     User = require("./models/user"),
     getWeekDates = require("./public/scripts/getWeekDates"),
-    cronJobs = require("./public/scripts/cronJobs"),
+    cronJobs = require("./jobs"),
     randomRecipes = require("./public/scripts/randomRecipes"),
     seedDB = require("./seed"),
     app = express();
@@ -65,7 +65,8 @@ app.use(require("express-session")({
     secret: "Angie is my baby",
     resave: false,
     saveUninitialized: false
-}))
+}));
+
 app.use(passport.initialize());
 app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));

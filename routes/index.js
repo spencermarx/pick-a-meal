@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router();
 var passport = require("passport");
 var User = require("../models/user");
-var cronJobs = require("../public/scripts/cronJobs");
+var cronJobs = require("../jobs");
 // =================
 // INDEX ROUTING
 // =================
@@ -47,10 +47,12 @@ router.get("/login", function(req, res) {
 router.post("/login", function(req, res, next) {
     passport.authenticate('local', function(err, user, info) {
         if (err) {
+            console.log("Error logging in ->", err);
             req.flash("error", info.message);
             return res.redirect('/login');
         }
         if (!user) {
+            console.log("No user account");
             req.flash("error", info.message);
             return res.redirect('/login');
         }

@@ -1,9 +1,9 @@
 var cron = require("node-cron"),
-    getWeekDates = require("./getWeekDates"),
+    getWeekDates = require("../public/scripts/getWeekDates"),
     moment = require("moment"),
     mongoose = require("mongoose"),
-    randomRecipes = require("./randomRecipes"),
-    User = require("../../models/user");
+    randomRecipes = require("../public/scripts/randomRecipes"),
+    User = require("../models/user");
 
 var cronJobs = {};
 
@@ -54,7 +54,7 @@ cronJobs.saveDatesToUsers = function() {
 };
 
 
-cronJobs.main = function() {
+cronJobs.main = async function() {
     cron.schedule("16 10 * * Fri", async function() {
         // console.log(moment().format());
 
@@ -62,13 +62,8 @@ cronJobs.main = function() {
 
         try {
             users = await cronJobs.saveDatesToUsers();
-
-            // recipes = await randomRecipes(username);
-
-            // Start here
         } catch (err) {
             users = "Error";
-            // randomized = false;
         }
         // console.log(users);
         return users;
