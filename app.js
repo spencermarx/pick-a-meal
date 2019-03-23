@@ -83,7 +83,7 @@ app.use(function(req, res, next) {
 // DATABASE SETUP
 // =================
 
-Connect Mongoose
+// Connect Mongoose
 mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true
 });
