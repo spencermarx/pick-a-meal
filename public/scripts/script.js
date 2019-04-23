@@ -1,3 +1,12 @@
+// Navigation Dropdown Button
+var $menuButton = $("#expand-menu-button");
+var $collapsable = $(".collapsable");
+
+$menuButton.on("click", function(){
+
+    $collapsable.toggleClass("collapsed");
+});
+
 // Dropdown Action
 $('.ui.dropdown').dropdown();
 
