@@ -15,12 +15,17 @@
 
 <body>
     <nav>
-        <div id="navbar" class="ui fixed inverted menu bg-custom-dark-blue">
+        <div id="navbar" class="ui fixed stackable inverted menu bg-custom-dark-blue">
             <div class="ui container ">
-                <div class="header item centered aligned" id="logo"><a href="/">Pick-A-Meal</a></div>
-                <div class="right menu">
+                <div class="header item centered aligned" id="logo">
+                <a href="/">Pick-A-Meal</a>
+                <a class="mobile-only" id="expand-menu-button">
+                        <i class="sidebar icon"></i>
+                    </a>
+                </div>
+                <div class="right menu collapsable collapsed" id="">
                     <div class="item" onclick="location.href='/recipes';">
-                        <a href="/recipes">All Recipes</a>
+                        <a class="" href="/recipes">All Recipes</a>
                     </div>
                     <div class="item" onclick="location.href='/recipes/new';">
                         <a href="/recipes/new">Add
@@ -28,17 +33,17 @@
                         </a>
                     </div>
                     <% if(!currentUser){ %>
-                        <div class="item" onclick="location.href='/login';">
-                            <a href="/login">Login</a>
-                        </div>
-                        <div class="item" onclick="location.href='/register';">
-                            <a href="/register">Signup</a>
-                        </div>
-                        <% } else { %>
-                            <div class="item" onclick="location.href='/logout';">
-                                <a href="/logout">Logout</a>
-                            </div>
-                            <% }%>
+                    <div class="item" onclick="location.href='/login';">
+                        <a href="/login">Login</a>
+                    </div>
+                    <div class="item" onclick="location.href='/register';">
+                        <a href="/register">Signup</a>
+                    </div>
+                    <% } else { %>
+                    <div class="item" onclick="location.href='/logout';">
+                        <a href="/logout">Logout</a>
+                    </div>
+                    <% }%>
                 </div>
             </div>
         </div>
@@ -46,17 +51,17 @@
     <main class="ui container">
         <div class="ui container feedback">
             <% if(error && error.length > 0) {%>
-                <div class="ui negative message">
-                    <div class="header">
-                        <%=error%>
-                    </div>
+            <div class="ui negative message">
+                <div class="header">
+                    <%=error%>
                 </div>
-                <% } %>
-                    <% if(success && success.length > 0) { %>
-                        <div class="ui positive message">
-                            <div class="header">
-                                <%=success%>
-                            </div>
-                        </div>
-                        <% } %>
+            </div>
+            <% } %>
+            <% if(success && success.length > 0) { %>
+            <div class="ui positive message">
+                <div class="header">
+                    <%=success%>
+                </div>
+            </div>
+            <% } %>
         </div>
