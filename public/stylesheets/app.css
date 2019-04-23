@@ -335,7 +335,7 @@ span.date {
     color: white !important;
 }
 
-@media(max-width: 760px) {
+@media(max-width: 767px) {
     .ui.button[type="submit"] {
         margin: 2em auto;
         padding-left: 4em;
