@@ -55,7 +55,7 @@ $(function () {
 
         $.ajax({
                 method: 'post',
-                url: 'http://localhost:8080/api/liked/' + url,
+                url: 'https://pickameal.herokuapp.com/api/liked/' + url,
                 success: function (msg, status, jqXHR) {
                     var jsonUpdatedData = msg;
                     // console.log(jsonUpdatedData);
