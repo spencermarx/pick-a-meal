@@ -351,6 +351,9 @@ span.date {
     .mobile-only{
         display: block;
     }
+    .mobile-text-centered {
+        text-align: center;
+    }
     .ui.inverted.menu .mobile-only {
         display: block;
     }
