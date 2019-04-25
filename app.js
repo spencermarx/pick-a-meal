@@ -18,6 +18,7 @@ var bodyParser = require("body-parser"),
     LocalStrategy = require("passport-local"),
     passportLocalMongoose = require("passport-local-mongoose"),
     flash = require("connect-flash"),
+    cors = require('cors'),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
     User = require("./models/user"),
@@ -55,6 +56,8 @@ app.use(expressSanitizer());
 // Flash Messages
 app.use(flash());
 
+// Use CORS for Cross-Origin Resource Sharing (For AJAX on Mobile)
+app.use(cors());
 
 // =================
 // AUTHENTICATION SETUP
@@ -84,12 +87,12 @@ app.use(function (req, res, next) {
 // =================
 
 // Connect Mongoose
-// mongoose.connect(process.env.DATABASEURL, {
-//     useNewUrlParser: true
-// });
-mongoose.connect(process.env.MONGODBURLLOCAL, {
+mongoose.connect(process.env.DATABASEURL, {
     useNewUrlParser: true
 });
+// mongoose.connect(process.env.MONGODBURLLOCAL, {
+//     useNewUrlParser: true
+// });
 
 
 // =================

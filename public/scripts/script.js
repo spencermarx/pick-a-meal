@@ -1,4 +1,6 @@
-$(function () {
+
+$(document).ready(function () {
+    $.ajaxSetup({ cache: false });
     // Navigation Dropdown Button
     var $menuButton = $("#expand-menu-button");
     var $collapsable = $(".collapsable");
@@ -55,7 +57,7 @@ $(function () {
 
         $.ajax({
                 method: 'post',
-                url: 'http://localhost:8080/api/liked/' + url,
+                url: '/api/liked/' + url,
                 success: function (msg, status, jqXHR) {
                     var jsonUpdatedData = msg;
                     // console.log(jsonUpdatedData);
@@ -101,7 +103,7 @@ $(function () {
         var id = urlSplit[urlSplit.length - 1];
         return id;
     };
-});
+})
 
 
 
