@@ -1,4 +1,6 @@
-$(function () {
+$(document).ready(function () {
+    $.ajaxSetup({ cache: false });
+
     // Navigation Dropdown Button
     var $menuButton = $("#expand-menu-button");
     var $collapsable = $(".collapsable");
