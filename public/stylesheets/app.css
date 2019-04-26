@@ -54,6 +54,20 @@
     color: white;
 }
 
+.mb-1{
+    margin-bottom:0.2em;
+}
+.mb-2{
+    margin-bottom:0.6em;
+}
+
+.mt-3{
+    margin-top:1.6em;
+}
+.mt-4{
+    margin-top:2.8em;
+}
+
 .mobile-only {
     display: none;
 }
@@ -144,12 +158,30 @@ div.inverted.menu {
     position: relative;
 }
 
+.recipe-image-wrapper{
+    height:300px;
+    width:300px;
+    overflow: hidden;
+    text-indent: -10%;
+    border-radius: 4px;
+}
+
+.recipe-image-wrapper img{
+    height:100%;
+    position: relative;
+
+}
+
 #page-title {
     margin-bottom: 0.8em;
 }
 
 #recipe-title {
     margin-bottom: 0em;
+}
+
+#title{
+
 }
 
 div.recipe-image {

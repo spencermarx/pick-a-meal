@@ -1,10 +1,48 @@
 <%include ../partials/header%>
 
-    <main class="ui container">
-        <h1 id="page-title" class="ui left aligned grid huge header"> Create New Recipe</h1>
+<h1 id="page-title" class="ui left aligned grid huge header"> Create New Recipe</h1>
 
-        <form action="/recipes" method="POST" class="ui form" id="recipe-form">
-            <div class="ui two column stackable grid">
+<form action="/recipes" method="POST" class="ui form" id="recipe-form">
+    <!-- Cut from here -->
+    <div class="ui two column stackable grid">
+        <div class="column eight wide">
+            <div class="recipe-image-wrapper">
+                <img src="/images/image.png">
+                <!-- TODO: Add button for upload here -->
+            </div>
+        </div>
+        <div class="column eight wide">
+            <div class="field">
+                <!-- <label for="title">Recipe Name</label> -->
+                <input id="title" name="recipe[name]" type="text" placeholder="Enter Recipe Title">
+            </div>
+            <div class="stats mt-4">
+                <div class="field">
+                    <p for="portion" class="text-muted mb-2">Portion: <span id="portion-indicator">1</span></p>
+                    <div class="ui range" id="portion"></div>
+                </div>
+                <div class="field">
+                    <p for="health" class="text-muted mb-2">Health Score: <span id="health-indicator">5</span></p>
+                    <div class="ui range" id="health"></div>
+                </div>
+                <div class="field">
+                    <p for="taste" class="text-muted mb-2">Taste Score: <span id="taste-indicator">5</span></p>
+                    <div class="ui range" id="taste"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <!-- Cut to here -->
+    <button class="ui button" type="submit" id="recipe-submit">Submit</button>
+</form>
+
+<%include ../partials/footer%>
+
+<!-- <div class="ui two column stackable grid">
                 <div class="column ten wide">
                     <div class="field">
                         <label for="title">Recipe Name</label>
@@ -93,9 +131,4 @@
                         <textarea name="recipe[ingredients]" id="recipe[ingredients]" class="text-muted" placeholder="Enter each 'ingredient: quantity' on a new line"></textarea>
                     </div>
                 </div>
-            </div>
-            <button class="ui button" type="submit" id="recipe-submit">Submit</button>
-        </form>
-    </main>
-
-    <%include ../partials/footer%>
+            </div> -->
