@@ -1,40 +1,84 @@
 <%include ../partials/header%>
 
-<h1 id="page-title" class="ui left aligned grid huge header"> Create New Recipe</h1>
+<h1 id="page-title" class="ui mobile-text-centered grid huge header"> Create New Recipe</h1>
 
 <form action="/recipes" method="POST" class="ui form" id="recipe-form">
     <!-- Cut from here -->
     <div class="ui two column stackable grid">
-        <div class="column eight wide">
-            <div class="recipe-image-wrapper">
-                <img src="/images/image.png">
-                <!-- TODO: Add button for upload here -->
+        <div class="row">
+            <div class="column eight wide">
+                <div class="recipe-image-wrapper">
+                    <img src="/images/image.png">
+                    <!-- TODO: Add button for upload here -->
+                </div>
+            </div>
+            <div class="column eight wide">
+                <div class="field">
+                    <!-- <label for="title">Recipe Name</label> -->
+                    <input id="title" name="recipe[name]" type="text" placeholder="Enter Recipe Title">
+                </div>
+                <div class="stats mt-4">
+                    <div class="field">
+                        <p for="portion" class="text-muted mb-2">Portion: <span id="portion-indicator">1</span></p>
+                        <div class="ui range" id="portion"></div>
+                    </div>
+                    <div class="field">
+                        <p for="health" class="text-muted mb-2">Health Score: <span id="health-indicator">5</span></p>
+                        <div class="ui range" id="health"></div>
+                    </div>
+                    <div class="field">
+                        <p for="taste" class="text-muted mb-2">Taste Score: <span id="taste-indicator">5</span></p>
+                        <div class="ui range" id="taste"></div>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="column eight wide">
-            <div class="field">
-                <!-- <label for="title">Recipe Name</label> -->
-                <input id="title" name="recipe[name]" type="text" placeholder="Enter Recipe Title">
+        <div class="row">
+            <div class="column eight wide">
+                <table class="ui left aligned table">
+                    <thead>
+                        <tr>
+                            <th class="left aligned">Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-top">
+                            <td class="table-cell-left">
+                                <textarea id="directions"
+                                class="blank-input" name="recipe[directions]" type="text" placeholder="Enter preparation instructions"></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
-            <div class="stats mt-4">
-                <div class="field">
-                    <p for="portion" class="text-muted mb-2">Portion: <span id="portion-indicator">1</span></p>
-                    <div class="ui range" id="portion"></div>
-                </div>
-                <div class="field">
-                    <p for="health" class="text-muted mb-2">Health Score: <span id="health-indicator">5</span></p>
-                    <div class="ui range" id="health"></div>
-                </div>
-                <div class="field">
-                    <p for="taste" class="text-muted mb-2">Taste Score: <span id="taste-indicator">5</span></p>
-                    <div class="ui range" id="taste"></div>
-                </div>
+            <div class="column eight wide">
+                    <table class="ui left aligned unstackable table">
+                            <thead>
+                                <tr>
+                                    <th class="left aligned">Ingredients</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="table-row-top">
+                                    <td class="table-cell-left">
+                                        <input
+                                        class="blank-input ingredient" name="recipe[ingredients]" type="text" placeholder="Name">
+                                    </td>
+                                    <td class="table-cell-left table-cell-border-left">
+                                        <input
+                                        class="blank-input ingredient" name="recipe[ingredients]" type="text" placeholder="Name">
+                                    </td>
+                                    <td class="table-cell-left table-cell-border-left">
+                                       <button>+</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
             </div>
         </div>
     </div>
-
-
-
 
     <!-- Cut to here -->
     <button class="ui button" type="submit" id="recipe-submit">Submit</button>
