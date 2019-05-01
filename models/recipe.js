@@ -8,11 +8,14 @@ var recipeSchema = new mongoose.Schema({
         ref: "User"
     },
     image: String,
+    portion: Number,
+    health: Number,
+    taste: Number,
     ingredients: [{
         ingredientName: String,
         ingredientQuantity: String
     }],
-    process: String,
+    directions: String,
     likes: Number,
     lastUpdated: { type: Date, default: Date.now } //Says date and sets default value to now
 });
