@@ -268,7 +268,7 @@ table {
 }
 
 button.ui.button.form-master-button{
-    width:20%;
+    width: 200px;
 }
 
 #page-title {
@@ -516,6 +516,19 @@ span.date {
     }
     .collapsed{
         display:none!important;
+    }
+    #clear-button-wrapper{
+        text-align: center;
+        order:2;
+    }
+    #submit-button-wrapper{
+        text-align: center;
+        order:1;
+    }
+    #recipe-clear{
+        border:none;
+        border-radius: 0;
+        box-shadow:none;
     }
 }
 
