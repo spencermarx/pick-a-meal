@@ -8,6 +8,7 @@
 :root {
     --custom-darkest-blue: #4a87a5;
     --custom-dark-blue: #5a92af;
+    --custom-dark-blue-hover: #6dabca;
     --custom-blue: #86c1d4;
     --custom-light-blue: #9cd9de;
     --custom-green: #75c472;
@@ -26,6 +27,9 @@
     background: var(--custom-dark-blue) !important;
     color: white !important;
     transition: background(350ms);
+}
+.btn-custom-dark-blue:hover{
+    background: var(--custom-dark-blue-hover) !important;
 }
 
 .bg-custom-blue {
@@ -206,7 +210,7 @@ div.inverted.menu {
     font-size: 2em;
 }
 
-#directions, .ui.form input[type="text"].blank-input.ingredient{
+#directions, .ui.form input[type="text"].blank-input{
     border: none;
     /* border-radius: 0; */
     -webkit-appearance: none;
@@ -255,6 +259,18 @@ table {
     /* color:white; */
 }
 
+/* Form Buttons */
+#clear-button-wrapper{
+    text-align: right;
+}
+#submit-button-wrapper{
+    text-align: left;
+}
+
+button.ui.button.form-master-button{
+    width:20%;
+}
+
 #page-title {
     margin-bottom: 0.8em;
 }
@@ -263,6 +279,13 @@ table {
     margin-bottom: 0em;
 }
 
+::selection,
+input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected,
+input:-internal-autofill-previewed, input:-internal-autofill-selected, textarea:-internal-autofill-previewed, textarea:-internal-autofill-selected, select:-internal-autofill-previewed, select:-internal-autofill-selected {
+    background-color: white;
+    background-image: none !important;
+    color: var(--custom-muted);
+}
 
 
 div.recipe-image {
@@ -277,11 +300,6 @@ span.date {
     color: rgba(255, 255, 255, 0.5);
 }
 
-.ui.button[type="submit"] {
-    margin-top: 1.2em;
-    padding-left: 4em;
-    padding-right: 4em;
-}
 
 .recipe-divider {
     width: calc(100% - 2rem);
@@ -396,6 +414,23 @@ span.date {
     color: var(--custom-muted);
 }
 
+.ui.form .field input.range-indicator{
+    width: auto;
+    display: inline-block;
+    line-height: inherit;
+    border: none;
+    /* border-radius: 0; */
+    -webkit-appearance: none;
+    margin-top: 0;
+    resize: none;
+    min-height: 10%;
+    padding:0;
+    color: var(--custom-muted);
+}
+.ui.form .field input.range-indicator:focus{
+    color: var(--custom-muted);
+}
+
 #card-image {
     overflow: hidden;
     width: 100%;
@@ -463,11 +498,6 @@ span.date {
 }
 
 @media(max-width: 767px) {
-    .ui.button[type="submit"] {
-        margin: 2em auto;
-        padding-left: 4em;
-        padding-right: 4em;
-    }
     #navbar .item:not(.header) a{
         margin:auto;
     }

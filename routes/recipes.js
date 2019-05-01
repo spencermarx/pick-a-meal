@@ -73,12 +73,20 @@ router.get("/:id", isLoggedIn, (req, res) => {
 
 // CREATE
 router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
+
     cloudinary.uploader.upload(req.file.path, function (result) {
+        // Add Data
+
         // add cloudinary url for the image to the campground object under image property
         req.body.recipe.image = result.secure_url;
         console.log("Upload Succesful!", req.body.recipe.image);
 
-        // Add Data
+        // Structure Recipe Data
+        var recipeData = req.body.recipe;
+		console.log("RecipeData:", recipeData);
+
+
+
 
         // Create Recipe
 

@@ -369,7 +369,7 @@ $(document).ready(function () {
         start: 1,
         step: 0.5,
         onChange: function (value) {
-            $('#portion-indicator').html(value);
+            $('#portion-indicator').val(value);
         }
     });
     $('#health').range({
@@ -377,7 +377,7 @@ $(document).ready(function () {
         max: 10,
         start: 5,
         onChange: function (value) {
-            $('#health-indicator').html(value);
+            $('#health-indicator').val(value);
         }
     });
     $('#taste').range({
@@ -385,7 +385,7 @@ $(document).ready(function () {
         max: 10,
         start: 5,
         onChange: function (value) {
-            $('#taste-indicator').html(value);
+            $('#taste-indicator').val(value);
         }
     });
 

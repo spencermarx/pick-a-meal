@@ -9,14 +9,13 @@
             <div class="column eight wide">
 
                 <div class="recipe-image-wrapper">
-                    <!-- TODO: Add button for upload here -->
                     <div class="ui dimmer transition hidden image-upload-dimmer">
                         <div class="content">
                             <div class="center button-wrapper">
                                 <button class="ui inverted button image-upload-button">
                                     <i class="upload icon"></i>
-                                    <input type="file" id="image" name="image" accept="image/*" required>
-                                </but>
+                                    <input type="file" id="image" name="image" accept="image/*">
+                                    </but>
                             </div>
                         </div>
                     </div>
@@ -31,15 +30,21 @@
                 </div>
                 <div class="stats mt-4">
                     <div class="field">
-                        <p for="portion" class="text-muted mb-2">Portion: <span id="portion-indicator">1</span></p>
+                        <p for="portion" class="text-muted mb-2">Portion:
+                            <input type="text" id="portion-indicator" class="range-indicator" name="recipe[portion]" readonly>
+                        </p>
                         <div class="ui range" id="portion"></div>
                     </div>
                     <div class="field">
-                        <p for="health" class="text-muted mb-2">Health Score: <span id="health-indicator">5</span></p>
+                        <p for="health" class="text-muted mb-2">Health Score:
+                            <input type="text" id="health-indicator" class="range-indicator" name="recipe[health]" readonly>
+                        </p>
                         <div class="ui range" id="health"></div>
                     </div>
                     <div class="field">
-                        <p for="taste" class="text-muted mb-2">Taste Score: <span id="taste-indicator">5</span></p>
+                        <p for="taste" class="text-muted mb-2">Taste Score:
+                            <input type="text" id="taste-indicator" class="range-indicator" name="recipe[taste]" readonly>
+                        </p>
                         <div class="ui range" id="taste"></div>
                     </div>
                 </div>
@@ -79,8 +84,8 @@
                                     type="text" placeholder="Name">
                             </td>
                             <td class="table-cell-left table-cell-border-left">
-                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients[quantity]]"
-                                    type="text" placeholder="Qty">
+                                <input class="blank-input ingredient ingredient-data"
+                                    name="recipe[ingredients[quantity]]" type="text" placeholder="Qty">
                             </td>
                             <td class="table-cell-border-left add-button">
                                 <i class="plus icon"></i>
@@ -90,12 +95,16 @@
                 </table>
             </div>
         </div>
+        <div class="row">
+                <div class="column eight wide" id="clear-button-wrapper">
+                        <button class="ui basic button form-master-button" type="reset" id="recipe-clear">Clear</button>
+                </div>
+                <div class="column eight wide " id="submit-button-wrapper">
+                        <button class="ui btn-custom-dark-blue button form-master-button" type="submit" id="recipe-submit">Submit</button>
+                </div>
+            </div>
     </div>
-    <div class="row">
-        <div class="column eight wide"></div>
-        <div class="column eight wide"></div>
-        <!-- Cut to here -->
-        <button class="ui button" type="submit" id="recipe-submit">Submit</button>
+
 </form>
 
 <%include ../partials/footer%>
