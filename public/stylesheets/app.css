@@ -178,6 +178,20 @@ div.inverted.menu {
     position: relative;
 }
 
+.button-wrapper {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+  }
+
+  .button-wrapper input[type=file] {
+    font-size: 100px;
+    position: absolute;
+    left: 0;
+    top: 0;
+    opacity: 0;
+  }
+
 #title{
     border:none;
     border-bottom: 1.5px solid var(--custom-light-gray);
