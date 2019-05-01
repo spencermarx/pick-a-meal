@@ -13,6 +13,8 @@
     --custom-green: #75c472;
     --custom-purple: #ad8bcc;
     --custom-muted: rgb(148, 148, 148);
+    --custom-red: rgb(240, 140, 140);
+    --custom-light-gray: #EFEFEF;
     font-size: 14px;
 }
 
@@ -130,6 +132,8 @@ table {
     padding-bottom: 0em;
 }
 
+
+
 #login.ui.form input.login-form-input,
 #signup.ui.form input.signup-form-input {
     padding-left: 4em !important;
@@ -168,7 +172,23 @@ div.inverted.menu {
 
 .recipe-image-wrapper img{
     width:100%;
+    height:100%;
+    object-fit: cover;
     position: relative;
+}
+
+#title{
+    border:none;
+    border-bottom: 1.5px solid var(--custom-light-gray);
+    border-radius: 0;
+    /* border-radius: 0; */
+    -webkit-appearance: none;
+    margin-top:0;
+    margin-left: 0;
+    resize: none;
+    min-height: 10%;
+    padding-left: 0;
+    font-size: 2em;
 }
 
 #directions, .ui.form input[type="text"].blank-input.ingredient{
@@ -189,12 +209,36 @@ table {
 }
 
 .table-cell-border-left{
-    border-left: 1px solid red;
+    border-left: 1px solid var(--custom-light-gray);
 }
 .ui.table td.table-cell-left{
     padding-left:0;
 }
 
+.ui.table td.add-button{
+    text-align: center;
+    vertical-align: middle;
+    color: var(--custom-muted);
+    transition: 350ms;
+}
+
+.ui.table .add-button:hover{
+    background: var(--custom-light-gray);
+    /* color:white; */
+}
+
+.ui.table td.remove-button{
+    text-align: center;
+    vertical-align: middle;
+    color: var(--custom-red);
+    transition: 350ms;
+}
+
+.ui.table .remove-button:hover{
+    background: var(--custom-red);
+    color:white;
+    /* color:white; */
+}
 
 #page-title {
     margin-bottom: 0.8em;
@@ -204,9 +248,7 @@ table {
     margin-bottom: 0em;
 }
 
-#title{
 
-}
 
 div.recipe-image {
     object-fit: none;
@@ -335,6 +377,10 @@ span.date {
     color: #666666;
 }
 
+.ui.form input[type="text"].added-ingredient{
+    color: var(--custom-muted);
+}
+
 #card-image {
     overflow: hidden;
     width: 100%;
@@ -394,6 +440,10 @@ span.date {
 @media(max-width: 450px) {
     .recipe-image-wrapper{
         width:325px;
+        height: 100%;
+    }
+    .ui.huge.header{
+        padding:0 0.5em;
     }
 }
 
@@ -423,3 +473,10 @@ span.date {
         display:none!important;
     }
 }
+
+@media (min-width: 767px) and (max-width: 992px) {
+    .recipe-image-wrapper{
+        width:325px;
+    }
+}
+

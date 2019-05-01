@@ -386,39 +386,71 @@ $(document).ready(function () {
         }
     });
 
+
+    // Add Ingredient
+    // Process
+    // 1 - Press plus sign
+    //     • Save data under array of objects (Ingredients)
+    //     • Change plus to a trash can
+    //     • Make the input uneditable
+    //     • Create an empty row below
+    // 2  - Press trash sign
+    //     • Erase data from array of objects (Ingredients)
+    //     • Remove row
+    // 3 - Press Submit
+    //     • Package all inputs for submission
+    //     • Send HTPP Post
+
+
+    var $addIng = $(".add-button");
+    var $tableIng = $(".ingredients")[0];
+
+    $addIng.on("click.addEvent", function(){
+
+        // Save data under array of objects (Ingredients)
+        var $currentIng = $(this).parent();
+
+        // Create an empty row below
+        newIngredient($currentIng);
+
+        // Change button
+        changeAddButton($currentIng);
+
+        // Make the input uneditable
+        inputDisabled($currentIng);
+    });
+
+    var newIngredient = function($currentIng){
+        var $newRow = $currentIng.clone(true, true);
+        $newRow.find("input").val("");
+        // console.log($rowIng[0]);
+        $tableIng.append($newRow[0]);
+        // $rowIng.clone().appendTo($tableIng) ;
+    };
+
+    var changeAddButton = function($currentIng){
+        // TODO: Remove Saved Data
+
+        // Change plus to a trash can
+        $currentIng.find("i").removeClass("plus").addClass("trash");
+
+        // Change Styling
+        var $currentAddBtn = $currentIng.find(".add-button");
+        $currentAddBtn.removeClass("add-button");
+        $currentAddBtn.addClass("remove-button");
+
+        // Turn off previous event listener
+        $currentAddBtn.off("click.addEvent");
+        $currentAddBtn.on("click.removeEvent", function(){
+            var $currentIng = $(this).parent();
+            $currentIng.remove();
+        });
+
+    };
+
+    var inputDisabled = function($currentIng){
+        console.log($currentIng.find("input"));
+        $currentIng.find("input").prop("readonly", true);
+        $currentIng.find("input").addClass("added-ingredient");
+    };
 });
-
-
-
-// $(document).ready(function() {
-//     var url = $(location).attr('href');
-//     console.log('TCL: url', url);
-//     var initialCol = $(".column.four.wide.clonable");
-
-//     if (url == "http://localhost:8080/recipes") {
-//         for (var i = 0; i < 10; i++) {
-//             $.getJSON('https://www.themealdb.com/api/json/v1/1/random.php')
-//                 .done(function(data) {
-//                     console.log('TCL: data', data);
-//                     return parseRecipeData(data, initialCol, createCard);
-//                 })
-//                 .fail(function(err) {
-//                     console.log("Error:", err);
-//                 });
-//         }
-//     }
-// });
-
-// var createCard = function(recipe, initialCol) {
-//     var newCard = initialCol.clone()
-//     initialCol.after(newCard);
-// }
-
-// var parseRecipeData = function(data, initialCol, callback) {
-//     var meal = data.meals[0];
-//     var recipe = {
-//         name: meal.strMeal,
-//         image: meal.strMealThumb,
-//     };
-//     return callback(recipe, initialCol);
-// };
