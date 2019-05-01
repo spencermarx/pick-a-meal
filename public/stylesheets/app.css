@@ -168,6 +168,7 @@ div.inverted.menu {
     overflow: hidden;
     /* text-indent: 3%; */
     border-radius: 4px;
+    position: relative;
 }
 
 .recipe-image-wrapper img{

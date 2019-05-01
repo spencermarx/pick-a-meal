@@ -7,15 +7,26 @@
     <div class="ui two column stackable grid">
         <div class="row">
             <div class="column eight wide">
+
                 <div class="recipe-image-wrapper">
-                    <img src="/images/image.png">
                     <!-- TODO: Add button for upload here -->
+                    <div class="ui dimmer transition hidden image-upload-dimmer">
+                        <div class="content">
+                            <div class="center">
+                                <div class="ui inverted button image-upload-button">
+                                    <i class="upload icon"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="/images/image.png">
                 </div>
             </div>
             <div class="column eight wide">
                 <div class="field">
                     <!-- <label for="title">Recipe Name</label> -->
-                    <input id="title" class=" blank-input text-muted" name="recipe[name]" type="text" placeholder="Enter Recipe Title">
+                    <input id="title" class=" blank-input text-muted" name="recipe[name]" type="text"
+                        placeholder="Enter Recipe Title">
                 </div>
                 <div class="stats mt-4">
                     <div class="field">
@@ -44,46 +55,46 @@
                     <tbody>
                         <tr class="table-row-top">
                             <td class="table-cell-left">
-                                <textarea id="directions"
-                                class="blank-input" name="recipe[directions]" type="text" placeholder="Enter preparation instructions"></textarea>
+                                <textarea id="directions" class="blank-input" name="recipe[directions]" type="text"
+                                    placeholder="Enter preparation instructions"></textarea>
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
             <div class="column eight wide">
-                    <table class="ui left aligned unstackable table">
-                            <thead>
-                                <tr>
-                                    <th class="left aligned">Ingredients</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody class="ingredients">
-                                <tr class="ingredient-row">
-                                    <td class="table-cell-left">
-                                        <input
-                                        class="blank-input ingredient ingredient-data" name="recipe[ingredients]" type="text" placeholder="Name">
-                                    </td>
-                                    <td class="table-cell-left table-cell-border-left">
-                                        <input
-                                        class="blank-input ingredient ingredient-data" name="recipe[ingredients]" type="text" placeholder="Qty">
-                                    </td>
-                                    <td class="table-cell-border-left add-button">
-                                    <i class="plus icon"></i>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                <table class="ui left aligned unstackable table">
+                    <thead>
+                        <tr>
+                            <th class="left aligned">Ingredients</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="ingredients">
+                        <tr class="ingredient-row">
+                            <td class="table-cell-left">
+                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients]"
+                                    type="text" placeholder="Name">
+                            </td>
+                            <td class="table-cell-left table-cell-border-left">
+                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients]"
+                                    type="text" placeholder="Qty">
+                            </td>
+                            <td class="table-cell-border-left add-button">
+                                <i class="plus icon"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
     <div class="row">
-            <div class="column eight wide"></div>
-            <div class="column eight wide"></div>
-    <!-- Cut to here -->
-    <button class="ui button" type="submit" id="recipe-submit">Submit</button>
+        <div class="column eight wide"></div>
+        <div class="column eight wide"></div>
+        <!-- Cut to here -->
+        <button class="ui button" type="submit" id="recipe-submit">Submit</button>
 </form>
 
 <%include ../partials/footer%>

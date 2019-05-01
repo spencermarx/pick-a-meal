@@ -105,6 +105,9 @@ $(document).ready(function () {
         return id;
     };
 
+    // Add Image Dimmer
+    $('.ui.dimmer').dimmer({on: 'hover'});
+
     /*!
      * # Range slider for Semantic UI.
      *
@@ -387,6 +390,7 @@ $(document).ready(function () {
     });
 
 
+
     // Add Ingredient
     // Process
     // 1 - Press plus sign
@@ -429,7 +433,7 @@ $(document).ready(function () {
     };
 
     var changeAddButton = function($currentIng){
-        // TODO: Remove Saved Data
+        // TODO: Remove Saved Data?
 
         // Change plus to a trash can
         $currentIng.find("i").removeClass("plus").addClass("trash");
