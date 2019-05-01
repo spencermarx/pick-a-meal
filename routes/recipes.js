@@ -82,8 +82,28 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
         console.log("Upload Succesful!", req.body.recipe.image);
 
         // Structure Recipe Data
+
         var recipeData = req.body.recipe;
-		console.log("RecipeData:", recipeData);
+        var reqIngredients = req.body.ingredient;
+
+        var ingredients = [];
+
+        // console.log("Ingredients", reqIngredients);
+
+        for (var i = 0; i < reqIngredients.name.length; i++) {
+            var ingredientObj = {
+                name: reqIngredients.name[i],
+                quantity: reqIngredients.quantity[i]
+            };
+            ingredients.push(ingredientObj);
+        }
+
+        recipeData.ingredients = ingredients;
+        console.log("Recipe Data:", recipeData);
+
+
+
+
 
 
 
@@ -97,47 +117,47 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
 
 
         // var recipe = req.sanitize(req.body.recipe);
-    // req.body.recipe.addedBy = req.user._id;
+        // req.body.recipe.addedBy = req.user._id;
 
-    // if (req.body.recipe.ingredients) {
-    //     var ingredientsBody = req.sanitize(req.body.recipe.ingredients);
-    //     var ingredientsArray = ingredientsBody.split("\r\n");
-    //     var ingredientsData = [];
+        // if (req.body.recipe.ingredients) {
+        //     var ingredientsBody = req.sanitize(req.body.recipe.ingredients);
+        //     var ingredientsArray = ingredientsBody.split("\r\n");
+        //     var ingredientsData = [];
 
-    //     ingredientsArray.forEach((ingredient) => {
-    //         var ingredientSplit = ingredient.split(": ");
-    //         var ingredientName = ingredientSplit[0];
-    //         var ingredientQuantity = ingredientSplit[1];
-    //         var newIngredient = {
-    //             ingredientName: ingredientName,
-    //             ingredientQuantity: ingredientQuantity
-    //         };
+        //     ingredientsArray.forEach((ingredient) => {
+        //         var ingredientSplit = ingredient.split(": ");
+        //         var ingredientName = ingredientSplit[0];
+        //         var ingredientQuantity = ingredientSplit[1];
+        //         var newIngredient = {
+        //             ingredientName: ingredientName,
+        //             ingredientQuantity: ingredientQuantity
+        //         };
 
-    //         ingredientsData.push(newIngredient);
+        //         ingredientsData.push(newIngredient);
 
-    //     });
-    //     req.body.recipe.ingredients = ingredientsData;
-    // } else {
-    //     req.body.recipe.ingredients = [];
-    // }
+        //     });
+        //     req.body.recipe.ingredients = ingredientsData;
+        // } else {
+        //     req.body.recipe.ingredients = [];
+        // }
 
-    // var location = req.body.recipe.isRestaurant.toLowerCase();
-    // // console.log(location);
+        // var location = req.body.recipe.isRestaurant.toLowerCase();
+        // // console.log(location);
 
-    // if (location === "restaurant") {
-    //     req.body.recipe.isRestaurant = true;
-    // } else {
-    //     req.body.recipe.isRestaurant = false;
-    // }
+        // if (location === "restaurant") {
+        //     req.body.recipe.isRestaurant = true;
+        // } else {
+        //     req.body.recipe.isRestaurant = false;
+        // }
 
-    // Recipe.create(req.body.recipe, (err, recipe) => {
-    //     if (err) {
-    //         console.log(err);
-    //         res.render('recipes/new');
-    //     } else {
-    //         res.redirect('/recipes');
-    //     }
-    // });
+        // Recipe.create(req.body.recipe, (err, recipe) => {
+        //     if (err) {
+        //         console.log(err);
+        //         res.render('recipes/new');
+        //     } else {
+        //         res.redirect('/recipes');
+        //     }
+        // });
     });
 
 

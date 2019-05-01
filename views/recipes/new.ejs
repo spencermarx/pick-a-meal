@@ -80,12 +80,12 @@
                     <tbody class="ingredients">
                         <tr class="ingredient-row">
                             <td class="table-cell-left">
-                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients[name]]"
+                                <input class="blank-input ingredient ingredient-data" name="ingredient[name]"
                                     type="text" placeholder="Name">
                             </td>
                             <td class="table-cell-left table-cell-border-left">
                                 <input class="blank-input ingredient ingredient-data"
-                                    name="recipe[ingredients[quantity]]" type="text" placeholder="Qty">
+                                    name="ingredient[quantity]" type="text" placeholder="Qty">
                             </td>
                             <td class="table-cell-border-left add-button">
                                 <i class="plus icon"></i>
@@ -108,94 +108,3 @@
 </form>
 
 <%include ../partials/footer%>
-
-<!-- <div class="ui two column stackable grid">
-                <div class="column ten wide">
-                    <div class="field">
-                        <label for="title">Recipe Name</label>
-                        <input id="title" name="recipe[name]" type="text" placeholder="Milanesa">
-                    </div>
-                </div>
-                <div class="column six wide">
-                    <div class="field">
-                        <label>Home or Restaurant</label>
-                        <div class="ui dropdown selection">
-                            <input type="hidden" name="recipe[isRestaurant]">
-                            <div class="default text">Location</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <div class="item" data-value="home">Home</div>
-                                <div class="item" data-value="restaurant">Restaurant</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui one column stackable grid">
-                <div class="column sixteen wide">
-                    <div class="field">
-                        <label for="image">Image URL</label>
-                        <input id="image" name="recipe[image]" type="text" placeholder="URL for image">
-                    </div>
-                </div>
-            </div>
-            <div class="ui three column stackable grid" id="recipe-stats">
-                <div class="column four wide">
-                    <div class="field">
-                        <label for="portion">Portion</label>
-                        <input id="portion" name="recipe[portion]" type="text" placeholder="2">
-                    </div>
-                </div>
-                <div class="column six wide">
-                    <div class="field">
-                        <label>Health</label>
-                        <div class="ui dropdown selection">
-                            <input type="hidden" name="recipe[health]">
-                            <div class="default text">Score</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <div class="item" data-value="1">1</div>
-                                <div class="item" data-value="2">2</div>
-                                <div class="item" data-value="3">3</div>
-                                <div class="item" data-value="4">4</div>
-                                <div class="item" data-value="5">5</div>
-                                <div class="item" data-value="6">6</div>
-                                <div class="item" data-value="7">7</div>
-                                <div class="item" data-value="8">8</div>
-                                <div class="item" data-value="9">9</div>
-                                <div class="item" data-value="10">10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column six wide">
-                    <div class="field">
-                        <label>Taste</label>
-                        <div class="ui dropdown selection">
-                            <input type="hidden" name="recipe[taste]">
-                            <div class="default text">Score</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <div class="item" data-value="1">1</div>
-                                <div class="item" data-value="2">2</div>
-                                <div class="item" data-value="3">3</div>
-                                <div class="item" data-value="4">4</div>
-                                <div class="item" data-value="5">5</div>
-                                <div class="item" data-value="6">6</div>
-                                <div class="item" data-value="7">7</div>
-                                <div class="item" data-value="8">8</div>
-                                <div class="item" data-value="9">9</div>
-                                <div class="item" data-value="10">10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui one column stackable grid">
-                <div class="column sixteen wide">
-                    <div class="field">
-                        <label for="image">Ingredients</label>
-                        <textarea name="recipe[ingredients]" id="recipe[ingredients]" class="text-muted" placeholder="Enter each 'ingredient: quantity' on a new line"></textarea>
-                    </div>
-                </div>
-            </div> -->
