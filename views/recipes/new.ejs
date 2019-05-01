@@ -2,7 +2,7 @@
 
 <h1 id="page-title" class="ui huge header"> Create New Recipe</h1>
 
-<form action="/recipes" method="POST" class="ui form" id="recipe-form">
+<form action="/recipes" method="POST" class="ui form" id="recipe-form" enctype="multipart/form-data">
     <!-- Cut from here -->
     <div class="ui two column stackable grid">
         <div class="row">
@@ -75,11 +75,11 @@
                     <tbody class="ingredients">
                         <tr class="ingredient-row">
                             <td class="table-cell-left">
-                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients]"
+                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients[name]]"
                                     type="text" placeholder="Name">
                             </td>
                             <td class="table-cell-left table-cell-border-left">
-                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients]"
+                                <input class="blank-input ingredient ingredient-data" name="recipe[ingredients[quantity]]"
                                     type="text" placeholder="Qty">
                             </td>
                             <td class="table-cell-border-left add-button">
