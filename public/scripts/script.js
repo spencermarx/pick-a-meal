@@ -108,6 +108,23 @@ $(document).ready(function () {
     // Add Image Dimmer
     $('.ui.dimmer').dimmer({on: 'hover'});
 
+    // Preview Image
+    function readURL(input) {
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+
+            reader.onload = function (e) {
+                $('#preview-image').attr('src', e.target.result);
+            }
+
+            reader.readAsDataURL(input.files[0]);
+        }
+    }
+
+    $("#image").change(function(){
+        readURL(this);
+    });
+
     /*!
      * # Range slider for Semantic UI.
      *
