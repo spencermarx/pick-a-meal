@@ -1,116 +1,108 @@
 <%include ../partials/header%>
 
-
-    <div class="ui one column grid" id="recipe">
-        <div class="ui raised  card centered fourteen wide column">
-            <!-- IMAGE -->
-            <div class="image" id="large-card-image">
-                <img src="<%=recipe.image%>" class="image" id="large-recipe-image">
+<div class="ui two column stackable grid px-page">
+    <div class="row">
+        <div class="column eight wide">
+            <div class="recipe-image-wrapper">
+                <img id="image" src="<%=recipe.image%>">
             </div>
-            <!-- Content -->
-            <div class="ui content two column grid">
-                <div class="row" id="header-info">
-                    <div class="column ten wide" id="left-header">
-                        <h1 id="recipe-title" class="ui left aligned huge header">
-                            <%=recipe.name%>
-                        </h1>
-                        <% if(recipe.addedBy){%>
-                        <h3 class="text-muted bottom" id="owner">
-                            Added by:
-                            <span class=" ">
-                            <em>
-                                <%=recipe.addedBy.username%></em></span>
-                        </h3>
+        </div>
+        <div class="column eight wide">
+            <div class="row mt-3">
+                <div class="recipe-title text-muted text-bold" id="title"><%=recipe.name%></div>
+                <a class="edit-recipe" href="/<%=recipe._id%>/edit">
+                    <i class="pencil icon edit-recipe-icon text-muted"></i>
+                </a>
+            </div>
+            <div class="row">
+                <div class="added-by mt-3 text-muted">
+                    Added by: <strong><% if(recipe.addedBy){%>
+                        <%=recipe.addedBy.username%>
                         <%} else {%>
-                        <h3 class="text-muted bottom" id="owner">
-                            Added by:
-                            <span class=" "><em>The Meal DB</em></span>
-                        </h3>
+                        Angie Marx
+                        <%}%></strong>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="portion rounded-outline">
+                    Makes <%=recipe.portion%> <%if(recipe.portion>1){%>
+                        Portions
+                        <%} else {%>
+                        Portion
                         <%}%>
-                    </div>
-
-                    <div class="column six wide" id="right-header">
-                        <div class="ui labeled top-right button" tabindex="0">
-                        <% if (!liked){%>
-                            <div class="ui mini inverted red button" id="like-button">
-                                <i class="heart icon"></i>Like
-                            </div>
-                            <a id="like-counter" class="ui basic  red left pointing label">
-                            <% if(!recipe.likes || recipe.likes <1){%>
-                            0
-                            <%} else {%>
-                            <%=recipe.likes%>
-                            <%}%>
-                            </a>
-                            <%} else {%>
-                            <div class="ui mini red button" id="like-button">
-                                <i class="heart icon"></i> Liked
-                            </div>
-                            <a id="like-counter" class="ui basic red left pointing label">
-                            <% if(!recipe.likes || recipe.likes <1){%>
-                            0
-                            <%} else {%>
-                            <%=recipe.likes%>
-                            <%}%>
-                            </a>
-                            <%}%>
-                        </div>
-                        <h5 class="ui rounded right aligned" id="last-updated">
-                            Last Updated:
-                            <span class="text-muted">
-                            <%=recipe.lastUpdated.toDateString()%></span>
-                        </h5>
-                    </div>
                 </div>
-                <hr class="recipe-divider ">
-                <div class="row ui stackable" id="recipe-details ">
-                    <div class="ten wide column ">
-                        <div class="px-0 " id="recipe-description ">
-                            <h3>Instructions</h3>
-                            <p>
-                                <%= recipe.directions%>
-                            </p>
-                        </div>
-                    </div>
-                    <div class="six wide column ">
-                        <div class="ingredients ">
-                            <table class="ui very basic unstackable table ">
-                                <thead>
-                                    <tr>
-                                        <th>Ingredient</th>
-                                        <th>Quantity</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <% recipe.ingredients.forEach((ingredient)=>{ %>
-                                        <tr>
-                                            <td>
-                                                <%=ingredient.ingredientName%>
-                                            </td>
-                                            <td>
-                                                <%=ingredient.ingredientQuantity%>
-                                            </td>
-                                        </tr>
-                                        <%});%>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                <div class="ui button
+                    <% if (added || owner){%>
+                        btn-custom-gray
+                        <%} else if (!added && !owner){%>
+                        btn-custom-dark-blue
+                        <%}%>" id="add-button">
+                        <% if (owner){%>
+                        My Recipe
+                        <%} else if(!owner && added) {%>
+                        Saved
+                        <%} else {%>
+                        Save
+                        <%}%>
                 </div>
-                <!-- <div class="actions ">
-                <a href="/recipes/<%=recipe._id%>/edit" class="ui orange basic button margin-top action-button" id="button-edit">Edit</a>
-                            <form action="/recipes/<%= recipe._id %>?_method=DELETE" method="POST">
-                                <button id="button-delete" class="ui red basic button margin-top action-button">Delete</button>
-                            </form>
-                    </div> -->
+            </div>
+            <div class="row ui three column unstackable grid mt-4">
+                <div class="column center aligned right-border">
+                    <h3><%=(recipe.taste+recipe.health)/2%>/10</h3>
+                        <h3 class="text-thin  text-muted">Average</h3>
+                </div>
+                <div class="column center aligned right-border">
+                    <h3><%=recipe.taste%>/10</h3>
+                    <h3 class="text-thin  text-muted">Taste</h3>
+                </div>
+                <div class="column center aligned">
+                    <h3><%=recipe.health%>/10</h3>
+                    <h3 class="text-thin  text-muted">Health</h3>
+                </div>
             </div>
         </div>
     </div>
-
-    <div class="row">
-
+</div>
+<div class="row ui two column stackable grid mt-4 px-page">
+    <div class="column eight wide">
+        <table class="ui left aligned table">
+            <thead>
+                <tr>
+                    <th class="left aligned">Directions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="table-row-top">
+                    <td class="table-cell-left">
+                        <p class="table-text text-muted"><%=recipe.directions%></p>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
+    <div class="column eight wide">
+        <table class="ui left aligned unstackable table">
+            <thead>
+                <tr>
+                    <th class="left aligned">Ingredients</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody class="ingredients">
+                <% recipe.ingredients.forEach(function(ingredient){%>
+                <tr class="ingredient-row">
+                    <td class="table-cell-left">
+                        <p class="table-text text-muted"><%=ingredient.ingredientName%></p>
+                    </td>
+                    <td class="table-cell-left table-cell-border-left">
+                        <p class="table-text text-muted"><%=ingredient.ingredientQuantity%></p>
+                    </td>
+                </tr>
+                <%})%>
+            </tbody>
+        </table>
     </div>
+</div>
 
-
-    <%include ../partials/footer%>
+<%include ../partials/footer%>
