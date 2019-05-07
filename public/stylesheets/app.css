@@ -75,6 +75,9 @@
 .text-bold {
     font-weight: bold;
 }
+.text-thin {
+    font-weight: lighter;
+}
 
 .mb-1 {
     margin-bottom: 0.2em;
@@ -84,14 +87,17 @@
     margin-bottom: 0.6em;
 }
 
-.mt-3 {
+.mt-3, .ui.grid.mt-3 {
     margin-top: 1.6em;
 }
 
-.mt-4 {
+.mt-4, .ui.grid.mt-4 {
     margin-top: 2.8em;
 }
 
+.right-border{
+    border-right: solid 1px var(--custom-muted-hover);
+}
 .mobile-only {
     display: none;
 }
@@ -282,7 +288,8 @@ div.inverted.menu {
     transition: 200ms;
 }
 .edit-recipe-icon:hover {
-    color: var(--custom-blue);
+    color: var(--custom-dark-blue-hover);
+    transform: scale(1.08);
 }
 
 /* .portion{
