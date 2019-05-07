@@ -72,13 +72,13 @@ $(document).ready(function () {
             })
             .done(function (response) {
                 var action = response.action;
-                if (action === "add") {
-                    $addButton.text("Added");
+                if (action === "save") {
+                    $addButton.text("Saved");
                     $addButton.toggleClass("btn-custom-gray");
                     $addButton.toggleClass("btn-custom-dark-blue");
                     // $likeBtn.html("<i class='heart icon'></i>Liked");
                 } else if (action === "remove") {
-                    $addButton.text("Add");
+                    $addButton.text("Save");
                     $addButton.toggleClass("btn-custom-gray");
                     $addButton.toggleClass("btn-custom-dark-blue");
                     // $likeBtn.html("<i class='heart icon'></i>Like");

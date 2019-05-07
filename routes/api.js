@@ -78,7 +78,7 @@ router.post("/add/:id", middleware.isLoggedIn, function(req, res) {
                         foundUser.save();
                         recipe.save().then(function() {
                             res.status(200).send({
-                                action: 'add'
+                                action: 'save'
                             });
                         }).catch(function(err) {
                             console.log("Error saving like ->", err);
