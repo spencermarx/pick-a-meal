@@ -1,6 +1,6 @@
 <%include ../partials/header%>
 
-<div class="ui two column stackable grid">
+<div class="ui two column stackable grid px-page">
     <div class="row">
         <div class="column eight wide">
             <div class="recipe-image-wrapper">
@@ -34,7 +34,7 @@
                 <div class="ui button
                     <% if (added || owner){%>
                         btn-custom-gray
-                    <%} else if (!added && !owner){%>
+                        <%} else if (!added && !owner){%>
                         btn-custom-dark-blue
                         <%}%>" id="add-button">
                         <% if (owner){%>
@@ -49,7 +49,7 @@
             <div class="row ui three column unstackable grid mt-4">
                 <div class="column center aligned right-border">
                     <h3><%=(recipe.taste+recipe.health)/2%>/10</h3>
-                    <h3 class="text-thin  text-muted">Average</h3>
+                        <h3 class="text-thin  text-muted">Average</h3>
                 </div>
                 <div class="column center aligned right-border">
                     <h3><%=recipe.taste%>/10</h3>
@@ -63,7 +63,7 @@
         </div>
     </div>
 </div>
-<div class="row">
+<div class="row ui two column stackable grid mt-4 px-page">
     <div class="column eight wide">
         <table class="ui left aligned table">
             <thead>
@@ -74,8 +74,7 @@
             <tbody>
                 <tr class="table-row-top">
                     <td class="table-cell-left">
-                        <textarea id="directions" class="blank-input" name="recipe[directions]" type="text"
-                            placeholder="Enter preparation instructions"></textarea>
+                        <p class="table-text text-muted"><%=recipe.directions%></p>
                     </td>
                 </tr>
             </tbody>
@@ -91,34 +90,19 @@
                 </tr>
             </thead>
             <tbody class="ingredients">
+                <% recipe.ingredients.forEach(function(ingredient){%>
                 <tr class="ingredient-row">
                     <td class="table-cell-left">
-                        <input class="blank-input ingredient ingredient-data" name="ingredient[name]" type="text"
-                            placeholder="Name">
+                        <p class="table-text text-muted"><%=ingredient.ingredientName%></p>
                     </td>
                     <td class="table-cell-left table-cell-border-left">
-                        <input class="blank-input ingredient ingredient-data" name="ingredient[quantity]" type="text"
-                            placeholder="Qty">
-                    </td>
-                    <td class="table-cell-border-left add-button">
-                        <i class="plus icon"></i>
+                        <p class="table-text text-muted"><%=ingredient.ingredientQuantity%></p>
                     </td>
                 </tr>
+                <%})%>
             </tbody>
         </table>
     </div>
 </div>
-<div class="row">
-    <div class="column eight wide" id="clear-button-wrapper">
-        <button class="ui basic button form-master-button" type="reset" id="recipe-clear">Clear</button>
-    </div>
-    <div class="column eight wide " id="submit-button-wrapper">
-        <button class="ui btn-custom-dark-blue button form-master-button" type="submit"
-            id="recipe-submit">Submit</button>
-    </div>
-</div>
-</div>
-
-
 
 <%include ../partials/footer%>

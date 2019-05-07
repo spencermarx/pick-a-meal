@@ -79,6 +79,10 @@
     font-weight: lighter;
 }
 
+.px-page, .ui.grid.px-page {
+    padding: 1rem 1rem !important;
+}
+
 .mb-1 {
     margin-bottom: 0.2em;
 }
@@ -290,6 +294,11 @@ div.inverted.menu {
 .edit-recipe-icon:hover {
     color: var(--custom-dark-blue-hover);
     transform: scale(1.08);
+}
+
+.table-text{
+    padding: 0.67857143em 1em;
+    font-weight: normal;
 }
 
 /* .portion{
@@ -595,7 +604,7 @@ span.date {
 
 @media(max-width: 450px) {
     .recipe-image-wrapper {
-        width: 325px;
+        width: 100%;
         height: 100%;
     }
 
