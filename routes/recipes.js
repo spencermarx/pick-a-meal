@@ -2,7 +2,7 @@ var express = require("express");
 var router = express.Router(); //({ mergeParams: true });
 var User = require("../models/user");
 var Recipe = require("../models/recipe");
-var likeTracking = require("../public/scripts/likeTracking");
+var utilities = require("../public/scripts/utilities");
 var multer = require('multer');
 var cloudinary = require('cloudinary');
 
@@ -54,15 +54,38 @@ router.get("/:id", isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            User.findById(req.user._id).populate("likedMeals").exec(function (err, user) {
-                //console.log("RecipeID ->", req.params.id);
-                //console.log("LikedMeals ->", user.likedMeals);
-                var liked = likeTracking.checkDuplicates(req.params.id, user.likedMeals); // true if liked
-                // console.log("Liked Status:", liked);
-                // console.log("Liked Status:", typeof liked);
+            User.findById(req.user._id).populate("addedMeals").exec(function (err, user) {
+
+
+                // console.log("Recipe->", foundRecipe.addedBy._id, typeof foundRecipe.addedBy._id);
+                // console.log("User->", user._id, typeof user._id);
+                // console.log("User ->", user);
+                var isOwner = utilities.userIsOwner(user,foundRecipe);
+				// console.log("TCL: isOwner", isOwner);
+                var hasAdded = utilities.userHasAddedMeal(user, foundRecipe);
+                // console.log("TCL: hasAdded ->", hasAdded);
+                var owner = Boolean;
+                var added = Boolean;
+
+
+
+                if (isOwner) {
+                    added = "owner";
+                    owner = true;
+                    added = true;
+                } else if (!isOwner && hasAdded ) {
+                    owner = false;
+                    added = true;
+                } else {
+                    owner = false;
+                    added = false;
+                }
+
+                // console.log("Added Status:", added);
 
                 res.render("recipes/show", {
-                    liked: liked,
+                    added: added,
+                    owner: owner,
                     recipe: foundRecipe
                 });
             });
@@ -109,6 +132,15 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
             } else {
                 res.redirect('/recipes');
                 console.log("Created Recipe:", recipe);
+                User.findById(req.user._id).exec(function (err, user) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        user.addedMeals.push(recipe);
+                        user.save();
+                        console.log(User + " added " + recipe);
+                    }
+                });
             }
         });
     });
