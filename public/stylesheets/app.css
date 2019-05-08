@@ -325,6 +325,7 @@ div.inverted.menu {
 
 .ui.card.recipe-card{
     transition: 300ms ease-in-out;
+    cursor: pointer;
 }
 .ui.card.recipe-card:hover{
     transform: scale(1.05);
