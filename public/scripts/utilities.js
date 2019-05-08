@@ -30,8 +30,11 @@ utilities.removeRecipe = async function(foundUser, nameKey, myArray) {
     await foundUser.save();
 }
 
-utilities.userIsOwner = function(user, foundRecipe){
+utilities.userIsOwnerByUser = function(user, foundRecipe){
     return foundRecipe.addedBy._id.equals(user._id);
+};
+utilities.userIsOwnerByID = function(userId, foundRecipe){
+    return foundRecipe.addedBy._id.equals(userId);
 };
 
 utilities.userHasAddedMeal = function(user, foundRecipe) {

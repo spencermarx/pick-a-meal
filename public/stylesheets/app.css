@@ -343,6 +343,14 @@ div.inverted.menu {
 .ui.card.recipe-card:hover{
     transform: scale(1.05);
 }
+.ui.cards > .card .meta.portions {
+    top:-2px;
+    position: relative;
+}
+.ui.cards > .card .meta > .icon {
+    font-size: 1rem;
+    margin-right: 8px;
+}
 
 
 /* END */
@@ -668,10 +676,6 @@ span.date {
         width: 100%;
         height: 100%;
     }
-
-    .ui.huge.header {
-        padding: 0 0.5em;
-    }
 }
 
 @media(max-width: 767px) {
@@ -714,6 +718,10 @@ span.date {
         border: none;
         border-radius: 0;
         box-shadow: none;
+    }
+
+    .ui.stackable.cards > .card {
+        margin: 1.8em 1em;
     }
 }
 
