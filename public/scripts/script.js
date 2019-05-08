@@ -50,18 +50,20 @@ $(document).ready(function () {
         }
     });
 
-    var $likeBtn = $("#like-button");
-    var $likeCounter = $("#like-counter");
+    var $addButton = $("#add-button");
 
-    $likeBtn.on("click", function () {
-        var url = likeUrlAPI();
+    $addButton.on("click", function () {
+        // alert("Clicked!");
+
+        // Send request
+        var urlID = getUrlID();
 
         $.ajax({
                 method: 'post',
-                url: '/api/liked/' + url,
+                url: '/api/add/' + urlID,
                 success: function (msg, status, jqXHR) {
                     var jsonUpdatedData = msg;
-                    // console.log(jsonUpdatedData);
+                    console.log(jsonUpdatedData);
                 },
                 error: function () {
                     console.log('Error!!');
@@ -70,35 +72,70 @@ $(document).ready(function () {
             })
             .done(function (response) {
                 var action = response.action;
-                if (action === "like") {
-                    $likeCounter.text(changeLikeNumber("like"));
-                    $likeBtn.toggleClass("inverted");
-                    $likeBtn.html("<i class='heart icon'></i>Liked");
-                } else if (action === "unlike") {
-                    $likeCounter.text(changeLikeNumber("unlike"));
-                    $likeBtn.toggleClass("inverted");
-                    $likeBtn.html("<i class='heart icon'></i>Like");
+                if (action === "save") {
+                    $addButton.text("Saved");
+                    $addButton.toggleClass("btn-custom-gray");
+                    $addButton.toggleClass("btn-custom-dark-blue");
+                    // $likeBtn.html("<i class='heart icon'></i>Liked");
+                } else if (action === "remove") {
+                    $addButton.text("Save");
+                    $addButton.toggleClass("btn-custom-gray");
+                    $addButton.toggleClass("btn-custom-dark-blue");
+                    // $likeBtn.html("<i class='heart icon'></i>Like");
                 }
             });
     });
 
+
+    // var $likeBtn = $("#like-button");
+    // var $likeCounter = $("#like-counter");
+
+    // $likeBtn.on("click", function () {
+    //     var url = likeUrlAPI();
+
+    //     $.ajax({
+    //             method: 'post',
+    //             url: '/api/liked/' + url,
+    //             success: function (msg, status, jqXHR) {
+    //                 var jsonUpdatedData = msg;
+    //                 // console.log(jsonUpdatedData);
+    //             },
+    //             error: function () {
+    //                 console.log('Error!!');
+    //             },
+    //             dataType: "json"
+    //         })
+    //         .done(function (response) {
+    //             var action = response.action;
+    //             if (action === "like") {
+    //                 $likeCounter.text(changeLikeNumber("like"));
+    //                 $likeBtn.toggleClass("inverted");
+    //                 $likeBtn.html("<i class='heart icon'></i>Liked");
+    //             } else if (action === "unlike") {
+    //                 $likeCounter.text(changeLikeNumber("unlike"));
+    //                 $likeBtn.toggleClass("inverted");
+    //                 $likeBtn.html("<i class='heart icon'></i>Like");
+    //             }
+    //         });
+    // });
+
     // Change Text Content of Like Counter
-    var changeLikeNumber = function (action) {
-        var count = parseInt($likeCounter.text().replace(",", ""), 10);
-        // console.log(count);
-        // console.log(typeof count);
-        if (action === "like") {
-            return numberWithCommas(count += 1);
-        } else if (action === "unlike") {
-            return numberWithCommas(count -= 1);
-        }
-    };
+    // var changeLikeNumber = function (action) {
+    //     var count = parseInt($likeCounter.text().replace(",", ""), 10);
+    //     // console.log(count);
+    //     // console.log(typeof count);
+    //     if (action === "like") {
+    //         return numberWithCommas(count += 1);
+    //     } else if (action === "unlike") {
+    //         return numberWithCommas(count -= 1);
+    //     }
+    // };
 
     function numberWithCommas(x) {
         return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
-    var likeUrlAPI = function () {
+    function getUrlID() {
         var fullURL = $(location).attr('href');
         var urlSplit = fullURL.split("/");
         var id = urlSplit[urlSplit.length - 1];
@@ -106,7 +143,9 @@ $(document).ready(function () {
     };
 
     // Add Image Dimmer
-    $('.ui.dimmer').dimmer({on: 'hover'});
+    $('.ui.dimmer').dimmer({
+        on: 'hover'
+    });
 
     // Preview Image
     function readURL(input) {
@@ -121,7 +160,7 @@ $(document).ready(function () {
         }
     }
 
-    $("#image").change(function(){
+    $("#image").change(function () {
         readURL(this);
     });
 
@@ -383,7 +422,7 @@ $(document).ready(function () {
     $('#portion').range({
         min: 0,
         max: 5,
-        start: 1,
+        start: $('#portion-indicator').val(),
         step: 0.5,
         onChange: function (value) {
             $('#portion-indicator').val(value);
@@ -392,7 +431,7 @@ $(document).ready(function () {
     $('#health').range({
         min: 0,
         max: 10,
-        start: 5,
+        start: $('#health-indicator').val(),
         onChange: function (value) {
             $('#health-indicator').val(value);
         }
@@ -400,7 +439,7 @@ $(document).ready(function () {
     $('#taste').range({
         min: 0,
         max: 10,
-        start: 5,
+        start: $('#taste-indicator').val(),
         onChange: function (value) {
             $('#taste-indicator').val(value);
         }
@@ -424,9 +463,10 @@ $(document).ready(function () {
 
 
     var $addIng = $(".add-button");
+    var $removeIng = $(".remove-button");
     var $tableIng = $(".ingredients")[0];
 
-    $addIng.on("click.addEvent", function(){
+    $addIng.on("click.addEvent", function () {
 
         // Save data under array of objects (Ingredients)
         var $currentIng = $(this).parent();
@@ -441,7 +481,15 @@ $(document).ready(function () {
         inputDisabled($currentIng);
     });
 
-    var newIngredient = function($currentIng){
+    $removeIng.on("click", function () {
+
+        // Save data under array of objects (Ingredients)
+        var $currentIng = $(this).parent();
+
+        removeRow($currentIng);
+    })
+
+    var newIngredient = function ($currentIng) {
         var $newRow = $currentIng.clone(true, true);
         $newRow.find("input").val("");
         // console.log($rowIng[0]);
@@ -449,7 +497,7 @@ $(document).ready(function () {
         // $rowIng.clone().appendTo($tableIng) ;
     };
 
-    var changeAddButton = function($currentIng){
+    var changeAddButton = function ($currentIng) {
         // TODO: Remove Saved Data?
 
         // Change plus to a trash can
@@ -462,14 +510,17 @@ $(document).ready(function () {
 
         // Turn off previous event listener
         $currentAddBtn.off("click.addEvent");
-        $currentAddBtn.on("click.removeEvent", function(){
+        $currentAddBtn.on("click.removeEvent", function () {
             var $currentIng = $(this).parent();
             $currentIng.remove();
         });
 
     };
+    var removeRow = function ($currentIng) {
+        $currentIng.remove();
+    };
 
-    var inputDisabled = function($currentIng){
+    var inputDisabled = function ($currentIng) {
         console.log($currentIng.find("input"));
         $currentIng.find("input").prop("readonly", true);
         $currentIng.find("input").addClass("added-ingredient");

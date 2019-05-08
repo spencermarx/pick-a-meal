@@ -2,8 +2,9 @@ var express = require("express");
 var router = express.Router(); //({ mergeParams: true });
 var User = require("../models/user");
 var Recipe = require("../models/recipe");
-var likeTracking = require("../public/scripts/likeTracking");
+var utilities = require("../public/scripts/utilities");
 var multer = require('multer');
+var upload = multer();
 var cloudinary = require('cloudinary');
 
 // Cloudinary Setup
@@ -54,15 +55,38 @@ router.get("/:id", isLoggedIn, (req, res) => {
         if (err) {
             console.log(err);
         } else {
-            User.findById(req.user._id).populate("likedMeals").exec(function (err, user) {
-                //console.log("RecipeID ->", req.params.id);
-                //console.log("LikedMeals ->", user.likedMeals);
-                var liked = likeTracking.checkDuplicates(req.params.id, user.likedMeals); // true if liked
-                // console.log("Liked Status:", liked);
-                // console.log("Liked Status:", typeof liked);
+            User.findById(req.user._id).populate("addedMeals").exec(function (err, user) {
+
+
+                // console.log("Recipe->", foundRecipe.addedBy._id, typeof foundRecipe.addedBy._id);
+                // console.log("User->", user._id, typeof user._id);
+                // console.log("User ->", user);
+                var isOwner = utilities.userIsOwner(user, foundRecipe);
+                // console.log("TCL: isOwner", isOwner);
+                var hasAdded = utilities.userHasAddedMeal(user, foundRecipe);
+                // console.log("TCL: hasAdded ->", hasAdded);
+                var owner = Boolean;
+                var added = Boolean;
+
+
+
+                if (isOwner) {
+                    added = "owner";
+                    owner = true;
+                    added = true;
+                } else if (!isOwner && hasAdded) {
+                    owner = false;
+                    added = true;
+                } else {
+                    owner = false;
+                    added = false;
+                }
+
+                // console.log("Added Status:", added);
 
                 res.render("recipes/show", {
-                    liked: liked,
+                    added: added,
+                    owner: owner,
                     recipe: foundRecipe
                 });
             });
@@ -109,6 +133,15 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
             } else {
                 res.redirect('/recipes');
                 console.log("Created Recipe:", recipe);
+                User.findById(req.user._id).exec(function (err, user) {
+                    if (err) {
+                        console.log(err);
+                    } else {
+                        user.addedMeals.push(recipe);
+                        user.save();
+                        console.log(User + " added " + recipe);
+                    }
+                });
             }
         });
     });
@@ -130,44 +163,47 @@ router.get("/:id/edit", isLoggedIn, (req, res) => {
 });
 
 // UPDATE - Note: with put we need method-override package
-router.put("/:id", isLoggedIn, function (req, res) {
-    var recipe = req.sanitize(req.body.recipe);
+router.put("/:id", isLoggedIn, upload.none(), function (req, res){
+    // TODO: Replace Image
+    // Add Data
 
-    if (req.body.recipe.ingredients) {
-        var ingredientsBody = req.sanitize(req.body.recipe.ingredients);
-        var ingredientsArray = ingredientsBody.split("\r\n");
-        var ingredientsData = [];
+    // Add cloudinary url for the image to the campground object under image property
+    // req.body.recipe.image = result.secure_url;
+    // console.log("Upload Succesful!", req.body.recipe.image);
 
-        ingredientsArray.forEach((ingredient) => {
-            var ingredientSplit = ingredient.split(": ");
-            var ingredientName = ingredientSplit[0];
-            var ingredientQuantity = ingredientSplit[1];
-            var newIngredient = {
-                ingredientName: ingredientName,
-                ingredientQuantity: ingredientQuantity
+    // Structure Recipe Data
+
+    var recipeData = req.body.recipe;
+    var reqIngredients = req.body.ingredient;
+    recipeData.addedBy = req.user._id;
+
+    var ingredients = [];
+    for (var i = 0; i < reqIngredients.name.length; i++) {
+        if (reqIngredients.name[i] && reqIngredients.name[i]) {
+            var ingredientObj = {
+                ingredientName: reqIngredients.name[i],
+                ingredientQuantity: reqIngredients.quantity[i]
             };
-
-            ingredientsData.push(newIngredient);
-
-        });
-        req.body.recipe.ingredients = ingredientsData;
-    } else {
-        req.body.recipe.ingredients = [];
+            ingredients.push(ingredientObj);
+        }
     }
 
-    var location = req.body.recipe.isRestaurant.toLowerCase();
-    // console.log(location);
+    recipeData.ingredients = ingredients;
+    recipeData.likes = 0;
 
-    if (location === "restaurant") {
-        req.body.recipe.isRestaurant = true;
-    } else {
-        req.body.recipe.isRestaurant = false;
-    }
-    Recipe.findByIdAndUpdate(req.params.id, req.body.recipe, function (err, updatedRecipe) {
+    console.log("If Block ------");
+    console.log("req.body ->", req.body);
+    console.log("req.body.recipe ->", req.body.recipe);
+    console.log("req.body.image->", req.body.image);
+
+    // Update Recipe
+    Recipe.findByIdAndUpdate(req.params.id, recipeData, (err, recipe) => {
         if (err) {
-            res.redirect("/recipes");
+            req.flash("error", err.message);
+            res.redirect("back");
         } else {
-            res.redirect(`/recipes/${req.params.id}`);
+            req.flash("success", "Successfully Updated!");
+            res.redirect("/recipes/" + recipe._id);
         }
     });
 });
