@@ -91,7 +91,7 @@
     margin-bottom: 0.6em;
 }
 
-.mt-3, .ui.grid.mt-3 {
+.mt-3, .ui.grid.mt-3, .ui.cards.mt-3 {
     margin-top: 1.6em;
 }
 
@@ -312,6 +312,28 @@ div.inverted.menu {
 /* END */
 
 
+/* INDEX of Recipe -----------------------*/
+
+.stat{
+    font-size: 1.2rem;
+}
+
+.stat .icon{
+    font-size: 1.4rem;
+    margin-right: 8px;
+}
+
+.ui.card.recipe-card{
+    transition: 300ms ease-in-out;
+}
+.ui.card.recipe-card:hover{
+    transform: scale(1.05);
+}
+
+
+/* END */
+
+
 #directions,
 .ui.form input[type="text"].blank-input {
     border: none;
@@ -454,13 +476,10 @@ span.date {
     transition: 350ms;
 }
 
-.column .stat {
-    padding-left: 1.2em;
-    color: rgba(255, 255, 255, 0.95);
-}
 
-.ui.grid>.column:not(.row),
-.ui.grid>.row>.column {}
+.ui.cards > .card > .extra, .ui.card > .extra{
+    padding:0;
+}
 
 
 /* button.ui.secondary.button {

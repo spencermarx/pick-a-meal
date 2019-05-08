@@ -419,31 +419,61 @@ $(document).ready(function () {
     })(jQuery, window, document);
 
     // Semantic UI Sliders
-    $('#portion').range({
-        min: 0,
-        max: 5,
-        start: $('#portion-indicator').val(),
-        step: 0.5,
-        onChange: function (value) {
-            $('#portion-indicator').val(value);
-        }
-    });
-    $('#health').range({
-        min: 0,
-        max: 10,
-        start: $('#health-indicator').val(),
-        onChange: function (value) {
-            $('#health-indicator').val(value);
-        }
-    });
-    $('#taste').range({
-        min: 0,
-        max: 10,
-        start: $('#taste-indicator').val(),
-        onChange: function (value) {
-            $('#taste-indicator').val(value);
-        }
-    });
+    if($(location)[0].pathname.includes("edit") ){
+        $('#portion').range({
+            min: 0,
+            max: 5,
+            start: $('#portion-indicator').val(),
+            step: 0.5,
+            onChange: function (value) {
+                $('#portion-indicator').val(value);
+            }
+        });
+        $('#health').range({
+            min: 0,
+            max: 10,
+            start: $('#health-indicator').val(),
+            onChange: function (value) {
+                $('#health-indicator').val(value);
+            }
+        });
+        $('#taste').range({
+            min: 0,
+            max: 10,
+            start: $('#taste-indicator').val(),
+            onChange: function (value) {
+                $('#taste-indicator').val(value);
+            }
+        });
+    } else {
+        $('#portion').range({
+            min: 0,
+            max: 5,
+            start: 2,
+            step: 0.5,
+            onChange: function (value) {
+                $('#portion-indicator').val(value);
+            }
+        });
+        $('#health').range({
+            min: 0,
+            max: 10,
+            start: 5,
+            onChange: function (value) {
+                $('#health-indicator').val(value);
+            }
+        });
+        $('#taste').range({
+            min: 0,
+            max: 10,
+            start: 5,
+            onChange: function (value) {
+                $('#taste-indicator').val(value);
+            }
+        });
+    }
+
+    
 
 
 
