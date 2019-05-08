@@ -144,7 +144,7 @@
 }
 
 #expand-menu-button {
-    margin: auto 25px auto auto;
+    margin: auto 0 auto auto;
     color: white;
     transition: color 350ms;
 }
