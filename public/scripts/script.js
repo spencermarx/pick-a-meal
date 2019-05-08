@@ -2,6 +2,52 @@ $(document).ready(function () {
     $.ajaxSetup({
         cache: false
     });
+
+    // Initialize components
+
+     // Dropdown Action
+     $('.ui.dropdown').dropdown();
+
+    //  Modal
+    $('.ui.modal').modal();
+
+    // // Add Image Dimmer
+    $('.image .ui.dimmer').dimmer({
+        on: 'hover'
+    });
+    $('.recipe-image-wrapper .ui.dimmer').dimmer({
+        on: 'hover'
+    });
+
+
+
+    // Delete Recipe Modal
+    var $deleteButton = $("#recipe-delete");
+    var $closeIcon = $(".close.icon");
+    var $cancelButton = $(".cancel-button");
+    var $deleteModal = $('.mini.modal.delete');
+
+    $deleteButton.on("click", function(){
+        // alert("about to delete!");
+        $deleteModal.modal('show');
+    });
+
+    $closeIcon.on("click", function(){
+        // alert("about to delete!");
+        hideDeleteModal();
+    });
+    $cancelButton.on("click", function(){
+        // alert("about to delete!");
+        hideDeleteModal();
+    });
+
+    function hideDeleteModal(){
+        $deleteModal.modal('hide');
+    }
+
+
+
+
     // Navigation Dropdown Button
     var $menuButton = $("#expand-menu-button");
     var $collapsable = $(".collapsable");
@@ -11,8 +57,7 @@ $(document).ready(function () {
         $collapsable.toggleClass("collapsed");
     });
 
-    // Dropdown Action
-    $('.ui.dropdown').dropdown();
+
 
     // Ingredient Form
     $('#addIngredient').on('click', function () {
@@ -142,10 +187,7 @@ $(document).ready(function () {
         return id;
     };
 
-    // Add Image Dimmer
-    $('.ui.dimmer').dimmer({
-        on: 'hover'
-    });
+
 
     // Preview Image
     function readURL(input) {
@@ -473,7 +515,7 @@ $(document).ready(function () {
         });
     }
 
-    
+
 
 
 

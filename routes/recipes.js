@@ -132,14 +132,14 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
                 res.render('recipes/new');
             } else {
                 res.redirect('/recipes');
-                console.log("Created Recipe:", recipe);
+                // console.log("Created Recipe:", recipe);
                 User.findById(req.user._id).exec(function (err, user) {
                     if (err) {
                         console.log(err);
                     } else {
                         user.addedMeals.push(recipe);
                         user.save();
-                        console.log(User + " added " + recipe);
+                        // console.log(User + " added " + recipe);
                     }
                 });
             }
@@ -191,10 +191,10 @@ router.put("/:id", isLoggedIn, upload.none(), function (req, res){
     recipeData.ingredients = ingredients;
     recipeData.likes = 0;
 
-    console.log("If Block ------");
-    console.log("req.body ->", req.body);
-    console.log("req.body.recipe ->", req.body.recipe);
-    console.log("req.body.image->", req.body.image);
+    // console.log("If Block ------");
+    // console.log("req.body ->", req.body);
+    // console.log("req.body.recipe ->", req.body.recipe);
+    // console.log("req.body.image->", req.body.image);
 
     // Update Recipe
     Recipe.findByIdAndUpdate(req.params.id, recipeData, (err, recipe) => {
@@ -213,11 +213,10 @@ router.delete("/:id", isLoggedIn, function (req, res) {
     // Destroy
     Recipe.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
-            res.redirect("/recipes");
+            req.flash("error", err.message);
+            res.redirect("back");
         } else {
-            console.log("Recipe deleted!");
-
-            // Redirect
+            req.flash("success", "Successfully deleted recipe!");
             res.redirect("/recipes");
         }
     });

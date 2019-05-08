@@ -2,7 +2,8 @@
 
 <!-- <h1 id="page-title" class="ui huge header"> Edit Your Recipe</h1> -->
 
-<form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST" class="ui form" id="recipe-form" enctype="multipart/form-data">
+<form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST" class="ui form" id="recipe-form"
+    enctype="multipart/form-data">
     <div class="ui two column stackable grid">
         <div class="row">
             <div class="column eight wide">
@@ -13,8 +14,9 @@
                             <div class="center button-wrapper">
                                 <button class="ui inverted button image-upload-button">
                                     <i class="upload icon"></i>
-                                    <input type="file" id="image" name="image" accept="image/*" value="<%=recipe.image%>">
-                                    </button>
+                                    <input type="file" id="image" name="image" accept="image/*"
+                                        value="<%=recipe.image%>">
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -29,19 +31,22 @@
                 <div class="stats mt-4">
                     <div class="field">
                         <p for="portion" class="text-muted mb-2">Portion:
-                            <input type="text" id="portion-indicator" class="range-indicator" name="recipe[portion]" value="<%=recipe.portion%>" readonly>
+                            <input type="text" id="portion-indicator" class="range-indicator" name="recipe[portion]"
+                                value="<%=recipe.portion%>" readonly>
                         </p>
                         <div class="ui range" id="portion"></div>
                     </div>
                     <div class="field">
                         <p for="health" class="text-muted mb-2">Health Score:
-                            <input type="text" id="health-indicator" class="range-indicator" name="recipe[health]" value="<%=recipe.health%>" readonly>
+                            <input type="text" id="health-indicator" class="range-indicator" name="recipe[health]"
+                                value="<%=recipe.health%>" readonly>
                         </p>
                         <div class="ui range" id="health"></div>
                     </div>
                     <div class="field">
                         <p for="taste" class="text-muted mb-2">Taste Score:
-                            <input type="text" id="taste-indicator" class="range-indicator" name="recipe[taste]" value="<%=recipe.taste%>" readonly>
+                            <input type="text" id="taste-indicator" class="range-indicator" name="recipe[taste]"
+                                value="<%=recipe.taste%>" readonly>
                         </p>
                         <div class="ui range" id="taste"></div>
                     </div>
@@ -83,8 +88,8 @@
                                     type="text" placeholder="Name" value="<%=ingredient.ingredientName%>">
                             </td>
                             <td class="table-cell-left table-cell-border-left">
-                                <input class="blank-input ingredient ingredient-data"
-                                    name="ingredient[quantity]" type="text" placeholder="Qty" value="<%=ingredient.ingredientQuantity%>">
+                                <input class="blank-input ingredient ingredient-data" name="ingredient[quantity]"
+                                    type="text" placeholder="Qty" value="<%=ingredient.ingredientQuantity%>">
                             </td>
                             <td class="table-cell-border-left remove-button">
                                 <i class="trash icon"></i>
@@ -97,8 +102,8 @@
                                     type="text" placeholder="Name">
                             </td>
                             <td class="table-cell-left table-cell-border-left">
-                                <input class="blank-input ingredient ingredient-data"
-                                    name="ingredient[quantity]" type="text" placeholder="Qty">
+                                <input class="blank-input ingredient ingredient-data" name="ingredient[quantity]"
+                                    type="text" placeholder="Qty">
                             </td>
                             <td class="table-cell-border-left add-button">
                                 <i class="plus icon"></i>
@@ -109,14 +114,37 @@
             </div>
         </div>
         <div class="row">
-                <div class="column eight wide" id="clear-button-wrapper">
-                        <button class="ui basic button form-master-button" type="reset" id="recipe-clear">Clear</button>
-                </div>
-                <div class="column eight wide " id="submit-button-wrapper">
-                        <button class="ui btn-custom-dark-blue button form-master-button" type="submit" id="recipe-submit">Save</button>
-                </div>
+            <div class="column eight wide" id="delete-button-wrapper">
+                <button type="button" class="ui button form-master-button delete-button"
+                    id="recipe-delete">Delete</button>
             </div>
+            <div class="column eight wide " id="submit-button-wrapper">
+                <button class="ui btn-custom-dark-blue button form-master-button" type="submit"
+                    id="recipe-submit">Save</button>
+            </div>
+        </div>
     </div>
 </form>
+
+<!-- <div class="ui mini modal transition delete"> -->
+<div class="ui mini test modal delete transition" style="display: block !important;">
+    <div class="header">
+        Delete This Recipe <span class="emoji">😬</span>
+    </div>
+    <div class="content">
+        <p>Careful! Are you sure you want to delete this recipe? </p>
+    </div>
+    <div class="actions modal-actions">
+        <div class="ui button form-master-button cancel-button">No
+        </div>
+        <form class="delete-form hidden" action="/recipes/<%= recipe._id%>?_method=DELETE" method="POST">
+            <button type="submit" class="ui btn-custom-red right labeled icon button">
+                Yes
+                <i class="trash icon modal-icon"></i>
+            </button>
+        </form>
+    </div>
+</div>
+
 
 <%include ../partials/footer%>

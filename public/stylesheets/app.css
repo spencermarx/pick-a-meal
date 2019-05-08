@@ -16,6 +16,7 @@
     --custom-muted: rgb(148, 148, 148);
     --custom-muted-hover: rgb(172, 172, 172);
     --custom-red: rgb(240, 140, 140);
+    --custom-red-hover: rgb(216, 115, 115);
     --custom-light-gray: #EFEFEF;
     font-size: 14px;
 }
@@ -58,6 +59,16 @@
 
 .btn-custom-gray:hover {
     background: var(--custom-muted-hover) !important;
+}
+
+.btn-custom-red,
+.bg-custom-red {
+    background: var(--custom-red) !important;
+    color: white !important;
+}
+
+.btn-custom-red:hover {
+    background: var(--custom-red-hover) !important;
 }
 
 .text-muted {
@@ -389,12 +400,39 @@ table {
 }
 
 /* Form Buttons */
-#clear-button-wrapper {
+#clear-button-wrapper, #delete-button-wrapper {
     text-align: right;
 }
 
 #submit-button-wrapper {
     text-align: left;
+}
+
+#recipe-delete{
+    color: var(--custom-red)!important;
+    box-shadow: 0px 0px 0px 1px rgba(34, 36, 38, 0.35) inset, 0px 0px 0px 0px rgba(34, 36, 38, 0.15) inset;
+    border-radius: 0.28571429rem;
+    background: white;
+    transition: 300ms ease-in;
+}
+#recipe-delete:hover{
+    color: white!important;
+    background: var(--custom-red);
+}
+.modal-actions.actions{
+    display:block;
+}
+.trash.icon.modal-icon {
+    padding: 0 0 0 0px;
+    font-size: 1.3rem;
+}
+.emoji{
+    font-size: 2rem;
+    float: right;
+}
+
+.delete-form{
+    display: inline-block;
 }
 
 button.ui.button.form-master-button {
@@ -662,7 +700,7 @@ span.date {
         display: none !important;
     }
 
-    #clear-button-wrapper {
+    #clear-button-wrapper, #delete-button-wrapper {
         text-align: center;
         order: 2;
     }
@@ -672,7 +710,7 @@ span.date {
         order: 1;
     }
 
-    #recipe-clear {
+    #recipe-clear, #recipe-delete {
         border: none;
         border-radius: 0;
         box-shadow: none;
