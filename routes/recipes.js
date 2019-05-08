@@ -4,6 +4,7 @@ var User = require("../models/user");
 var Recipe = require("../models/recipe");
 var utilities = require("../public/scripts/utilities");
 var multer = require('multer');
+var upload = multer();
 var cloudinary = require('cloudinary');
 
 // Cloudinary Setup
@@ -60,8 +61,8 @@ router.get("/:id", isLoggedIn, (req, res) => {
                 // console.log("Recipe->", foundRecipe.addedBy._id, typeof foundRecipe.addedBy._id);
                 // console.log("User->", user._id, typeof user._id);
                 // console.log("User ->", user);
-                var isOwner = utilities.userIsOwner(user,foundRecipe);
-				// console.log("TCL: isOwner", isOwner);
+                var isOwner = utilities.userIsOwner(user, foundRecipe);
+                // console.log("TCL: isOwner", isOwner);
                 var hasAdded = utilities.userHasAddedMeal(user, foundRecipe);
                 // console.log("TCL: hasAdded ->", hasAdded);
                 var owner = Boolean;
@@ -73,7 +74,7 @@ router.get("/:id", isLoggedIn, (req, res) => {
                     added = "owner";
                     owner = true;
                     added = true;
-                } else if (!isOwner && hasAdded ) {
+                } else if (!isOwner && hasAdded) {
                     owner = false;
                     added = true;
                 } else {
@@ -162,44 +163,47 @@ router.get("/:id/edit", isLoggedIn, (req, res) => {
 });
 
 // UPDATE - Note: with put we need method-override package
-router.put("/:id", isLoggedIn, function (req, res) {
-    var recipe = req.sanitize(req.body.recipe);
+router.put("/:id", isLoggedIn, upload.none(), function (req, res){
+    // TODO: Replace Image
+    // Add Data
 
-    if (req.body.recipe.ingredients) {
-        var ingredientsBody = req.sanitize(req.body.recipe.ingredients);
-        var ingredientsArray = ingredientsBody.split("\r\n");
-        var ingredientsData = [];
+    // Add cloudinary url for the image to the campground object under image property
+    // req.body.recipe.image = result.secure_url;
+    // console.log("Upload Succesful!", req.body.recipe.image);
 
-        ingredientsArray.forEach((ingredient) => {
-            var ingredientSplit = ingredient.split(": ");
-            var ingredientName = ingredientSplit[0];
-            var ingredientQuantity = ingredientSplit[1];
-            var newIngredient = {
-                ingredientName: ingredientName,
-                ingredientQuantity: ingredientQuantity
+    // Structure Recipe Data
+
+    var recipeData = req.body.recipe;
+    var reqIngredients = req.body.ingredient;
+    recipeData.addedBy = req.user._id;
+
+    var ingredients = [];
+    for (var i = 0; i < reqIngredients.name.length; i++) {
+        if (reqIngredients.name[i] && reqIngredients.name[i]) {
+            var ingredientObj = {
+                ingredientName: reqIngredients.name[i],
+                ingredientQuantity: reqIngredients.quantity[i]
             };
-
-            ingredientsData.push(newIngredient);
-
-        });
-        req.body.recipe.ingredients = ingredientsData;
-    } else {
-        req.body.recipe.ingredients = [];
+            ingredients.push(ingredientObj);
+        }
     }
 
-    var location = req.body.recipe.isRestaurant.toLowerCase();
-    // console.log(location);
+    recipeData.ingredients = ingredients;
+    recipeData.likes = 0;
 
-    if (location === "restaurant") {
-        req.body.recipe.isRestaurant = true;
-    } else {
-        req.body.recipe.isRestaurant = false;
-    }
-    Recipe.findByIdAndUpdate(req.params.id, req.body.recipe, function (err, updatedRecipe) {
+    console.log("If Block ------");
+    console.log("req.body ->", req.body);
+    console.log("req.body.recipe ->", req.body.recipe);
+    console.log("req.body.image->", req.body.image);
+
+    // Update Recipe
+    Recipe.findByIdAndUpdate(req.params.id, recipeData, (err, recipe) => {
         if (err) {
-            res.redirect("/recipes");
+            req.flash("error", err.message);
+            res.redirect("back");
         } else {
-            res.redirect(`/recipes/${req.params.id}`);
+            req.flash("success", "Successfully Updated!");
+            res.redirect("/recipes/" + recipe._id);
         }
     });
 });

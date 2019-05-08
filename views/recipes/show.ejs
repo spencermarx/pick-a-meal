@@ -10,9 +10,12 @@
         <div class="column eight wide">
             <div class="row mt-3">
                 <div class="recipe-title text-muted text-bold" id="title"><%=recipe.name%></div>
-                <a class="edit-recipe" href="/<%=recipe._id%>/edit">
-                    <i class="pencil icon edit-recipe-icon text-muted"></i>
-                </a>
+                <% if (owner){%>
+                    <a class="edit-recipe" href="/recipes/<%=recipe._id%>/edit">
+                        <i class="pencil icon edit-recipe-icon text-muted"></i>
+                    </a>
+                <%}%>
+
             </div>
             <div class="row">
                 <div class="added-by mt-3 text-muted">
@@ -52,12 +55,12 @@
                         <h3 class="text-thin  text-muted">Average</h3>
                 </div>
                 <div class="column center aligned right-border">
-                    <h3><%=recipe.taste%>/10</h3>
-                    <h3 class="text-thin  text-muted">Taste</h3>
-                </div>
-                <div class="column center aligned">
                     <h3><%=recipe.health%>/10</h3>
                     <h3 class="text-thin  text-muted">Health</h3>
+                </div>
+                <div class="column center aligned">
+                    <h3><%=recipe.taste%>/10</h3>
+                    <h3 class="text-thin  text-muted">Taste</h3>
                 </div>
             </div>
         </div>

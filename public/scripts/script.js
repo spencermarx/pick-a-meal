@@ -422,7 +422,7 @@ $(document).ready(function () {
     $('#portion').range({
         min: 0,
         max: 5,
-        start: 1,
+        start: $('#portion-indicator').val(),
         step: 0.5,
         onChange: function (value) {
             $('#portion-indicator').val(value);
@@ -431,7 +431,7 @@ $(document).ready(function () {
     $('#health').range({
         min: 0,
         max: 10,
-        start: 5,
+        start: $('#health-indicator').val(),
         onChange: function (value) {
             $('#health-indicator').val(value);
         }
@@ -439,7 +439,7 @@ $(document).ready(function () {
     $('#taste').range({
         min: 0,
         max: 10,
-        start: 5,
+        start: $('#taste-indicator').val(),
         onChange: function (value) {
             $('#taste-indicator').val(value);
         }
@@ -463,6 +463,7 @@ $(document).ready(function () {
 
 
     var $addIng = $(".add-button");
+    var $removeIng = $(".remove-button");
     var $tableIng = $(".ingredients")[0];
 
     $addIng.on("click.addEvent", function () {
@@ -479,6 +480,14 @@ $(document).ready(function () {
         // Make the input uneditable
         inputDisabled($currentIng);
     });
+
+    $removeIng.on("click", function () {
+
+        // Save data under array of objects (Ingredients)
+        var $currentIng = $(this).parent();
+
+        removeRow($currentIng);
+    })
 
     var newIngredient = function ($currentIng) {
         var $newRow = $currentIng.clone(true, true);
@@ -506,6 +515,9 @@ $(document).ready(function () {
             $currentIng.remove();
         });
 
+    };
+    var removeRow = function ($currentIng) {
+        $currentIng.remove();
     };
 
     var inputDisabled = function ($currentIng) {

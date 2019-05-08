@@ -1,116 +1,122 @@
 <%include ../partials/header%>
 
-    <main class="ui container">
-        <h1 id="page-title" class="ui left aligned grid huge header"> Create New Recipe</h1>
+<h1 id="page-title" class="ui huge header"> Edit Your Recipe</h1>
 
-        <form action="/recipes/<%=recipe._id%>?_method=PUT" method="POST" class="ui form" id="recipe-form">
-            <div class="ui two column stackable grid">
-                <div class="column ten wide">
-                    <div class="field">
-                        <label for="title">Recipe Name</label>
-                        <input id="title" name="recipe[name]" type="text" value="<%=recipe.name%>">
-                    </div>
-                </div>
-                <div class="column six wide">
-                    <div class="field">
-                        <label>Home or Restaurant</label>
-                        <div class="ui dropdown selection">
-                            <input type="hidden" name="recipe[isRestaurant]">
-                            <div class="default text">
-                            <%if (recipe.isRestaurant === true){%>
-                            Restaurant
-                            <%} else {%>
-                            Home
-                            <%};%>
-                            </div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <div class="item" data-value="home">Home</div>
-                                <div class="item" data-value="restaurant">Restaurant</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui one column stackable grid">
-                <div class="column sixteen wide">
-                    <div class="field">
-                        <label for="image">Image URL</label>
-                        <input id="image" name="recipe[image]" type="text" placeholder="URL for image" value="<%=recipe.image%>">
-                    </div>
-                </div>
-            </div>
-            <div class="ui three column stackable grid" id="recipe-stats">
-                <div class="column four wide">
-                    <div class="field">
-                        <label for="portion">Portion</label>
-                        <input id="portion" name="recipe[portion]" type="text" placeholder="2"
-                        value="<%=recipe.portion%>">
-                    </div>
-                </div>
-                <div class="column six wide">
-                    <div class="field">
-                        <label>Health</label>
-                        <div class="ui dropdown selection">
-                            <input type="hidden" name="recipe[health]" value="<%=recipe.health%>">
-                            <div class="default text">Score</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <div class="item" data-value="1">1</div>
-                                <div class="item" data-value="2">2</div>
-                                <div class="item" data-value="3">3</div>
-                                <div class="item" data-value="4">4</div>
-                                <div class="item" data-value="5">5</div>
-                                <div class="item" data-value="6">6</div>
-                                <div class="item" data-value="7">7</div>
-                                <div class="item" data-value="8">8</div>
-                                <div class="item" data-value="9">9</div>
-                                <div class="item" data-value="10">10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column six wide">
-                    <div class="field">
-                        <label>Taste</label>
-                        <div class="ui dropdown selection">
-                            <input type="hidden" name="recipe[taste]" value="<%=recipe.taste%>">
-                            <div class="default text">Score</div>
-                            <i class="dropdown icon"></i>
-                            <div class="menu">
-                                <div class="item" data-value="1">1</div>
-                                <div class="item" data-value="2">2</div>
-                                <div class="item" data-value="3">3</div>
-                                <div class="item" data-value="4">4</div>
-                                <div class="item" data-value="5">5</div>
-                                <div class="item" data-value="6">6</div>
-                                <div class="item" data-value="7">7</div>
-                                <div class="item" data-value="8">8</div>
-                                <div class="item" data-value="9">9</div>
-                                <div class="item" data-value="10">10</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui one column stackable grid">
-                <div class="column sixteen wide">
-                    <div class="field">
-                        <label for="image">Ingredients</label>
-                        <textarea name="recipe[ingredients]" id="recipe[ingredients]" class="text-muted" placeholder="Enter each 'ingredient: quantity' on a new line">
-                        <% for(var i = 0; i <  recipe.ingredients.length; i++){%>
-                            <%if(i !== recipe.ingredients.length-1) {%>
-                                <%=recipe.ingredients[i].ingredientName%>: <%=recipe.ingredients[i].ingredientQuantity + "\n"%>
-                            <%} else {%>
-                                <%=recipe.ingredients[i].ingredientName%>: <%=recipe.ingredients[i].ingredientQuantity%>
-                            <%}%>
-                        <%}%>
-                        </textarea>
-                    </div>
-                </div>
-            </div>
-            <button class="ui button" type="submit" id="recipe-submit">Save</button>
-        </form>
-    </main>
+<form action="/recipes/<%= recipe._id %>?_method=PUT" method="POST" class="ui form" id="recipe-form" enctype="multipart/form-data">
+    <div class="ui two column stackable grid">
+        <div class="row">
+            <div class="column eight wide">
 
-    <%include ../partials/footer%>
+                <div class="recipe-image-wrapper">
+                    <div class="ui dimmer transition hidden image-upload-dimmer">
+                        <div class="content">
+                            <div class="center button-wrapper">
+                                <button class="ui inverted button image-upload-button">
+                                    <i class="upload icon"></i>
+                                    <input type="file" id="image" name="image" accept="image/*" value="<%=recipe.image%>">
+                                    </button>
+                            </div>
+                        </div>
+                    </div>
+                    <img id="preview-image" src="<%=recipe.image%>">
+                </div>
+            </div>
+            <div class="column eight wide">
+                <div class="field">
+                    <input id="add-title" class=" blank-input text-muted" name="recipe[name]" type="text"
+                        placeholder="Enter Recipe Title" value="<%=recipe.name%>">
+                </div>
+                <div class="stats mt-4">
+                    <div class="field">
+                        <p for="portion" class="text-muted mb-2">Portion:
+                            <input type="text" id="portion-indicator" class="range-indicator" name="recipe[portion]" value="<%=recipe.portion%>" readonly>
+                        </p>
+                        <div class="ui range" id="portion"></div>
+                    </div>
+                    <div class="field">
+                        <p for="health" class="text-muted mb-2">Health Score:
+                            <input type="text" id="health-indicator" class="range-indicator" name="recipe[health]" value="<%=recipe.health%>" readonly>
+                        </p>
+                        <div class="ui range" id="health"></div>
+                    </div>
+                    <div class="field">
+                        <p for="taste" class="text-muted mb-2">Taste Score:
+                            <input type="text" id="taste-indicator" class="range-indicator" name="recipe[taste]" value="<%=recipe.taste%>" readonly>
+                        </p>
+                        <div class="ui range" id="taste"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="column eight wide">
+                <table class="ui left aligned table">
+                    <thead>
+                        <tr>
+                            <th class="left aligned">Directions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="table-row-top">
+                            <td class="table-cell-left">
+                                <textarea id="directions" class="blank-input" name="recipe[directions]" type="text"
+                                    placeholder="Enter preparation instructions"><%=recipe.directions%></textarea>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="column eight wide">
+                <table class="ui left aligned unstackable table">
+                    <thead>
+                        <tr>
+                            <th class="left aligned">Ingredients</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody class="ingredients">
+                        <% recipe.ingredients.forEach(function(ingredient){ %>
+                        <tr class="ingredient-row">
+                            <td class="table-cell-left">
+                                <input class="blank-input ingredient ingredient-data" name="ingredient[name]"
+                                    type="text" placeholder="Name" value="<%=ingredient.ingredientName%>">
+                            </td>
+                            <td class="table-cell-left table-cell-border-left">
+                                <input class="blank-input ingredient ingredient-data"
+                                    name="ingredient[quantity]" type="text" placeholder="Qty" value="<%=ingredient.ingredientQuantity%>">
+                            </td>
+                            <td class="table-cell-border-left remove-button">
+                                <i class="trash icon"></i>
+                            </td>
+                        </tr>
+                        <%})%>
+                        <tr class="ingredient-row">
+                            <td class="table-cell-left">
+                                <input class="blank-input ingredient ingredient-data" name="ingredient[name]"
+                                    type="text" placeholder="Name">
+                            </td>
+                            <td class="table-cell-left table-cell-border-left">
+                                <input class="blank-input ingredient ingredient-data"
+                                    name="ingredient[quantity]" type="text" placeholder="Qty">
+                            </td>
+                            <td class="table-cell-border-left add-button">
+                                <i class="plus icon"></i>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+                <div class="column eight wide" id="clear-button-wrapper">
+                        <button class="ui basic button form-master-button" type="reset" id="recipe-clear">Clear</button>
+                </div>
+                <div class="column eight wide " id="submit-button-wrapper">
+                        <button class="ui btn-custom-dark-blue button form-master-button" type="submit" id="recipe-submit">Save</button>
+                </div>
+            </div>
+    </div>
+</form>
+
+<%include ../partials/footer%>
