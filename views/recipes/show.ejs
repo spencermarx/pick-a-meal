@@ -19,11 +19,13 @@
             </div>
             <div class="row">
                 <div class="added-by mt-3 text-muted">
-                    Added by: <strong><% if(recipe.addedBy){%>
+                    Added by  <strong><% if (recipe.addedBy && owner){%>
+                        You
+                    <%} else if(recipe.addedBy && !owner) {%>
                         <%=recipe.addedBy.username%>
-                        <%} else {%>
+                    <%} else {%>
                         Angie Marx
-                        <%}%></strong>
+                    <%}%></strong>
                 </div>
             </div>
             <div class="row mt-3">
