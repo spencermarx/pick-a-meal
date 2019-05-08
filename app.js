@@ -12,6 +12,7 @@ var bodyParser = require("body-parser"),
     expressSanitizer = require("express-sanitizer"),
     mongoose = require("mongoose"),
     express = require("express"),
+    path = require("path"),
     cron = require("node-cron"),
     moment = require("moment"),
     passport = require("passport"),
@@ -19,6 +20,7 @@ var bodyParser = require("body-parser"),
     passportLocalMongoose = require("passport-local-mongoose"),
     flash = require("connect-flash"),
     cors = require('cors'),
+    favicon = require('serve-favicon'),
     ejs = require("ejs"),
     Recipe = require("./models/recipe"),
     User = require("./models/user"),
@@ -33,6 +35,12 @@ var bodyParser = require("body-parser"),
 // MIDDLEWARE SETUP
 // =================
 
+// Set up Public Folder
+app.use(express.static(path.join(__dirname + "/public")));
+
+// Set up Favicon
+app.use(favicon(path.join(__dirname, 'public', 'images', 'favicon.ico')));
+
 //Set Up Body Parser
 app.use(bodyParser.urlencoded({
     extended: true
@@ -43,8 +51,6 @@ var port = process.envPORT || 8080;
 app.set("view engine", "ejs");
 app.locals.rmWhitespace = true;
 
-// Set up Public Folder
-app.use(express.static(__dirname + "/public"));
 
 // Set up Method-Override
 app.use(methodOverride("_method"));
