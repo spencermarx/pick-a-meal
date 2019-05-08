@@ -1,6 +1,6 @@
 <%include ../partials/header%>
 <h1 id="page-title" class="ui mobile-text-centered huge header">All Recipes</h1>
-<div id="Recipes" class="">
+<div id="Recipes" class="mb-2">
     <div class="ui three stackable cards mt-3">
         <% recipes.forEach(function(recipe){ %>
         <div class="ui raised centered card recipe-card" onclick="location.href='/recipes/<%=recipe._id%>';">
@@ -42,8 +42,6 @@
                         <%=recipe.taste%>
                     </div>
                 </div>
-                <!-- <div class="column"><%= recipe.health%></div>
-                <div class="column"><%= recipe.taste%></div> -->
             </div>
         </div>
         <% });%>
