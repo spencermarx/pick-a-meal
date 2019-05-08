@@ -33,10 +33,16 @@ cloudinary.config({
 
 //INDEX
 router.get("/", isLoggedIn, (req, res) => {
-    Recipe.find({}, (err, foundRecipes) => {
+    Recipe.find().populate('addedBy').exec((err, foundRecipes) => {
         if (err) {
             console.log(err);
         } else {
+            // Set Ownership Status
+            foundRecipes.forEach(function(recipe){
+                var isOwner = utilities.userIsOwnerByID(req.user._id, recipe);
+                recipe.isOwner = isOwner;
+            })
+            // render
             res.render("recipes/index", {
                 recipes: foundRecipes
             });
@@ -61,7 +67,7 @@ router.get("/:id", isLoggedIn, (req, res) => {
                 // console.log("Recipe->", foundRecipe.addedBy._id, typeof foundRecipe.addedBy._id);
                 // console.log("User->", user._id, typeof user._id);
                 // console.log("User ->", user);
-                var isOwner = utilities.userIsOwner(user, foundRecipe);
+                var isOwner = utilities.userIsOwnerByUser(user, foundRecipe);
                 // console.log("TCL: isOwner", isOwner);
                 var hasAdded = utilities.userHasAddedMeal(user, foundRecipe);
                 // console.log("TCL: hasAdded ->", hasAdded);
@@ -129,17 +135,19 @@ router.post("/", isLoggedIn, upload.single('image'), (req, res) => {
         Recipe.create(recipeData, (err, recipe) => {
             if (err) {
                 console.log(err);
+                req.flash("error", err.message);
                 res.render('recipes/new');
             } else {
+                req.flash("success", "Successfully added recipe!");
                 res.redirect('/recipes');
-                console.log("Created Recipe:", recipe);
+                // console.log("Created Recipe:", recipe);
                 User.findById(req.user._id).exec(function (err, user) {
                     if (err) {
                         console.log(err);
                     } else {
                         user.addedMeals.push(recipe);
                         user.save();
-                        console.log(User + " added " + recipe);
+                        // console.log(User + " added " + recipe);
                     }
                 });
             }
@@ -191,10 +199,10 @@ router.put("/:id", isLoggedIn, upload.none(), function (req, res){
     recipeData.ingredients = ingredients;
     recipeData.likes = 0;
 
-    console.log("If Block ------");
-    console.log("req.body ->", req.body);
-    console.log("req.body.recipe ->", req.body.recipe);
-    console.log("req.body.image->", req.body.image);
+    // console.log("If Block ------");
+    // console.log("req.body ->", req.body);
+    // console.log("req.body.recipe ->", req.body.recipe);
+    // console.log("req.body.image->", req.body.image);
 
     // Update Recipe
     Recipe.findByIdAndUpdate(req.params.id, recipeData, (err, recipe) => {
@@ -213,11 +221,10 @@ router.delete("/:id", isLoggedIn, function (req, res) {
     // Destroy
     Recipe.findByIdAndRemove(req.params.id, function (err) {
         if (err) {
-            res.redirect("/recipes");
+            req.flash("error", err.message);
+            res.redirect("back");
         } else {
-            console.log("Recipe deleted!");
-
-            // Redirect
+            req.flash("success", "Successfully deleted recipe!");
             res.redirect("/recipes");
         }
     });

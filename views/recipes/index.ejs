@@ -1,50 +1,64 @@
 <%include ../partials/header%>
-<h1 id="page-title" class="ui mobile-text-centered huge header">All Recipes</h1>
-<div id="Recipes" class="mb-2">
-    <div class="ui three stackable cards mt-3">
-        <% recipes.forEach(function(recipe){ %>
-        <div class="ui raised centered card recipe-card" onclick="location.href='/recipes/<%=recipe._id%>';">
-            <div class="blurring dimmable image" id="card-image">
-                <div class="ui dimmer transition hidden">
-                    <div class="content">
-                        <div class="center">
-                            <div class="ui inverted button">View Recipe</div>
+<div class="ui container">
+    <h1 id="page-title" class="ui huge header">All Recipes</h1>
+    <div id="Recipes" class="mb-2">
+        <div class="ui three stackable cards mt-3">
+            <% recipes.forEach(function(recipe){ %>
+            <div class="ui raised centered card recipe-card" onclick="location.href='/recipes/<%=recipe._id%>';">
+                <div class="blurring dimmable image" id="card-image">
+                    <div class="ui dimmer transition hidden">
+                        <div class="content">
+                            <div class="center">
+                                <div class="ui inverted button">View Recipe</div>
+                            </div>
+                        </div>
+                    </div>
+                    <img src="<%=recipe.image%>" class="small image">
+                </div>
+                <div class="content">
+                    <div class="right floated meta portions">
+                        <i class="users icon"></i>
+                        <%= recipe.portion%> Portion<%if(recipe.portion >1){%>
+                        s
+                        <%}%>
+                        </div>
+                        <h3 class="header">
+                            <%= recipe.name%>
+                        </h3>
+                        <div class="meta">
+                            Added by <%if (recipe.isOwner){%>
+                            You
+                            <%} else {%>
+                            <%= recipe.addedBy.username%>
+                            <%}%>
+                        </div>
+
+                    </div>
+
+                    <div class=" ui extra content three column grid center aligned">
+                        <div class="column">
+                            <div class="stat average">
+                                <span class="text-bold">Avg:</span>
+                                <%=(recipe.taste+recipe.health)/2%>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="stat health">
+                            <i class="heartbeat icon"></i>
+                            <%=recipe.health%>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="stat taste">
+                            <i class="utensils icon"></i>
+                            <%=recipe.taste%>
                         </div>
                     </div>
                 </div>
-                <img src="<%=recipe.image%>" class="small image">
             </div>
-            <div class="content center aligned">
-                <h3 class="header">
-                    <%= recipe.name%>
-                </h3>
-                <div class="meta center aligned">
-                    <h5>Makes <%= recipe.portion%> Portions</h5>
-                </div>
-            </div>
-
-            <div class=" ui extra content three column grid center aligned">
-                <div class="column">
-                    <div class="stat average">
-                        <span class="text-bold">Avg:</span>
-                        <%=(recipe.taste+recipe.health)/2%>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="stat health">
-                        <i class="heartbeat icon"></i>
-                        <%=recipe.health%>
-                    </div>
-                </div>
-                <div class="column">
-                    <div class="stat taste">
-                        <i class="utensils icon"></i>
-                        <%=recipe.taste%>
-                    </div>
-                </div>
-            </div>
+            <% });%>
         </div>
-        <% });%>
     </div>
 </div>
+
 <%include ../partials/footer%>
