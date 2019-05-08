@@ -19,7 +19,9 @@
                     <%= recipe.name%>
                 </h3>
                 <div class="meta center aligned">
-                    <h5>Makes <%= recipe.portion%> Portions</h5>
+                    <h5>Makes <%= recipe.portion%> Portion<%if(recipe.portion > 1){ %>
+                        s
+                    <% }%></h5>
                 </div>
             </div>
 
