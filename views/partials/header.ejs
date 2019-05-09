@@ -6,9 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Pick-A-Meal</title>
-    <link rel="icon"
-      type="image/ico"
-      href="/images/favicon.ico">
+    <link rel="icon" type="image/ico" href="/images/favicon.ico">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
@@ -22,12 +20,12 @@
         <div id="navbar" class="ui fixed stackable inverted menu bg-custom-dark-blue">
             <div class="ui container ">
                 <div class="header item centered aligned" id="logo">
-                <!-- TODO: Add href back to Pick-A-Meal header (for dashboard) -->
-                <a>Pick-A-Meal</a>
-                <!-- SEE ABOVE -->
-                <a class="mobile-only" id="expand-menu-button">
-                        <i class="sidebar icon"></i>
-                    </a>
+                    <a href="/">Pick-A-Meal</a>
+                    <button class="mobile-only hamburger hamburger--squeeze" type="button" id="expand-menu-button">
+                        <span class="hamburger-box">
+                            <span class="hamburger-inner"></span>
+                        </span>
+                    </button>
                 </div>
                 <div class="right menu collapsable collapsed" id="">
                     <% if(!currentUser){ %>
