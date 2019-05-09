@@ -732,6 +732,13 @@ span.date {
         overflow: hidden;
     }
 
+    .ui.menu:not(.vertical) .right.menu.collapsable.collapsed > div{
+        height:0;
+    }
+    .ui.menu:not(.vertical) .right.menu.collapsable > div{
+        height: 100%;
+    }
+
 
 
     #clear-button-wrapper, #delete-button-wrapper {
