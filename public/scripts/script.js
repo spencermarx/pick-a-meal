@@ -53,7 +53,7 @@ $(document).ready(function () {
     var $collapsable = $(".collapsable");
 
     $menuButton.on("click", function () {
-
+        $(this).toggleClass("is-active");
         $collapsable.toggleClass("collapsed");
     });
 
