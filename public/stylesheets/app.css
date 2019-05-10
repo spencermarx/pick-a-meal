@@ -718,12 +718,6 @@ span.date {
         display: block;
     }
 
-    .ui.menu:not(.vertical) .right.menu.collapsable{
-        height:100%;
-        /* display: block; */
-        animation: dropdown 0.2s ease-in forwards;
-        position: relative;
-    }
 
     .ui.menu:not(.vertical) .right.menu.collapsable.collapsed {
         max-height: 0;
@@ -739,12 +733,18 @@ span.date {
 
     .ui.menu:not(.vertical) .right.menu.collapsable.collapsed > div{
         height:0;
+        opacity: 0;
+        transition: 0.32s ease-in;
+        transform: translateY(-35px);
     }
     .ui.menu:not(.vertical) .right.menu.collapsable > div{
         height: 100%;
+        opacity: 1;
+        transition: 0.32s ease-in;
+        transform: translateY(0px);
     }
 
-    .ui.menu .item {
+    .ui.menu .item.header {
         padding: 0.52857143em 1.14285714em;
     }
     .ui.menu .item:last-of-type {
