@@ -115,6 +115,10 @@
     margin-bottom: 0.6em;
 }
 
+.mb-4, .ui.grid.mb-4 {
+    margin-bottom: 2.8em;
+}
+
 .mt-3, .ui.grid.mt-3, .ui.cards.mt-3 {
     margin-top: 1.6em;
 }
@@ -167,15 +171,7 @@
     -webkit-tap-highlight-color: transparent;
 }
 
-#expand-menu-button {
-    margin: auto 0 auto auto;
-    color: white;
-    transition: color 350ms;
-}
 
-#expand-menu-button:hover {
-
-}
 
 /*
  * ─── Application CSS ───────────────────────────────────────────────────────────────────
@@ -189,6 +185,15 @@ body {
 main {
     margin-top: 8em;
     height: 40px;
+}
+
+#navbar{
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 15px;
+}
+#expand-menu-button {
+    margin: auto 0 auto auto;
+    color: white;
+    transition: color 350ms;
 }
 
 .feedback {
@@ -737,6 +742,13 @@ span.date {
     }
     .ui.menu:not(.vertical) .right.menu.collapsable > div{
         height: 100%;
+    }
+
+    .ui.menu .item {
+        padding: 0.52857143em 1.14285714em;
+    }
+    .ui.menu .item:last-of-type {
+        padding-bottom: 1.14285714em;
     }
 
 
