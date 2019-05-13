@@ -1,51 +1,29 @@
 <%include partials/header%>
 
-    <main class="ui container">
-
-
-        <h1 id="page-title" class="ui center huge header">This Week's Meals</h1>
-        <div id="calendar" class="ui seven column stackable grid">
-            <% plan.forEach(function(day){ %>
-
-                <div class="column day">
-                    <table id="<%= day.day %>" class="ui inverted bg-custom-blue table center aligned">
-                        <thead class="">
-                            <tr>
-                                <th>
-                                    <span class="date gray">
-                                <%= day.date.toLocaleDateString().split("/")[0] + "/" + day.date.toLocaleDateString().split("/")[1] %></span><br>
-                                    <%= day.day%>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="meal-cell lunch">
-                                    <!-- FIXME: Duplicating days in database? -->
-                                    <h3>
-                                        <%=day.lunch.name%>
-                                    </h3>
-                                    <a class="ui inverted button" href="/recipes/<%=day.lunch._id%>">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="meal-cell dinner">
-                                    <h3>
-                                        <%=day.dinner.name%>
-                                    </h3>
-                                    <a class="ui inverted button" href="/recipes/day.dinner._id%>">View</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-                <% });%>
+<h1 id="page-title" class="ui center huge header">This Week's Meals</h1>
+<div class="ui container info-bar four column unstackable grid mt-4">
+    <div class="row center aligned">
+        <div class="column info text-muted">
+            <i class="calendar times icon"></i>
+            Meals Left: 1
         </div>
-        <div class="actions">
-            <!-- Put Method here -->
-            <form action="/dashboard?_method=PUT" method="POST" class="">
-                <button id="button-delete" class="ui blue basic button margin-top action-button">Randomize</button>
-            </form>
+        <div class="column info text-muted">
+                <i class="heartbeat icon"></i>
+                Health Score: 3
         </div>
-    </main>
-    <%include partials/footer%>
+        <div class="column info text-muted">
+            <i class="utensils icon"></i>
+            Taste Score: 1
+        </div>
+
+        <button class="column info ui btn-custom-dark-blue">
+            Share
+            <i class="share square icon"></i>
+        </button>
+    </div>
+</div>
+<div id="calendar" class="ui seven column stackable grid">
+
+</div>
+
+<%include partials/footer%>

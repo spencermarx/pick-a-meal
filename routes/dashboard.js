@@ -11,18 +11,21 @@ var randomRecipes = require("../public/scripts/randomRecipes");
 // =================
 
 // INDEX
-router.get("/", middleware.isLoggedIn, middleware.checkPlan, (req, res) => {
-    User.findOne({
-            username: req.user.username
-        })
-        .populate("plan.lunch")
-        .populate("plan.dinner")
-        .exec(function(err, user) {
-            // console.log("Dashboard Load ->", user.plan);
-            res.render("dashboard", {
-                plan: user.plan
-            });
-        });
+router.get("/", middleware.isLoggedIn, (req, res) => {
+    res.render("dashboard");
+        //             plan: user.plan
+        //         });
+    // User.findOne({
+    //         username: req.user.username
+    //     })
+    //     .populate("plan.lunch")
+    //     .populate("plan.dinner")
+    //     .exec(function(err, user) {
+    //         // console.log("Dashboard Load ->", user.plan);
+    //         res.render("dashboard", {
+    //             plan: user.plan
+    //         });
+    //     });
 });
 
 
