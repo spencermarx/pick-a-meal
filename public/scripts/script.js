@@ -19,58 +19,194 @@ $(document).ready(function () {
         on: 'hover'
     });
 
+    // DASHBOARD
 
-    // Draggable - Jquery UI
+    if (window.location.href.indexOf("dashboard") > -1) {
+        // Draggable - Jquery UI
 
-    // set up background images
-    // $('.item').each(function(i,o){
-    //     $(o).css('background-image', 'url(' + $(o).data('src') + ')');
-    // });
-    var totalMealsLeft = 14;
+        // set up background images
+        // $('.item').each(function(i,o){
+        //     $(o).css('background-image', 'url(' + $(o).data('src') + ')');
+        // });
 
-    var $draggable = $('.draggable');
-    $draggable.draggable({
-        cancel: "a.ui-icon", // clicking an icon won't initiate dragging
-        //revert: "invalid", // when not dropped, the item will revert back to its initial position
-        // revert: true, // bounce back when dropped
-        helper: "clone", // create "copy" with original properties, but not a true clone
-        cursor: "grabbing",
-        // revertDuration: 300, // immediate snap
-        start: function () {
-            $(".drag-well").css("overflow", "inherit");
-            $(this).css("opacity", "0.2");
-            // $(ui.helper).addClass("ui-draggable-helper");
-        },
-        stop: function () {
-            $(".drag-well").css("overflow", "auto");
-            $(this).css("opacity", "1");
-            // $(ui.helper).removeClass("ui-draggable-helper");
+
+        var totalMealsLeft = 14;
+        initializeStats(totalMealsLeft);
+
+
+
+        var $draggable = $('.draggable');
+        $draggable.draggable({
+            cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+            //revert: "invalid", // when not dropped, the item will revert back to its initial position
+            // revert: true, // bounce back when dropped
+            helper: "clone", // create "copy" with original properties, but not a true clone
+            cursor: "grabbing",
+            // revertDuration: 300, // immediate snap
+            start: function () {
+                $(".drag-well").css("overflow", "inherit");
+                $(this).css("opacity", "0.2");
+                // $(ui.helper).addClass("ui-draggable-helper");
+            },
+            stop: function () {
+                $(".drag-well").css("overflow", "auto");
+                $(this).css("opacity", "1");
+                // $(ui.helper).removeClass("ui-draggable-helper");
+            }
+        });
+
+        $('.lunch').droppable({
+            accept: ".draggable",
+            tolerance: "pointer",
+            // activeClass: "ui-state-highlight",
+            drop: async function (event, ui) {
+                handleDrop($(this), ui.draggable);
+                var stats = calculateStats($(this));
+                updateDayStatsView($(this), stats);
+                updateInfoBarStatsView(totalMealsLeft);
+                await saveMealsAJAX();
+            }
+        });
+        $('.dinner').droppable({
+            accept: ".draggable",
+            tolerance: "pointer",
+            // activeClass: "ui-state-highlight",
+            drop: async function (event, ui) {
+                handleDrop($(this), ui.draggable);
+                var stats = calculateStats($(this));
+                updateDayStatsView($(this), stats);
+                updateInfoBarStatsView(totalMealsLeft);
+                await saveMealsAJAX();
+            }
+        });
+    }
+
+    function initializeMealsLeft(totalMealsLeft) {
+        var $lunch = $('.lunch');
+        var $dinner = $('.dinner');
+
+        var allMeals = $.merge($lunch, $dinner);
+
+
+        while(totalMealsLeft > 0){
+            $.each(allMeals, function(index, val){
+                var id = $(this).attr('data-meal-id');
+                if(id){
+                    totalMealsLeft -= 1;
+                }
+            });
         }
-    });
 
-    $('.lunch').droppable({
-        accept: ".draggable",
-        tolerance: "pointer",
-        // activeClass: "ui-state-highlight",
-        drop: function (event, ui) {
-            handleDrop($(this), ui.draggable);
-            var stats = calculateStats($(this));
-            updateDayStatsView($(this), stats);
-            updateInfoBarStatsView(totalMealsLeft);
-        }
-    });
-    $('.dinner').droppable({
-        accept: ".draggable",
-        tolerance: "pointer",
-        // activeClass: "ui-state-highlight",
-        drop: function (event, ui) {
-            handleDrop($(this), ui.draggable);
-            var stats = calculateStats($(this));
-            updateDayStatsView($(this), stats);
-            updateInfoBarStatsView(totalMealsLeft);
-            // TODO: Add AJAX call
-        }
-    });
+        // console.log(totalMealsLeft);
+
+        $('.stat-meals-left').text(totalMealsLeft);
+
+        return totalMealsLeft;
+
+    }
+
+    function initializeStats(){
+        initializeMealsLeft(totalMealsLeft);
+
+        var $lunch = $('.lunch');
+        var $dinner = $('.dinner');
+
+        var $allMeals = $.merge($lunch, $dinner);
+
+        var totalHealthScore = 0;
+        var totalTasteScore = 0;
+
+
+        $.each($allMeals, function(index,val){
+            var meal = $(this);
+
+            var mealHealth = parseInt(meal.attr('data-meal-health'));
+            var mealTaste = parseInt(meal.attr('data-meal-taste'));
+
+            if(mealHealth){
+                totalHealthScore += mealHealth;
+            }
+            if(mealTaste){
+                totalTasteScore += mealTaste;
+            }
+        });
+
+        var avgHealthScore = Math.round((totalHealthScore/ $allMeals.length)*100)/100;
+        var avgTasteScore = Math.round((totalTasteScore/ $allMeals.length)*100) /100;
+        console.log("total health points->", totalHealthScore);
+        console.log("total meals ->", $allMeals.length);
+        console.log("Total avg->", avgHealthScore);
+
+        $('.stat-all-health').text(avgHealthScore);
+        $('.stat-all-taste').text(avgTasteScore);
+
+    }
+    async function saveMealsAJAX() {
+        // define url endpoint
+        var urlSaveDashboard = '/api/save-dashboard'
+
+        // collect and package data
+        var recipesData = collectRecipes();
+
+        // console.log(recipesData);
+
+
+        $.ajax({
+            method: 'post',
+            url: urlSaveDashboard,
+            data: {
+                data: recipesData
+            },
+            dataType: 'json',
+            success: function (msg, status, jqXHR) {
+                var jsonUpdatedData = msg;
+                console.log(jsonUpdatedData);
+            },
+            error: function () {
+                console.log('Error!!');
+            }
+        })
+    }
+
+
+    function collectRecipes() {
+        // [
+        // {
+        // day: Monday
+        // lunch: ID
+        // dinner: ID
+        // }
+        // ]
+
+        // Select days
+        var $days = $('.day');
+
+        // Export
+        var daysArray = [];
+
+
+
+        // For each day
+        $.each($days, function (index, val) {
+            var $lunch = $(this).find('.lunch');
+            var $dinner = $(this).find('.dinner');
+
+            var lunchId = $lunch.attr('data-meal-id');
+            var dinnerId = $dinner.attr('data-meal-id');
+
+            var dayDataObj = {
+                order: index,
+                lunch: lunchId,
+                dinner: dinnerId
+            }
+            daysArray.push(dayDataObj);
+        })
+
+
+
+        return daysArray;
+
+    }
 
     function handleDrop(selectedDrop, draggable) {
         // clone item to retain in original "list"
@@ -167,7 +303,8 @@ $(document).ready(function () {
     function updateInfoBarStatsView(totalMealsLeft) {
 
 
-        var $mealsLeft = $('.stat-meals-left')
+        var $mealsLeft = $('.stat-meals-left');
+        var $mealsLeftQty = parseInt($('.stat-meals-left').text());
         var $allHealth = $('.stat-all-health');
         var $allTaste = $('.stat-all-taste');
         var $healthStatsArray = $('.health .stat');
@@ -176,11 +313,13 @@ $(document).ready(function () {
         var totalAllHealth = aggregateAllStats($healthStatsArray).total;
         var totalAllTaste = aggregateAllStats($tasteStatsArray).total;
 
-        var avgAllHealth = Math.round((totalAllHealth / aggregateAllStats($healthStatsArray).denom) * 100)/100;
-        var avgAllTaste = Math.round((totalAllTaste / aggregateAllStats($tasteStatsArray).denom) * 100)/100;
+        var avgAllHealth = Math.round((totalAllHealth / aggregateAllStats($healthStatsArray).denom) * 100) / 100;
+        var avgAllTaste = Math.round((totalAllTaste / aggregateAllStats($tasteStatsArray).denom) * 100) / 100;
 
-        totalMealsLeft -= aggregateAllStats($healthStatsArray).denom;
-		console.log("TCL: updateInfoBarStatsView -> totalMealsLeft", totalMealsLeft);
+        var totalMealsLeft = initializeMealsLeft($mealsLeftQty);
+
+		console.log("TCL: updateInfoBarStatsView -> $mealsLeftQty", $mealsLeftQty);
+        console.log("TCL: updateInfoBarStatsView -> totalMealsLeft", totalMealsLeft);
 
         // console.log("TCL: updateInfoBarStatsView -> avgAllHealth", avgAllHealth);
         $mealsLeft.text(totalMealsLeft);
@@ -197,7 +336,7 @@ $(document).ready(function () {
             // Get Value
             var currentStat = parseInt($(this).text());
 
-            console.log("TCL: updateInfoBarStatsView -> currentStat", currentStat);
+            // console.log("TCL: updateInfoBarStatsView -> currentStat", currentStat);
 
             if (currentStat && !isNaN(currentStat)) {
                 total += currentStat;
@@ -211,30 +350,6 @@ $(document).ready(function () {
         };
         return allStats;
     }
-
-    // $(".draggable").draggable({
-    //     cursor: "grabbing",
-    //     // appendTo: '#calendar-section',
-    //     scroll: "false",
-    //     helper: 'clone',
-    //     // containment: $('window'),
-    //     start: function () {
-    //         var width = $(this).css("width");
-    //         $(this).css("width", width);
-    //         $(this).children().css("width", width);
-    //         console.log(width);
-    //         $(this).css("opacity", "0");
-    //         $(this).appendTo($("#calendar-section"));
-    //         $(this).removeClass("drag");
-    //         $(this).addClass("dragStyle");
-    //     },
-    //     stop: function () {
-    //         $(this).css("opacity", "1");
-    //         // $("#calendar-section").children($(this)).remove();
-    //         $(this).removeClass("dragStyle");
-    //         $(this).addClass("drag");
-    //     }
-    // });
 
 
     // Delete Recipe Modal

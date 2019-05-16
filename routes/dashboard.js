@@ -16,9 +16,11 @@ router.get("/", middleware.isLoggedIn, (req, res) => {
             username: req.user.username
         })
         .populate("addedMeals")
+        .populate("plan.lunch")
+        .populate("plan.dinner")
         // .populate("plan.dinner")
-        .exec(function(err, user) {
-            console.log("Dashboard ->", user);
+        .exec(function (err, user) {
+            // console.log("Dashboard ->", user);
             res.render("dashboard", {
                 // plan: user.plan
                 user: user
@@ -29,7 +31,7 @@ router.get("/", middleware.isLoggedIn, (req, res) => {
 
 
 // UPDATE
-router.put("/", middleware.isLoggedIn, middleware.checkPlan, middleware.randomize, function(req, res) {
+router.put("/", middleware.isLoggedIn, middleware.checkPlan, middleware.randomize, function (req, res) {
 
     // FIXME: Redirect is firing before randomRecipes finishes...
     // req.flash("success", "Randomized your meals for the week!");

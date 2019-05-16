@@ -26,20 +26,34 @@
     <% user.plan.forEach(function(day){%>
     <div class="column day">
         <div class="text-muted day-header text-bold">
-            <%=day.day.substring(0, 3)%>
+            <span class="day-name"><%=day.day.substring(0, 3)%></span>
             <span class="date text-thin">
                 <%=(day.date.getMonth()+1) + "/" + (day.date.getDate())%>
             </span>
         </div>
         <div class="ui day-content">
-            <div class="lunch">
+            <div class="lunch" <% if (day.lunch){%> data-meal-id="<%=day.lunch._id%>"
+                data-meal-img="<%=day.lunch.image%>" data-meal-health="<%=day.lunch.health%>"
+                data-meal-taste="<%=day.lunch.taste%>" onclick="window.open('/recipes/<%=day.lunch._id%>','mywindow');" <%}%>>
                 <div class="day-image-wrapper">
-                    <img src="/images/image.png" alt="">
+                    <% if (day.lunch){%> <img src="<%=day.lunch.image%>" alt="">
+                <%} else {%>
+                <img src="/images/image.png" alt="">
+                <%}%>
                 </div>
             </div>
-            <div class="dinner">
+            <div class="dinner"
+            <% if (day.dinner){%>
+                data-meal-id="<%=day.dinner._id%>" data-meal-img="<%=day.dinner.image%>"
+                data-meal-health="<%=day.dinner.health%>" data-meal-taste="<%=day.dinner.taste%>"
+                onclick="window.open('/recipes/<%=day.dinner._id%>','mywindow');"
+                <%}%>>
                 <div class="day-image-wrapper">
-                    <img src="/images/image.png" alt="">
+                    <% if (day.dinner){%>
+                <img src="<%=day.dinner.image%>" alt="">
+                <%} else {%>
+                <img src="/images/image.png" alt="">
+                <%}%>
                 </div>
             </div>
         </div>
@@ -48,7 +62,15 @@
                 <div class="health text-muted">
                     <i class="heartbeat icon"></i>
                     <span class="stat">
+                        <% if (day.lunch && day.dinner){%>
+                            <%=(day.lunch.health + day.dinner.health) / 2%>
+                        <%} else if (day.lunch && !day.dinner){%>
+                            <%=(day.lunch.health)%>
+                        <%} else if (!day.lunch && day.dinner){%>
+                            <%=(day.dinner.health)%>
+                        <%} else {%>
                         -
+                        <%}%>
                     </span>
                 </div>
             </div>
@@ -56,27 +78,36 @@
                 <div class="taste text-muted">
                     <i class="utensils icon"></i>
                     <span class="stat">
-                        -
+                            <% if (day.lunch && day.dinner){%>
+                                <%=(day.lunch.taste + day.dinner.taste) / 2%>
+                            <%} else if (day.lunch && !day.dinner){%>
+                                <%=(day.lunch.taste)%>
+                            <%} else if (!day.lunch && day.dinner){%>
+                                <%=(day.dinner.taste)%>
+                            <%} else {%>
+                            -
+                            <%}%>
                     </span>
                 </div>
             </div>
         </div>
     </div>
     <%})%>
-</div>
-
-<div class="drag-and-drop mt-4 desktop-only">
-    <h2 class="text-muted mb-3">Drag and drop recipes!</h2>
-    <div class="ui five column stackable grid drag-well">
-        <% user.addedMeals.forEach(function(meal){%>
-        <div class="column">
-            <div class="drag-image-wrapper drag draggable" data-meal-id="<%=meal._id%>" data-meal-img="<%=meal.image%>" data-meal-health="<%=meal.health%>"
-            data-meal-taste="<%=meal.taste%>">
-                <img src="<%=meal.image%>"  alt="">
             </div>
-        </div>
-        <%})%>
-    </div>
-</div>
 
-<%include partials/footer%>
+            <div class="drag-and-drop mt-4 desktop-only">
+                <h2 class="text-muted mb-3">Drag and drop recipes!</h2>
+                <div class="ui five column stackable grid drag-well">
+                    <% user.addedMeals.forEach(function(meal){%>
+                    <div class="column">
+                        <div class="drag-image-wrapper drag draggable" data-meal-id="<%=meal._id%>"
+                            data-meal-img="<%=meal.image%>" data-meal-health="<%=meal.health%>"
+                            data-meal-taste="<%=meal.taste%>">
+                            <img src="<%=meal.image%>" alt="">
+                        </div>
+                    </div>
+                    <%})%>
+                </div>
+            </div>
+
+            <%include partials/footer%>
