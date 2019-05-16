@@ -148,6 +148,10 @@
     display: none;
 }
 
+.desktop-only {
+    display: block;
+}
+
 .rounded-outline {
     display: inline-block;
     min-height: 1em;
@@ -610,7 +614,7 @@ button.info{
 }
 
 .day-content{
-    background: var(--custom-light-gray);
+    background: #f5f5f5;
     padding: 10px;
     border-radius: 4px;
 
@@ -874,6 +878,9 @@ button.info{
 
     .mobile-only {
         display: block;
+    }
+    .desktop-only {
+        display: none;
     }
 
     .mobile-text-centered {
