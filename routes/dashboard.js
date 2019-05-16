@@ -11,16 +11,19 @@ var randomRecipes = require("../public/scripts/randomRecipes");
 // =================
 
 // INDEX
-router.get("/", middleware.isLoggedIn, middleware.checkPlan, (req, res) => {
+router.get("/", middleware.isLoggedIn, (req, res) => {
     User.findOne({
             username: req.user.username
         })
+        .populate("addedMeals")
         .populate("plan.lunch")
         .populate("plan.dinner")
-        .exec(function(err, user) {
-            // console.log("Dashboard Load ->", user.plan);
+        // .populate("plan.dinner")
+        .exec(function (err, user) {
+            // console.log("Dashboard ->", user);
             res.render("dashboard", {
-                plan: user.plan
+                // plan: user.plan
+                user: user
             });
         });
 });
@@ -28,7 +31,7 @@ router.get("/", middleware.isLoggedIn, middleware.checkPlan, (req, res) => {
 
 
 // UPDATE
-router.put("/", middleware.isLoggedIn, middleware.checkPlan, middleware.randomize, function(req, res) {
+router.put("/", middleware.isLoggedIn, middleware.checkPlan, middleware.randomize, function (req, res) {
 
     // FIXME: Redirect is firing before randomRecipes finishes...
     // req.flash("success", "Randomized your meals for the week!");

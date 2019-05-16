@@ -5,8 +5,8 @@ $(document).ready(function () {
 
     // Initialize components
 
-     // Dropdown Action
-     $('.ui.dropdown').dropdown();
+    // Dropdown Action
+    $('.ui.dropdown').dropdown();
 
     //  Modal
     $('.ui.modal').modal();
@@ -19,6 +19,337 @@ $(document).ready(function () {
         on: 'hover'
     });
 
+    // DASHBOARD
+
+    if (window.location.href.indexOf("dashboard") > -1) {
+        // Draggable - Jquery UI
+
+        // set up background images
+        // $('.item').each(function(i,o){
+        //     $(o).css('background-image', 'url(' + $(o).data('src') + ')');
+        // });
+
+
+        var totalMealsLeft = 14;
+        initializeStats(totalMealsLeft);
+
+
+
+        var $draggable = $('.draggable');
+        $draggable.draggable({
+            cancel: "a.ui-icon", // clicking an icon won't initiate dragging
+            //revert: "invalid", // when not dropped, the item will revert back to its initial position
+            // revert: true, // bounce back when dropped
+            helper: "clone", // create "copy" with original properties, but not a true clone
+            cursor: "grabbing",
+            // revertDuration: 300, // immediate snap
+            start: function () {
+                $(".drag-well").css("overflow", "inherit");
+                $(this).css("opacity", "0.2");
+                // $(ui.helper).addClass("ui-draggable-helper");
+            },
+            stop: function () {
+                $(".drag-well").css("overflow", "auto");
+                $(this).css("opacity", "1");
+                // $(ui.helper).removeClass("ui-draggable-helper");
+            }
+        });
+
+        $('.lunch').droppable({
+            accept: ".draggable",
+            tolerance: "pointer",
+            // activeClass: "ui-state-highlight",
+            drop: async function (event, ui) {
+                handleDrop($(this), ui.draggable);
+                var stats = calculateStats($(this));
+                updateDayStatsView($(this), stats);
+                updateInfoBarStatsView(totalMealsLeft);
+                await saveMealsAJAX();
+            }
+        });
+        $('.dinner').droppable({
+            accept: ".draggable",
+            tolerance: "pointer",
+            // activeClass: "ui-state-highlight",
+            drop: async function (event, ui) {
+                handleDrop($(this), ui.draggable);
+                var stats = calculateStats($(this));
+                updateDayStatsView($(this), stats);
+                updateInfoBarStatsView(totalMealsLeft);
+                await saveMealsAJAX();
+            }
+        });
+    }
+
+    function initializeMealsLeft(totalMealsLeft) {
+        var $lunch = $('.lunch');
+        var $dinner = $('.dinner');
+
+        var allMeals = $.merge($lunch, $dinner);
+
+
+        while(totalMealsLeft > 0){
+            $.each(allMeals, function(index, val){
+                var id = $(this).attr('data-meal-id');
+                if(id){
+                    totalMealsLeft -= 1;
+                }
+            });
+        }
+
+        // console.log(totalMealsLeft);
+
+        $('.stat-meals-left').text(totalMealsLeft);
+
+        return totalMealsLeft;
+
+    }
+
+    function initializeStats(){
+        initializeMealsLeft(totalMealsLeft);
+
+        var $lunch = $('.lunch');
+        var $dinner = $('.dinner');
+
+        var $allMeals = $.merge($lunch, $dinner);
+
+        var totalHealthScore = 0;
+        var totalTasteScore = 0;
+
+
+        $.each($allMeals, function(index,val){
+            var meal = $(this);
+
+            var mealHealth = parseInt(meal.attr('data-meal-health'));
+            var mealTaste = parseInt(meal.attr('data-meal-taste'));
+
+            if(mealHealth){
+                totalHealthScore += mealHealth;
+            }
+            if(mealTaste){
+                totalTasteScore += mealTaste;
+            }
+        });
+
+        var avgHealthScore = Math.round((totalHealthScore/ $allMeals.length)*100)/100;
+        var avgTasteScore = Math.round((totalTasteScore/ $allMeals.length)*100) /100;
+        console.log("total health points->", totalHealthScore);
+        console.log("total meals ->", $allMeals.length);
+        console.log("Total avg->", avgHealthScore);
+
+        $('.stat-all-health').text(avgHealthScore);
+        $('.stat-all-taste').text(avgTasteScore);
+
+    }
+    async function saveMealsAJAX() {
+        // define url endpoint
+        var urlSaveDashboard = '/api/save-dashboard'
+
+        // collect and package data
+        var recipesData = collectRecipes();
+
+        // console.log(recipesData);
+
+
+        $.ajax({
+            method: 'post',
+            url: urlSaveDashboard,
+            data: {
+                data: recipesData
+            },
+            dataType: 'json',
+            success: function (msg, status, jqXHR) {
+                var jsonUpdatedData = msg;
+                console.log(jsonUpdatedData);
+            },
+            error: function () {
+                console.log('Error!!');
+            }
+        })
+    }
+
+
+    function collectRecipes() {
+        // [
+        // {
+        // day: Monday
+        // lunch: ID
+        // dinner: ID
+        // }
+        // ]
+
+        // Select days
+        var $days = $('.day');
+
+        // Export
+        var daysArray = [];
+
+
+
+        // For each day
+        $.each($days, function (index, val) {
+            var $lunch = $(this).find('.lunch');
+            var $dinner = $(this).find('.dinner');
+
+            var lunchId = $lunch.attr('data-meal-id');
+            var dinnerId = $dinner.attr('data-meal-id');
+
+            var dayDataObj = {
+                order: index,
+                lunch: lunchId,
+                dinner: dinnerId
+            }
+            daysArray.push(dayDataObj);
+        })
+
+
+
+        return daysArray;
+
+    }
+
+    function handleDrop(selectedDrop, draggable) {
+        // clone item to retain in original "list"
+
+        var $dragID = draggable.attr('data-meal-id');
+        var $dragImg = draggable.attr('data-meal-img');
+        var $dragHealth = draggable.attr('data-meal-health');
+        var $dragTaste = draggable.attr('data-meal-taste');
+
+        selectedDrop.addClass('has-drop')
+            .attr("data-meal-id", $dragID)
+            .attr("data-meal-img", $dragImg)
+            .attr("data-meal-health", $dragHealth)
+            .attr("data-meal-taste", $dragTaste)
+            .attr("onclick", "window.open('/recipes/" + $dragID + "','mywindow');");
+
+        var $imgTarget = selectedDrop.find('.day-image-wrapper img');
+        $imgTarget.attr('src', $dragImg);
+    }
+
+    function calculateStats(selectedDrop) {
+        var $dayContent = selectedDrop.parent();
+        var $day = $dayContent.parent();
+
+        // Health Score
+        var $lunchHealth = $dayContent.find('.lunch').attr('data-meal-health');
+        var $dinnerHealth = $dayContent.find('.dinner').attr('data-meal-health');
+        // Taste Score
+        var $lunchTaste = $dayContent.find('.lunch').attr('data-meal-taste');
+        var $dinnerTaste = $dayContent.find('.dinner').attr('data-meal-taste');
+
+        // Calculate Total
+        var totalHealth = totalStats($lunchHealth, $dinnerHealth);
+        var totalTaste = totalStats($lunchTaste, $dinnerTaste);
+
+        // Average Stats
+        var avgHealth = totalHealth / getAvgDenom($lunchHealth, $dinnerHealth);
+        var avgTaste = totalTaste / getAvgDenom($lunchTaste, $dinnerTaste);
+
+        var statsObj = {
+            avgHealth: avgHealth,
+            avgTaste: avgTaste
+        };
+
+        // console.log("TCL: calculateStats -> statsObj", statsObj);
+        return statsObj;
+
+
+    }
+
+    function totalStats($lunchStat, $dinnerStat) {
+        var total;
+        if ($lunchStat && $dinnerStat) {
+            total = Number($lunchStat) + Number($dinnerStat);
+
+        } else if ($lunchStat && !$dinnerStat) {
+            total = Number($lunchStat);
+        } else if (!$lunchStat && $dinnerStat) {
+            total = Number($dinnerStat);
+        }
+        // console.log("TCL: checkStats -> total", total);
+        return total;
+    }
+
+    function getAvgDenom($lunchStat, $dinnerStat) {
+        var denom;
+        if ($lunchStat && $dinnerStat) {
+            denom = 2;
+
+        } else if (($lunchStat && !$dinnerStat) || (!$lunchStat && $dinnerStat)) {
+            denom = 1;
+        } else {
+            denom = null;
+        }
+        // console.log("TCL: getAvgDenom -> denom", denom);
+        return denom;
+    }
+
+    function updateDayStatsView(selectedDrop, statsObj) {
+        var $dayContent = selectedDrop.parent();
+        var $day = $dayContent.parent();
+        var $healthStat = $day.find('.health span');
+        var $tasteStat = $day.find('.taste span');
+
+        var avgHealth = statsObj.avgHealth;
+        var avgTaste = statsObj.avgTaste;
+
+        // console.log("Health ->", avgHealth);
+        $healthStat.text(avgHealth);
+        // console.log("Taste ->", avgTaste);
+        $tasteStat.text(avgTaste);
+    }
+
+    function updateInfoBarStatsView(totalMealsLeft) {
+
+
+        var $mealsLeft = $('.stat-meals-left');
+        var $mealsLeftQty = parseInt($('.stat-meals-left').text());
+        var $allHealth = $('.stat-all-health');
+        var $allTaste = $('.stat-all-taste');
+        var $healthStatsArray = $('.health .stat');
+        var $tasteStatsArray = $('.taste .stat');
+
+        var totalAllHealth = aggregateAllStats($healthStatsArray).total;
+        var totalAllTaste = aggregateAllStats($tasteStatsArray).total;
+
+        var avgAllHealth = Math.round((totalAllHealth / aggregateAllStats($healthStatsArray).denom) * 100) / 100;
+        var avgAllTaste = Math.round((totalAllTaste / aggregateAllStats($tasteStatsArray).denom) * 100) / 100;
+
+        var totalMealsLeft = initializeMealsLeft($mealsLeftQty);
+
+		console.log("TCL: updateInfoBarStatsView -> $mealsLeftQty", $mealsLeftQty);
+        console.log("TCL: updateInfoBarStatsView -> totalMealsLeft", totalMealsLeft);
+
+        // console.log("TCL: updateInfoBarStatsView -> avgAllHealth", avgAllHealth);
+        $mealsLeft.text(totalMealsLeft);
+        $allHealth.text(avgAllHealth);
+        $allTaste.text(avgAllTaste);
+
+    }
+
+    function aggregateAllStats(statsArray) {
+        var total = 0;
+        var denom = 0;
+        $.each(statsArray, function (index, val) {
+
+            // Get Value
+            var currentStat = parseInt($(this).text());
+
+            // console.log("TCL: updateInfoBarStatsView -> currentStat", currentStat);
+
+            if (currentStat && !isNaN(currentStat)) {
+                total += currentStat;
+                denom += 1;
+            }
+        });
+
+        var allStats = {
+            total: total,
+            denom: denom
+        };
+        return allStats;
+    }
 
 
     // Delete Recipe Modal
@@ -27,21 +358,21 @@ $(document).ready(function () {
     var $cancelButton = $(".cancel-button");
     var $deleteModal = $('.mini.modal.delete');
 
-    $deleteButton.on("click", function(){
+    $deleteButton.on("click", function () {
         // alert("about to delete!");
         $deleteModal.modal('show');
     });
 
-    $closeIcon.on("click", function(){
+    $closeIcon.on("click", function () {
         // alert("about to delete!");
         hideDeleteModal();
     });
-    $cancelButton.on("click", function(){
+    $cancelButton.on("click", function () {
         // alert("about to delete!");
         hideDeleteModal();
     });
 
-    function hideDeleteModal(){
+    function hideDeleteModal() {
         $deleteModal.modal('hide');
     }
 
@@ -461,7 +792,7 @@ $(document).ready(function () {
     })(jQuery, window, document);
 
     // Semantic UI Sliders
-    if($(location)[0].pathname.includes("edit") ){
+    if ($(location)[0].pathname.includes("edit")) {
         $('#portion').range({
             min: 0,
             max: 5,

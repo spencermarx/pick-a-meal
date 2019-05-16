@@ -1,51 +1,113 @@
 <%include partials/header%>
 
-    <main class="ui container">
+<h1 id="page-title" class="ui center huge header">This Week's Meals</h1>
+<div class="ui container info-bar four column unstackable grid mt-4">
+    <div class="row center aligned">
+        <div class="column info text-muted">
+            <i class="calendar times icon"></i>
+            Meals Left: <span class="stat-meals-left">14</span>
+        </div>
+        <div class="column info text-muted">
+            <i class="heartbeat icon"></i>
+            Health Score: <span class="stat-all-health">-</span>
+        </div>
+        <div class="column info text-muted">
+            <i class="utensils icon"></i>
+            Taste Score: <span class="stat-all-taste">-</span>
+        </div>
 
-
-        <h1 id="page-title" class="ui center huge header">This Week's Meals</h1>
-        <div id="calendar" class="ui seven column stackable grid">
-            <% plan.forEach(function(day){ %>
-
-                <div class="column day">
-                    <table id="<%= day.day %>" class="ui inverted bg-custom-blue table center aligned">
-                        <thead class="">
-                            <tr>
-                                <th>
-                                    <span class="date gray">
-                                <%= day.date.toLocaleDateString().split("/")[0] + "/" + day.date.toLocaleDateString().split("/")[1] %></span><br>
-                                    <%= day.day%>
-                                </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td class="meal-cell lunch">
-                                    <!-- FIXME: Duplicating days in database? -->
-                                    <h3>
-                                        <%=day.lunch.name%>
-                                    </h3>
-                                    <a class="ui inverted button" href="/recipes/<%=day.lunch._id%>">View</a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td class="meal-cell dinner">
-                                    <h3>
-                                        <%=day.dinner.name%>
-                                    </h3>
-                                    <a class="ui inverted button" href="/recipes/day.dinner._id%>">View</a>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <button class="column info ui btn-custom-dark-blue">
+            Share
+            <i class="share square icon"></i>
+        </button>
+    </div>
+</div>
+<div id="calendar-section" class="ui seven column stackable grid mt-4">
+    <% user.plan.forEach(function(day){%>
+    <div class="column day">
+        <div class="text-muted day-header text-bold">
+            <span class="day-name"><%=day.day.substring(0, 3)%></span>
+            <span class="date text-thin">
+                <%=(day.date.getMonth()+1) + "/" + (day.date.getDate())%>
+            </span>
+        </div>
+        <div class="ui day-content">
+            <div class="lunch" <% if (day.lunch){%> data-meal-id="<%=day.lunch._id%>"
+                data-meal-img="<%=day.lunch.image%>" data-meal-health="<%=day.lunch.health%>"
+                data-meal-taste="<%=day.lunch.taste%>" onclick="window.open('/recipes/<%=day.lunch._id%>','mywindow');" <%}%>>
+                <div class="day-image-wrapper">
+                    <% if (day.lunch){%> <img src="<%=day.lunch.image%>" alt="">
+                <%} else {%>
+                <img src="/images/image.png" alt="">
+                <%}%>
                 </div>
-                <% });%>
+            </div>
+            <div class="dinner"
+            <% if (day.dinner){%>
+                data-meal-id="<%=day.dinner._id%>" data-meal-img="<%=day.dinner.image%>"
+                data-meal-health="<%=day.dinner.health%>" data-meal-taste="<%=day.dinner.taste%>"
+                onclick="window.open('/recipes/<%=day.dinner._id%>','mywindow');"
+                <%}%>>
+                <div class="day-image-wrapper">
+                    <% if (day.dinner){%>
+                <img src="<%=day.dinner.image%>" alt="">
+                <%} else {%>
+                <img src="/images/image.png" alt="">
+                <%}%>
+                </div>
+            </div>
         </div>
-        <div class="actions">
-            <!-- Put Method here -->
-            <form action="/dashboard?_method=PUT" method="POST" class="">
-                <button id="button-delete" class="ui blue basic button margin-top action-button">Randomize</button>
-            </form>
+        <div class="day-stats ui two column unstackable grid">
+            <div class="column right aligned">
+                <div class="health text-muted">
+                    <i class="heartbeat icon"></i>
+                    <span class="stat">
+                        <% if (day.lunch && day.dinner){%>
+                            <%=(day.lunch.health + day.dinner.health) / 2%>
+                        <%} else if (day.lunch && !day.dinner){%>
+                            <%=(day.lunch.health)%>
+                        <%} else if (!day.lunch && day.dinner){%>
+                            <%=(day.dinner.health)%>
+                        <%} else {%>
+                        -
+                        <%}%>
+                    </span>
+                </div>
+            </div>
+            <div class="column left aligned">
+                <div class="taste text-muted">
+                    <i class="utensils icon"></i>
+                    <span class="stat">
+                            <% if (day.lunch && day.dinner){%>
+                                <%=(day.lunch.taste + day.dinner.taste) / 2%>
+                            <%} else if (day.lunch && !day.dinner){%>
+                                <%=(day.lunch.taste)%>
+                            <%} else if (!day.lunch && day.dinner){%>
+                                <%=(day.dinner.taste)%>
+                            <%} else {%>
+                            -
+                            <%}%>
+                    </span>
+                </div>
+            </div>
         </div>
-    </main>
-    <%include partials/footer%>
+    </div>
+    <%})%>
+            </div>
+
+            <div class="drag-and-drop mt-4 desktop-only">
+                <h2 class="text-muted mb-3">Drag and drop recipes!</h2>
+                <div class="ui five column stackable grid drag-well">
+                    <% user.addedMeals.forEach(function(meal){%>
+                    <div class="column">
+                        <div class="drag-image-wrapper drag draggable" data-meal-id="<%=meal._id%>"
+                            data-meal-img="<%=meal.image%>" data-meal-health="<%=meal.health%>"
+                            data-meal-taste="<%=meal.taste%>">
+                            <img src="<%=meal.image%>" alt="">
+                        </div>
+                    </div>
+                    <%})%>
+                </div>
+            </div>
+
+            <%include partials/footer%>
