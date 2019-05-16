@@ -24,12 +24,6 @@ $(document).ready(function () {
     if (window.location.href.indexOf("dashboard") > -1) {
         // Draggable - Jquery UI
 
-        // set up background images
-        // $('.item').each(function(i,o){
-        //     $(o).css('background-image', 'url(' + $(o).data('src') + ')');
-        // });
-
-
         var totalMealsLeft = 14;
         initializeStats(totalMealsLeft);
 
@@ -88,58 +82,66 @@ $(document).ready(function () {
         var allMeals = $.merge($lunch, $dinner);
 
 
-        while(totalMealsLeft > 0){
-            $.each(allMeals, function(index, val){
+        if(totalMealsLeft > 0) {
+            $.each(allMeals, function (index, val) {
                 var id = $(this).attr('data-meal-id');
-                if(id){
+				console.log("TCL: initializeMealsLeft -> id", id);
+                if (id && (id.length > 1)) {
                     totalMealsLeft -= 1;
                 }
             });
         }
 
-        // console.log(totalMealsLeft);
-
+		console.log("TCL: initializeMealsLeft -> totalMealsLeft", totalMealsLeft);
         $('.stat-meals-left').text(totalMealsLeft);
 
         return totalMealsLeft;
 
     }
 
-    function initializeStats(){
+    function initializeStats() {
         initializeMealsLeft(totalMealsLeft);
+
 
         var $lunch = $('.lunch');
         var $dinner = $('.dinner');
 
-        var $allMeals = $.merge($lunch, $dinner);
+        if ($lunch.attr('data-meal-id') || $dinner.attr('data-meal-id')) {
+            var $allMeals = $.merge($lunch, $dinner);
 
-        var totalHealthScore = 0;
-        var totalTasteScore = 0;
+            var totalHealthScore = 0;
+            var totalTasteScore = 0;
 
 
-        $.each($allMeals, function(index,val){
-            var meal = $(this);
+            $.each($allMeals, function (index, val) {
+                var meal = $(this);
 
-            var mealHealth = parseInt(meal.attr('data-meal-health'));
-            var mealTaste = parseInt(meal.attr('data-meal-taste'));
+                var mealHealth = parseInt(meal.attr('data-meal-health'));
+                var mealTaste = parseInt(meal.attr('data-meal-taste'));
 
-            if(mealHealth){
-                totalHealthScore += mealHealth;
-            }
-            if(mealTaste){
-                totalTasteScore += mealTaste;
-            }
-        });
+                if (mealHealth) {
+                    totalHealthScore += mealHealth;
+                }
+                if (mealTaste) {
+                    totalTasteScore += mealTaste;
+                }
+            });
 
-        var avgHealthScore = Math.round((totalHealthScore/ $allMeals.length)*100)/100;
-        var avgTasteScore = Math.round((totalTasteScore/ $allMeals.length)*100) /100;
-        console.log("total health points->", totalHealthScore);
-        console.log("total meals ->", $allMeals.length);
-        console.log("Total avg->", avgHealthScore);
+            var avgHealthScore = Math.round((totalHealthScore / $allMeals.length) * 100) / 100;
+            var avgTasteScore = Math.round((totalTasteScore / $allMeals.length) * 100) / 100;
+            // console.log("total health points->", totalHealthScore);
+            // console.log("total meals ->", $allMeals.length);
+            // console.log("Total avg->", avgHealthScore);
 
-        $('.stat-all-health').text(avgHealthScore);
-        $('.stat-all-taste').text(avgTasteScore);
+            $('.stat-all-health').text(avgHealthScore);
+            $('.stat-all-taste').text(avgTasteScore);
 
+        } else {
+            // entered else within initialize stats
+            $('.stat-meals-left').text(14);
+            $('.stat-all-health').text('-');
+            $('.stat-all-taste').text('-');
+        }
     }
     async function saveMealsAJAX() {
         // define url endpoint
@@ -304,7 +306,12 @@ $(document).ready(function () {
 
 
         var $mealsLeft = $('.stat-meals-left');
+
+
         var $mealsLeftQty = parseInt($('.stat-meals-left').text());
+        console.log("TCL: updateInfoBarStatsView -> mealsLeftQty", $mealsLeftQty);
+
+
         var $allHealth = $('.stat-all-health');
         var $allTaste = $('.stat-all-taste');
         var $healthStatsArray = $('.health .stat');
@@ -316,10 +323,8 @@ $(document).ready(function () {
         var avgAllHealth = Math.round((totalAllHealth / aggregateAllStats($healthStatsArray).denom) * 100) / 100;
         var avgAllTaste = Math.round((totalAllTaste / aggregateAllStats($tasteStatsArray).denom) * 100) / 100;
 
-        var totalMealsLeft = initializeMealsLeft($mealsLeftQty);
+        var totalMealsLeft = $mealsLeftQty - 1;
 
-		console.log("TCL: updateInfoBarStatsView -> $mealsLeftQty", $mealsLeftQty);
-        console.log("TCL: updateInfoBarStatsView -> totalMealsLeft", totalMealsLeft);
 
         // console.log("TCL: updateInfoBarStatsView -> avgAllHealth", avgAllHealth);
         $mealsLeft.text(totalMealsLeft);
