@@ -5,15 +5,15 @@
     <div class="row center aligned">
         <div class="column info text-muted">
             <i class="calendar times icon"></i>
-            Meals Left: 1
+            Meals Left: <span class="stat-meals-left">14</span>
         </div>
         <div class="column info text-muted">
-                <i class="heartbeat icon"></i>
-                Health Score: 3
+            <i class="heartbeat icon"></i>
+            Health Score: <span class="stat-all-health">-</span>
         </div>
         <div class="column info text-muted">
             <i class="utensils icon"></i>
-            Taste Score: 1
+            Taste Score: <span class="stat-all-taste">-</span>
         </div>
 
         <button class="column info ui btn-custom-dark-blue">
@@ -22,8 +22,61 @@
         </button>
     </div>
 </div>
-<div id="calendar" class="ui seven column stackable grid">
+<div id="calendar-section" class="ui seven column stackable grid mt-4">
+    <% user.plan.forEach(function(day){%>
+    <div class="column day">
+        <div class="text-muted day-header text-bold">
+            <%=day.day.substring(0, 3)%>
+            <span class="date text-thin">
+                <%=(day.date.getMonth()+1) + "/" + (day.date.getDate())%>
+            </span>
+        </div>
+        <div class="ui day-content">
+            <div class="lunch">
+                <div class="day-image-wrapper">
+                    <img src="/images/image.png" alt="">
+                </div>
+            </div>
+            <div class="dinner">
+                <div class="day-image-wrapper">
+                    <img src="/images/image.png" alt="">
+                </div>
+            </div>
+        </div>
+        <div class="day-stats ui two column unstackable grid">
+            <div class="column right aligned">
+                <div class="health text-muted">
+                    <i class="heartbeat icon"></i>
+                    <span class="stat">
+                        -
+                    </span>
+                </div>
+            </div>
+            <div class="column left aligned">
+                <div class="taste text-muted">
+                    <i class="utensils icon"></i>
+                    <span class="stat">
+                        -
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <%})%>
+</div>
 
+<div class="drag-and-drop mt-4">
+    <h2 class="text-muted mb-3">Drag and drop recipes!</h2>
+    <div class="ui five column stackable grid drag-well">
+        <% user.addedMeals.forEach(function(meal){%>
+        <div class="column">
+            <div class="drag-image-wrapper drag draggable" data-meal-id="<%=meal._id%>" data-meal-img="<%=meal.image%>" data-meal-health="<%=meal.health%>"
+            data-meal-taste="<%=meal.taste%>">
+                <img src="<%=meal.image%>"  alt="">
+            </div>
+        </div>
+        <%})%>
+    </div>
 </div>
 
 <%include partials/footer%>
