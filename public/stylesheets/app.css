@@ -930,6 +930,13 @@ button.info {
     .ui.grid.mt-desktop-4 {
         margin-top: 1em;
     }
+    .mb-mobile-4,
+    .ui.grid.mb-mobile-4 {
+        margin-bottom: 2.8em;
+    }
+    .ui.grid.mb-mobile-6 {
+        margin-bottom: 6.5em;
+    }
 
     .ui.container {
         margin-left: 1.5em !important;
