@@ -1,30 +1,41 @@
 <%include partials/header%>
 
 <h1 id="page-title" class="ui center huge header">This Week's Meals</h1>
+
 <div class="ui container info-bar four column unstackable grid mt-4">
-    <div class="row center aligned">
+    <span class="row center aligned">
         <div class="column info text-muted">
             <i class="calendar times icon"></i>
-            Meals Left: <span class="stat-meals-left">
-                14
-            </span>
+            <div>
+                <span class="desktop-only-inline">Meals Left:</span>
+                <span class="stat-meals-left">
+                    14</span>
+            </div>
+
         </div>
         <div class="column info text-muted">
             <i class="heartbeat icon"></i>
-            Health Score: <span class="stat-all-health">-</span>
+            <div>
+                    <span class="desktop-only-inline">Health Score:</span>
+                <span class="stat-all-health">-</span>
+            </div>
         </div>
         <div class="column info text-muted">
             <i class="utensils icon"></i>
-            Taste Score: <span class="stat-all-taste">-</span>
+            <div>
+                    <span class="desktop-only-inline">Taste Score:</span>
+                <span class="stat-all-taste">-</span>
+            </div>
         </div>
-
         <button class="column info ui btn-custom-dark-blue">
-            Share
+            <span class="desktop-only-inline">
+                Share
+            </span>
             <i class="share square icon"></i>
         </button>
     </div>
 </div>
-<div id="calendar-section" class="ui seven column stackable grid mt-4">
+<div id="calendar-section" class="ui seven column stackable grid mt-desktop-4">
     <% user.plan.forEach(function(day){%>
     <div class="column day">
         <div class="text-muted day-header text-bold">
@@ -65,14 +76,14 @@
                     <i class="heartbeat icon"></i>
                     <span class="stat">
                         <% if (day.lunch && day.dinner){%>
-                            <%=(day.lunch.health + day.dinner.health) / 2%>
-                        <%} else if (day.lunch && !day.dinner){%>
-                            <%=(day.lunch.health)%>
-                        <%} else if (!day.lunch && day.dinner){%>
-                            <%=(day.dinner.health)%>
-                        <%} else {%>
-                        -
-                        <%}%>
+                <%=(day.lunch.health + day.dinner.health) / 2%>
+                <%} else if (day.lunch && !day.dinner){%>
+                <%=(day.lunch.health)%>
+                <%} else if (!day.lunch && day.dinner){%>
+                <%=(day.dinner.health)%>
+                <%} else {%>
+                -
+                <%}%>
                     </span>
                 </div>
             </div>
@@ -81,35 +92,34 @@
                     <i class="utensils icon"></i>
                     <span class="stat">
                             <% if (day.lunch && day.dinner){%>
-                                <%=(day.lunch.taste + day.dinner.taste) / 2%>
-                            <%} else if (day.lunch && !day.dinner){%>
-                                <%=(day.lunch.taste)%>
-                            <%} else if (!day.lunch && day.dinner){%>
-                                <%=(day.dinner.taste)%>
-                            <%} else {%>
-                            -
-                            <%}%>
+                <%=(day.lunch.taste + day.dinner.taste) / 2%>
+                <%} else if (day.lunch && !day.dinner){%>
+                <%=(day.lunch.taste)%>
+                <%} else if (!day.lunch && day.dinner){%>
+                <%=(day.dinner.taste)%>
+                <%} else {%>
+                -
+                <%}%>
                     </span>
                 </div>
             </div>
         </div>
     </div>
     <%})%>
+</div>
+<div class="drag-and-drop mt-4 desktop-only">
+    <h2 class="text-muted mb-3 desktop-only">Drag and drop recipes!</h2>
+    <div class="ui five column grid drag-well">
+        <% user.addedMeals.forEach(function(meal){%>
+        <div class="column">
+            <div class="drag-image-wrapper drag draggable" data-meal-id="<%=meal._id%>"
+                data-meal-img="<%=meal.image%>" data-meal-health="<%=meal.health%>"
+                data-meal-taste="<%=meal.taste%>">
+                <img src="<%=meal.image%>" alt="">
             </div>
+        </div>
+        <%})%>
+    </div>
+</div>
 
-            <div class="drag-and-drop mt-4 desktop-only">
-                <h2 class="text-muted mb-3">Drag and drop recipes!</h2>
-                <div class="ui five column stackable grid drag-well">
-                    <% user.addedMeals.forEach(function(meal){%>
-                    <div class="column">
-                        <div class="drag-image-wrapper drag draggable" data-meal-id="<%=meal._id%>"
-                            data-meal-img="<%=meal.image%>" data-meal-health="<%=meal.health%>"
-                            data-meal-taste="<%=meal.taste%>">
-                            <img src="<%=meal.image%>" alt="">
-                        </div>
-                    </div>
-                    <%})%>
-                </div>
-            </div>
-
-            <%include partials/footer%>
+<%include partials/footer%>
