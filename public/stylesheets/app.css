@@ -116,6 +116,7 @@
 .mb-2 {
     margin-bottom: 0.6em;
 }
+
 .mb-3 {
     margin-bottom: 1.2em;
 }
@@ -132,7 +133,8 @@
 }
 
 .mt-4,
-.ui.grid.mt-4 {
+.ui.grid.mt-4,
+.ui.grid.mt-desktop-4 {
     margin-top: 2.8em;
 }
 
@@ -150,6 +152,9 @@
 
 .desktop-only {
     display: block;
+}
+.desktop-only-inline{
+    display: inline;
 }
 
 .rounded-outline {
@@ -264,7 +269,8 @@ table {
 
 i.icon {
     font-size: 1.5em;
-    padding-left: 5px;
+    margin-left: 8px;
+    margin-right: 8px;
 }
 
 div.inverted.menu {
@@ -570,95 +576,116 @@ span.date {
 
 /* SCHEDULE ------------------------------------*/
 
-.info-bar{
+.info-bar {
     background: #fff;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.25);
     border-radius: 0.28571429rem;
 }
-.ui.grid.info-bar > .row{
-    padding:0;
-}
-.info {
-    padding: 1em;
+
+.ui.grid.info-bar>.row {
+    padding: 0;
 }
 
-.info:nth-of-type(2),.info:nth-of-type(3){
+.ui.grid > .row > .column.info {
+    padding: 1em;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.info > i {
+    display: block;
+    order: 1;
+}
+
+.info > div {
+    display: inline-block;
+    order: 2;
+}
+
+.info:nth-of-type(2),
+.info:nth-of-type(3) {
     border-left: 1px solid var(--custom-light-gray);
 }
 
-button.info{
-    border-top-right-radius:0.28571429rem;
-    border-bottom-right-radius:0.28571429rem;
+button.info {
+    border-top-right-radius: 0.28571429rem;
+    border-bottom-right-radius: 0.28571429rem;
     border-color: none;
     border-style: none;
     border-width: 0;
     cursor: pointer;
 }
 
-.meal-labels{
+.meal-labels {
     position: absolute;
     transform: rotate(-90deg) translateX(0%) translateY(50%);
-    top:50%;
-    left:-20px;
+    top: 50%;
+    left: -20px;
 }
-.ui.grid > .column.day{
+
+.ui.grid>.column.day {
     padding-left: 0.2em;
     padding-right: 0.2em;
 }
-.day-header{
+
+.day-header {
     margin-bottom: 0.5em;
 }
 
-.date{
+.date {
     margin-left: 0.3em;
 }
 
-.day-content{
+.day-content {
     background: #f5f5f5;
     padding: 10px;
     border-radius: 4px;
 
 }
 
-.day-image-wrapper{
+.day-image-wrapper {
     overflow: hidden;
     position: relative;
-    width:100%;
+    width: 100%;
     height: 150px;
     margin: auto;
     border-radius: 4px;
 }
 
-.day-image-wrapper > img{
+.day-image-wrapper>img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: relative;
 }
 
-.lunch{
-    margin-bottom:0.5em;
+.lunch {
+    margin-bottom: 0.5em;
 }
 
-.ui.grid.day-stats{
-    margin:0;
+.ui.grid.day-stats {
+    margin: 0;
 }
 
-.ui.grid.day-stats > .column{
+.ui.grid.day-stats>.column {
     padding-left: 5px;
     padding-right: 5px;
     display: flex;
 }
 
-.ui.grid.day-stats > .column > div > .icon{
+.ui.grid.day-stats>.column>div>.icon {
     order: 2;
 }
-.ui.grid.day-stats > .column > div > .stat{
+
+.ui.grid.day-stats>.column>div>.stat {
     order: 1;
 }
 
 
-.ui.grid.drag-well{
+.ui.grid.drag-well {
     padding: 1em;
     background: white;
     box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.25);
@@ -667,8 +694,8 @@ button.info{
     margin-bottom: 1em;
 }
 
-.ui.grid.drag-well .column{
-    padding:0;
+.ui.grid.drag-well .column {
+    padding: 0;
     margin: 1rem;
 }
 
@@ -677,18 +704,18 @@ button.info{
     transition: scale(500ms) ease-out;
 }
 
-.ui-draggable-dragging.dropped{
+.ui-draggable-dragging.dropped {
     transform: scale(0);
 }
 
-.has-drop{
+.has-drop {
     cursor: pointer;
 }
 
-.drag-image-wrapper{
+.drag-image-wrapper {
     overflow: hidden;
     position: relative;
-    width:100%;
+    width: 100%;
     height: 200px;
     margin: auto;
     border-radius: 4px;
@@ -696,13 +723,14 @@ button.info{
     box-shadow: 0px 0px 0px 1px #D4D4D5, 0px 2px 4px 0px rgba(34, 36, 38, 0.12), 0px 2px 10px 0px rgba(34, 36, 38, 0.15);
 }
 
-.drag-image-wrapper > img{
+.drag-image-wrapper>img {
     width: 100%;
     height: 100%;
     object-fit: cover;
     position: relative;
 }
-.drag:hover{
+
+.drag:hover {
     cursor: grab;
 }
 
@@ -711,6 +739,7 @@ button.info{
     /* z-index: 1000; */
     box-shadow: rgba(0, 0, 0, 0.2) 0px 0px 15px;
 }
+
 /* END OF SCHEDULE */
 
 .ui.cards>.card>.extra,
@@ -866,7 +895,7 @@ button.info{
     }
 }
 
-@media(max-width: 767px) {
+@media only screen and (max-width: 767px) {
     #navbar .item:not(.header) {
         display: flex;
         justify-content: center;
@@ -880,7 +909,11 @@ button.info{
     .mobile-only {
         display: block;
     }
+
     .desktop-only {
+        display: none;
+    }
+    .desktop-only-inline{
         display: none;
     }
 
@@ -890,6 +923,15 @@ button.info{
 
     .ui.inverted.menu .mobile-only {
         display: block;
+    }
+
+    .ui.grid.mt-desktop-4 {
+        margin-top: 1em;
+    }
+
+    .ui.container {
+        margin-left: 1.5em !important;
+        margin-right: 1.5em !important;
     }
 
 
@@ -951,22 +993,71 @@ button.info{
         margin: 1.8em 1em;
     }
 
-    .ui.grid.day-stats > .column > div > .icon{
+    .ui.grid.day-stats>.column>div>.icon {
         order: 2;
     }
-    .ui.grid.day-stats > .column > div > .stat{
+
+    .ui.grid.day-stats>.column>div>.stat {
         order: 1;
     }
+
+    /* Dashboard */
+
+    .ui.grid.container.info-bar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 100;
+        width: 100% !important;
+        margin-top: 0;
+        margin-bottom: 0;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        border-radius: 0;
+    }
+
+    button.info {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+    }
+
+    .info > i {
+        display: block;
+        order: 2;
+    }
+
+    .info > div{
+        display: block;
+        order: 1;
+        width: 100%;
+        margin-bottom: 10px;
+        font-size: 1.2em;
+    }
+
+    .day-header {
+        font-size: 1.4em;
+    }
+
+    .day-image-wrapper {
+        height: 250px;
+    }
+
+    .day-stats>.column>.health {
+        margin: 0 0 0 auto;
+    }
+
 }
 
 @media (min-width: 767px) and (max-width: 992px) {
     .recipe-image-wrapper {
         width: 325px;
     }
-    .ui.grid.day-stats > .column > div > .icon{
+
+    .ui.grid.day-stats>.column>div>.icon {
         order: 2;
     }
-    .ui.grid.day-stats > .column > div > .stat{
+
+    .ui.grid.day-stats>.column>div>.stat {
         order: 1;
     }
 }
