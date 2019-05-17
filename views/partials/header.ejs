@@ -10,7 +10,8 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.css">
     <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/stylesheets/range.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css">
     <link rel="stylesheet" type="text/css" href="/stylesheets/app.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
@@ -32,21 +33,28 @@
                 <div class="right menu collapsable collapsed" id="">
                     <% if(!currentUser){ %>
                     <div class="item" onclick="location.href='/login';">
+                        <i class="sign in alternate icon"></i>
                         <a href="/login">Login</a>
                     </div>
                     <div class="item" onclick="location.href='/register';">
+                        <i class="user plus icon"></i>
                         <a href="/register">Signup</a>
                     </div>
                     <% } else { %>
+                    <div class="item" onclick="location.href='/dashboard';">
+                        <i class="calendar alternate outline icon"></i>
+                        <a class="" href="/recipes">Dashboard</a>
+                    </div>
                     <div class="item" onclick="location.href='/recipes';">
+                        <i class="th large icon"></i>
                         <a class="" href="/recipes">All Recipes</a>
                     </div>
                     <div class="item" onclick="location.href='/recipes/new';">
-                        <a href="/recipes/new">Add
-                            <!-- <i class="plus square icon"></i> -->
-                        </a>
+                        <i class="plus square outline icon"></i>
+                        <a href="/recipes/new">Add</a>
                     </div>
                     <div class="item" onclick="location.href='/logout';">
+                        <i class="sign out alternate icon"></i>
                         <a href="/logout">Logout</a>
                     </div>
                     <% }%>

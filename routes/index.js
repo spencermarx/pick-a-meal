@@ -9,7 +9,7 @@ var cronJobs = require("../jobs");
 
 // LANDING - Index Route
 router.get("/", isLoggedIn, (req, res) => {
-    res.redirect("/dashboard");
+    res.redirect("/recipes");
 });
 
 // Signup
