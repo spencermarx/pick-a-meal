@@ -85,14 +85,14 @@ $(document).ready(function () {
         if(totalMealsLeft > 0) {
             $.each(allMeals, function (index, val) {
                 var id = $(this).attr('data-meal-id');
-				console.log("TCL: initializeMealsLeft -> id", id);
+				// console.log("TCL: initializeMealsLeft -> id", id);
                 if (id && (id.length > 1)) {
                     totalMealsLeft -= 1;
                 }
             });
         }
 
-		console.log("TCL: initializeMealsLeft -> totalMealsLeft", totalMealsLeft);
+		// console.log("TCL: initializeMealsLeft -> totalMealsLeft", totalMealsLeft);
         $('.stat-meals-left').text(totalMealsLeft);
 
         return totalMealsLeft;
@@ -100,14 +100,17 @@ $(document).ready(function () {
     }
 
     function initializeStats() {
-        initializeMealsLeft(totalMealsLeft);
+        totalMealsLeft = initializeMealsLeft(totalMealsLeft);
 
 
         var $lunch = $('.lunch');
         var $dinner = $('.dinner');
 
-        if ($lunch.attr('data-meal-id') || $dinner.attr('data-meal-id')) {
+        if (totalMealsLeft < 14) {
+
+
             var $allMeals = $.merge($lunch, $dinner);
+            var denom = 14 - totalMealsLeft;
 
             var totalHealthScore = 0;
             var totalTasteScore = 0;
@@ -127,8 +130,8 @@ $(document).ready(function () {
                 }
             });
 
-            var avgHealthScore = Math.round((totalHealthScore / $allMeals.length) * 100) / 100;
-            var avgTasteScore = Math.round((totalTasteScore / $allMeals.length) * 100) / 100;
+            var avgHealthScore = Math.round((totalHealthScore / denom) * 100) / 100;
+            var avgTasteScore = Math.round((totalTasteScore / denom) * 100) / 100;
             // console.log("total health points->", totalHealthScore);
             // console.log("total meals ->", $allMeals.length);
             // console.log("Total avg->", avgHealthScore);
@@ -137,12 +140,27 @@ $(document).ready(function () {
             $('.stat-all-taste').text(avgTasteScore);
 
         } else {
+            // console.log("TCL: initializeStats -> $lunch", $lunch);
             // entered else within initialize stats
-            $('.stat-meals-left').text(14);
+            // $('.stat-meals-left').text(14);
             $('.stat-all-health').text('-');
             $('.stat-all-taste').text('-');
         }
     }
+    function checkIfMealsPresent(arr){
+        console.log("began check!")
+        $.each(arr, function(index,val){
+            var id = $(this).attr('data-meal-id');
+			console.log("TCL: checkIfMealsPresent -> id", id);
+            if(id){
+                console.log("ID found!!!")
+                return true;
+            }
+            console.log("No ID found")
+            return false;
+        });
+    }
+
     async function saveMealsAJAX() {
         // define url endpoint
         var urlSaveDashboard = '/api/save-dashboard'
