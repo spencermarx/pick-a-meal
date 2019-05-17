@@ -153,7 +153,8 @@
 .desktop-only {
     display: block;
 }
-.desktop-only-inline{
+
+.desktop-only-inline {
     display: inline;
 }
 
@@ -586,7 +587,7 @@ span.date {
     padding: 0;
 }
 
-.ui.grid > .row > .column.info {
+.ui.grid>.row>.column.info {
     padding: 1em;
     display: flex;
     flex-direction: row;
@@ -595,12 +596,12 @@ span.date {
     align-items: center;
 }
 
-.info > i {
+.info>i {
     display: block;
     order: 1;
 }
 
-.info > div {
+.info>div {
     display: inline-block;
     order: 2;
 }
@@ -913,7 +914,8 @@ button.info {
     .desktop-only {
         display: none;
     }
-    .desktop-only-inline{
+
+    .desktop-only-inline {
         display: none;
     }
 
@@ -1021,12 +1023,12 @@ button.info {
         border-bottom-right-radius: 0;
     }
 
-    .info > i {
+    .info>i {
         display: block;
         order: 2;
     }
 
-    .info > div{
+    .info>div {
         display: block;
         order: 1;
         width: 100%;
@@ -1059,5 +1061,20 @@ button.info {
 
     .ui.grid.day-stats>.column>div>.stat {
         order: 1;
+        margin-bottom: 5px;
     }
+
+    #calendar-section.ui.grid {
+        margin-left: -1.75rem;
+        margin-right: -1.75rem;
+    }
+
+    .health, .taste{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+    }
+
 }
