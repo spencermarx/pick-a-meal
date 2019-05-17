@@ -867,8 +867,9 @@ button.info{
 }
 
 @media(max-width: 767px) {
-    #navbar .item:not(.header) a {
-        margin: auto;
+    #navbar .item:not(.header) {
+        display: flex;
+        justify-content: center;
     }
 
     #expand-menu-button * {
@@ -899,7 +900,7 @@ button.info{
     }
 
     .ui.menu:not(.vertical) .right.menu.collapsable {
-        max-height: 200px;
+        max-height: 300px;
         transition: max-height 0.3s ease-in;
         overflow: hidden;
     }
