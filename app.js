@@ -92,13 +92,13 @@ app.use(function (req, res, next) {
 // DATABASE SETUP
 // =================
 
-// Connect Mongoose
-mongoose.connect(process.env.DATABASEURL, {
-    useNewUrlParser: true
-});
-// mongoose.connect(process.env.MONGODBURLLOCAL, {
+// // Connect Mongoose
+// mongoose.connect(process.env.DATABASEURL, {
 //     useNewUrlParser: true
 // });
+mongoose.connect(process.env.MONGODBURLLOCAL, {
+    useNewUrlParser: true
+});
 
 
 // =================
