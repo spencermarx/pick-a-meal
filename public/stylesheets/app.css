@@ -1015,6 +1015,11 @@ button.info {
         margin-right: 10px;
         margin-top: 10px;
         padding: 0;
+        visibility: hidden;
+        transition: 350ms;
+    }
+    .drag-and-drop.opened > .ui.grid.drag-well {
+        visibility: visible;
     }
 
     #drag-well>.drag-well-column.column {
