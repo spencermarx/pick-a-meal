@@ -22,6 +22,13 @@ $(document).ready(function () {
     // DASHBOARD
 
     if (window.location.href.indexOf("dashboard") > -1) {
+        // Mobile-Only Drawer
+        var $openDrawerButton = $('.drawer-icon');
+
+        $openDrawerButton.on('click', function(){
+            $('.drag-and-drop').toggleClass('opened');
+        });
+
         // Draggable - Jquery UI
 
         var totalMealsLeft = 14;

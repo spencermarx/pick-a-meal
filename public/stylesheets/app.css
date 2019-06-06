@@ -588,7 +588,7 @@ span.date {
 }
 
 .ui.grid>.row>.column.info {
-    padding: 1em;
+    padding: 0.8em;
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -690,7 +690,8 @@ button.info {
     padding: 1em;
     background: white;
     box-shadow: inset 0px 0px 8px rgba(0, 0, 0, 0.25);
-    overflow: auto;
+    overflow-y: scroll;
+    overflow-x: hidden;
     max-height: 300px;
     margin-bottom: 1em;
 }
@@ -930,10 +931,12 @@ button.info {
     .ui.grid.mt-desktop-4 {
         margin-top: 1em;
     }
+
     .mb-mobile-4,
     .ui.grid.mb-mobile-4 {
         margin-bottom: 2.8em;
     }
+
     .ui.grid.mb-mobile-6 {
         margin-bottom: 6.5em;
     }
@@ -978,7 +981,52 @@ button.info {
         padding-bottom: 1.14285714em;
     }
 
+    .drag-and-drop {
+        background-color: var(--custom-light-gray);
+        position: fixed;
+        margin: auto;
+        padding: 0;
+        bottom: -145px;
+        left: 0;
+        width: 100%;
+        transition: 350ms;
+    }
 
+    .drag-and-drop.opened {
+        transform: translateY(-145px);
+    }
+
+    .drawer-icon-wrapper {
+        margin: 2px auto;
+        width: 30px;
+    }
+
+    hr.drawer-icon {
+        border: 0;
+        height: 2px;
+        background:  var(--custom-muted);
+        cursor: pointer;
+    }
+
+    .ui.grid.drag-well {
+        overflow-y: hidden;
+        overflow-x: scroll;
+        flex-wrap: nowrap;
+        margin-bottom: 6em;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-top: 10px;
+        padding: 0;
+    }
+
+    #drag-well>.drag-well-column.column {
+        min-width: 100px;
+    }
+
+    .drag-image-wrapper {
+        width: 100%;
+        height: 100px;
+    }
 
     #clear-button-wrapper,
     #delete-button-wrapper {
@@ -1078,7 +1126,8 @@ button.info {
         margin-right: -1.75rem;
     }
 
-    .health, .taste{
+    .health,
+    .taste {
         display: flex;
         flex-direction: row;
         flex-wrap: wrap;
