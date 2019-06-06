@@ -697,8 +697,6 @@ button.info {
 }
 
 .ui.grid.drag-well .column {
-    padding: 0;
-    margin: 1rem;
 }
 
 .ui-draggable-dragging {
@@ -1020,7 +1018,7 @@ button.info {
     }
 
     #drag-well>.drag-well-column.column {
-        min-width: 100px;
+        min-width: 120px;
     }
 
     .drag-image-wrapper {
