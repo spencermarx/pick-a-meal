@@ -106,11 +106,14 @@
     </div>
     <%})%>
 </div>
-<div class="drag-and-drop mt-4 desktop-only">
+<div class="drag-and-drop mt-4">
     <h2 class="text-muted mb-3 desktop-only">Drag and drop recipes!</h2>
-    <div class="ui five column grid drag-well">
+    <div class="drawer-icon-wrapper mobile-only">
+        <hr class="drawer-icon">
+    </div>
+    <div class="ui five column grid drag-well" id="drag-well">
         <% user.addedMeals.forEach(function(meal){%>
-        <div class="column">
+        <div class="drag-well-column column">
             <div class="drag-image-wrapper drag draggable" data-meal-id="<%=meal._id%>"
                 data-meal-img="<%=meal.image%>" data-meal-health="<%=meal.health%>"
                 data-meal-taste="<%=meal.taste%>">
